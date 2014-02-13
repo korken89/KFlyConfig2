@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace KFly_Config_2._0
+namespace KFly.Communication
 {
-    class StateMachine
+    public class StateMachine
     {
         /* The different states the state machine can have */
         public enum State
@@ -21,11 +21,22 @@ namespace KFly_Config_2._0
         };
 
         private State _currentState = State.WaitingForSYNC;
+
         private List<byte> _recievedData = new List<byte>();
         private int _dataLength = 0;
         private State _savedState = State.None;
-        private bool Ack = false;
+        private bool _ack = false;
 
+        public bool Ack
+        {
+            get { return _ack; }
+        }
+
+        public State CurrentState
+        {
+            get { return _currentState; }
+        }
+       
         /* This is where the data comes in and the current state is checked */
         public void SerialManager(byte inData)
         {
@@ -35,6 +46,7 @@ namespace KFly_Config_2._0
                 {
                     _savedState = _currentState;
                     _currentState = State.WaitingForSYNCorCMD;
+                    return;
                 }
             }
 
@@ -143,9 +155,9 @@ namespace KFly_Config_2._0
             else
             {
                 if ((byte)(data & KFlyCommand.ACK_MASK) != 0)
-                    Ack = true;
+                    _ack = true;
                 else
-                    Ack = false;
+                    _ack = false;
                 
                 _recievedData.Add((byte)(data & KFlyCommand.ACK_MASK));
                 returnState = State.ReceivingSize;
@@ -160,17 +172,10 @@ namespace KFly_Config_2._0
             State returnState = State.None;
             byte index = _recievedData[1];
 
-            if ((data == KFlyCommand.CommandLength[index]) || (KFlyCommand.CommandLength[index] == 255))
-            {
-                _recievedData.Add(data);
-                returnState = State.ReceivingCRC8;
-                _dataLength = data;
-            }
-            else
-            {
-                returnState = State.WaitingForSYNC;
-            }
-
+            _recievedData.Add(data);
+            returnState = State.ReceivingCRC8;
+            _dataLength = data;
+            
             return returnState;
         }
 
@@ -255,7 +260,7 @@ namespace KFly_Config_2._0
         private void Parser(List<byte> message) {
 		    Console.WriteLine("Arrived at Parser! :D");
 		    Console.Write("Command: ");
-		    Console.WriteLine((KFlyCommand.Command)message[1]);
+		    Console.WriteLine((KFlyCommandType)message[1]);
 		    Console.Write("Message: ");
             foreach (byte b in message)
             {

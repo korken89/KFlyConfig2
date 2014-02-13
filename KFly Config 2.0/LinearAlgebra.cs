@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace KFly_Config_2._0
+namespace KFly
 {
     class LinearAlgebra
     {

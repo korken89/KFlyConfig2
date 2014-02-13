@@ -15,7 +15,7 @@
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -46,22 +46,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Communication\Protocol\Commands\CalibrateRCCenters.cs" />
+    <Compile Include="Communication\Protocol\Commands\GetChannelMix.cs" />
+    <Compile Include="Communication\Protocol\Commands\GetRCCalibration.cs" />
+    <Compile Include="Communication\Protocol\Commands\GetRCValues.cs" />
+    <Compile Include="Communication\Protocol\Commands\GetRegulatorData.cs" />
+    <Compile Include="Communication\Protocol\Commands\Ping.cs" />
+    <Compile Include="Communication\Protocol\Commands\SaveToFlash.cs" />
+    <Compile Include="Communication\Protocol\Commands\SetChannelMix.cs" />
+    <Compile Include="Communication\Protocol\Commands\SetRCCalibration.cs" />
+    <Compile Include="Communication\Protocol\Commands\SetRegulatorData.cs" />
+    <Compile Include="Communication\Protocol\Commands\StartRCCalibration.cs" />
+    <Compile Include="Communication\Protocol\Commands\StopRCCalibration.cs" />
+    <Compile Include="Communication\Protocol\Commands\DebugMessage.cs" />
+    <Compile Include="DataClasses\ChannelData.cs" />
+    <Compile Include="DataClasses\MixerData.cs" />
+    <Compile Include="DataClasses\RegulatorData.cs" />
     <Compile Include="SensorCalibration.cs" />
-    <Compile Include="CRC8.cs" />
-    <Compile Include="CRC_CCITT.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Communication\CRC8.cs" />
+    <Compile Include="Communication\CRC_CCITT.cs" />
+    <Compile Include="GUI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="GUI\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="KFlyCommand.cs" />
+    <Compile Include="Communication\Protocol\KFlyCommand.cs" />
     <Compile Include="LinearAlgebra.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StateMachine.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Communication\StateMachine.cs" />
+    <Compile Include="Communication\TelemetryLink.cs" />
+    <EmbeddedResource Include="GUI\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

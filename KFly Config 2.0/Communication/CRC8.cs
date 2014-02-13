@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace KFly_Config_2._0
+namespace KFly.Communication
 {
-    class CRC8 {
+    public class CRC8 {
 	    private static byte[] crc8_table = new byte[] {
 	        (byte)0x00, (byte)0x07, (byte)0x0e, (byte)0x09, (byte)0x1c, (byte)0x1b, (byte)0x12, (byte)0x15,
 	        (byte)0x38, (byte)0x3f, (byte)0x36, (byte)0x31, (byte)0x24, (byte)0x23, (byte)0x2a, (byte)0x2d,
@@ -40,7 +40,7 @@ namespace KFly_Config_2._0
 	        (byte)0xde, (byte)0xd9, (byte)0xd0, (byte)0xd7, (byte)0xc2, (byte)0xc5, (byte)0xcc, (byte)0xcb,
 	        (byte)0xe6, (byte)0xe1, (byte)0xe8, (byte)0xef, (byte)0xfa, (byte)0xfd, (byte)0xf4, (byte)0xf3};
 	
-	    public static byte GenerateCRC(List<byte> message) {
+	    public static byte GenerateCRC(IEnumerable<byte> message) {
 		    byte crc = 0;
             byte TableID;
 

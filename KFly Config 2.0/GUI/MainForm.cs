@@ -6,14 +6,19 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using KFly.Communication;
 
-namespace KFly_Config_2._0
+namespace KFly
 {
     public partial class KFlyConfig : Form
     {
+        private TelemetryLink _telLink;
+
         public KFlyConfig()
         {
             InitializeComponent();
+            _telLink = new TelemetryLink();
+        
         }
 
         private void selFirmware_Click(object sender, EventArgs e)
@@ -27,6 +32,8 @@ namespace KFly_Config_2._0
 
         private void KFlyConfig_Load(object sender, EventArgs e)
         {
+            _telLink.SetPortNameValues(comportsCombo);
+          
             baudrateCombo.SelectedIndex = 0;
 
             ch1_role.SelectedIndex = 0;
@@ -236,6 +243,47 @@ namespace KFly_Config_2._0
                 ch8_max.Enabled = true;
                 ch8_type.Enabled = true;
             }
+        }
+
+        private void tableLayoutPanel14_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void comportsCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void baudrateCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private Boolean _connected = false;
+
+        private void connectBtn_Click(object sender, EventArgs e)
+        {
+            _telLink.PortName = comportsCombo.Text;
+            if (_telLink.OpenPort())
+            {
+                _connected = true;
+                _telLink.SendData(new Ping());
+            }
+            else
+            {
+            }
+        }
+
+        private void disconnectBtn_Click(object sender, EventArgs e)
+        {
+            if (_connected)
+            {
+                _telLink.ClosePort();
+                _connected = false;
+            }
+            disconnectBtn.Enabled = false;
+            connectBtn.Enabled = true;
         }
     }
 }

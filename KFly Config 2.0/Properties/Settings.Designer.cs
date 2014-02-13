@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace KFly_Config_2._0.Properties
+namespace KFly.Communication_2._0.Properties
 {
 
 
