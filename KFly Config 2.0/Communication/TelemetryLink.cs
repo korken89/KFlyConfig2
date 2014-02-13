@@ -109,8 +109,7 @@ namespace KFly.Communication
         }
 
         private List<byte> _received = new List<byte>();
-        private int _dataLeft = 0;
-      
+       
         
 
         private void comPort_DataReceived(object sender, SerialDataReceivedEventArgs e)

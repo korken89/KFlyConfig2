@@ -5,7 +5,7 @@ using System.Text;
 
 namespace KFly.Communication
 {
-    public class RegulatorData
+    public class ControllerData
     {
         private UInt16[,] _rate = new UInt16[3, 3];
 
@@ -22,7 +22,7 @@ namespace KFly.Communication
             set { _attitude = value; }
         }
 
-        public RegulatorData()
+        public ControllerData()
         {
 
         }

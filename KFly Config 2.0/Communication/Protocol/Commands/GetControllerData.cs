@@ -5,16 +5,16 @@ using System.Text;
 
 namespace KFly.Communication
 {
-    class GetRegulatorData : KFlyCommand
+    class GetControllerData : KFlyCommand
     {
 
         private List<byte> _data;
 
-        public GetRegulatorData() : base(KFlyCommandType.GetRegulatorData)
+        public GetControllerData() : base(KFlyCommandType.GetControllerData)
         {
         }
 
-        public override void ParseRx(List<byte> data)
+        public override void ParseData(List<byte> data)
         {
             _data = data;
         }

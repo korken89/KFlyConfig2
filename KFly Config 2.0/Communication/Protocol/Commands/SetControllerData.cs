@@ -5,11 +5,11 @@ using System.Text;
 
 namespace KFly.Communication
 {
-    class SetRegulatorData : KFlyCommand
+    class SetControllerData : KFlyCommand
     {
-        private RegulatorData _data;
+        private ControllerData _data;
 
-        public SetRegulatorData(RegulatorData data) : base(KFlyCommandType.SetRegulatorData)
+        public SetControllerData(ControllerData data) : base(KFlyCommandType.SetControllerData)
         {
             _data = data;
         }

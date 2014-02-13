@@ -24,17 +24,17 @@ namespace KFly.Communication
         GetFirmwareVersion = 18,
         SaveToFlash = 19,
 
-        GetRegulatorData = 30,
-        SetRegulatorData = 31,
+        GetControllerData = 30,
+        SetControllerData = 31,
         GetChannelMix = 32,
         SetChannelMix = 33,
-        StartRCCalibration = 34,
-        StopRCCalibration = 35,
-        CalibrateRCCenters = 36,
-        GetRCCalibration = 37,
-        SetRCCalibration = 38,
-        GetRCValues = 39,
-        GetSensorData = 40
+        GetRCCalibration = 34,
+        SetRCCalibration = 35,
+        GetRCValues = 36,
+        GetSensorData = 37,
+
+
+        All = 127, //To subscribe everything
     };
 
     public class KFlyCommand
@@ -68,7 +68,7 @@ namespace KFly.Communication
                 (byte)Type,
                 (byte)data.Count,
             };
-            tx.Add(CRC8.GenerateCRC(data.Take(3)));
+            tx.Add(CRC8.GenerateCRC(tx.Take(3)));
             if (data.Count > 0)
             {
                 tx.AddRange(data);
@@ -76,7 +76,7 @@ namespace KFly.Communication
                 tx.Add((byte)(crc16 >> 8));
                 tx.Add((byte)(crc16));
             }
-            return data;
+            return tx;
         }
 
         public virtual List<byte> ToTx()
@@ -84,24 +84,42 @@ namespace KFly.Communication
             return CreateTxWithHeader(null);
         }
 
-        public virtual void ParseRx(List<byte> data)
+        public virtual void ParseData(List<byte> data)
         {
+        }
+
+        public override String ToString()
+        {
+            return Enum.GetName(typeof(KFlyCommandType), Type);
         }
 
         public static KFlyCommand Parse(List<Byte> bytes)
         {
-            if (bytes.Count > 3)
+            if (bytes.Count > 2)
             {
                 KFlyCommand cmd = null;
                 switch ((KFlyCommandType)(bytes[0]))
                 {
                     case KFlyCommandType.DebugMessage:
-                        return new DebugMessage();
+                        cmd = new DebugMessage();
+                        break;
+                    case KFlyCommandType.Ping:
+                        cmd = new Ping();
+                        break;
+                    case KFlyCommandType.GetFirmwareVersion:
+                        cmd = new GetFirmwareVersion();
+                        break;
+                    case KFlyCommandType.GetBootloaderVersion:
+                        cmd = new GetBootLoaderVersion();
+                        break;
+                    default:
+                        cmd = new KFlyCommand((KFlyCommandType)bytes[0]);
+                        break;
                 }
                 if (cmd != null)
                 {
                     List<byte> data = bytes.GetRange(3, bytes.Count-3);
-                    cmd.ParseRx(data);
+                    cmd.ParseData(data);
                 }
                 return cmd;
             }

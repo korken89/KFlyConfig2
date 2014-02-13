@@ -445,7 +445,7 @@
             this.infoBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
             this.infoBox.Size = new System.Drawing.Size(768, 118);
             this.infoBox.TabIndex = 1;
-            this.infoBox.Text = resources.GetString("infoBox.Text");
+            this.infoBox.Text = "";
             // 
             // tableLayoutPanel1
             // 

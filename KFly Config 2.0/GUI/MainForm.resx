@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="infoBox.Text" xml:space="preserve">
-    <value>Preparing to Flash firmware... 1267 packages to send...
-Sedning... 100 sent... 200 sent... 300 sent... 400 sent... 500 sent... 600 sent... 700 sent... 800 sent... 900 sent... 1000 sent... 1100 sent... 1200 sent... 1267 sent... Done!
-Checking checksum... OK!
-Flash completed in 12.36s!</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

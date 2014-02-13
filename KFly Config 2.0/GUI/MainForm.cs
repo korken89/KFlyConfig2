@@ -18,7 +18,11 @@ namespace KFly
         {
             InitializeComponent();
             _telLink = new TelemetryLink();
-        
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
         }
 
         private void selFirmware_Click(object sender, EventArgs e)
@@ -30,12 +34,47 @@ namespace KFly
                 firmwarePath.Text = odf.FileName;
         }
 
+        public void appendToTextbox(String msg)
+        {
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke((MethodInvoker)delegate
+                {
+                    appendToTextbox(msg);
+                });
+                return;
+            }
+
+           infoBox.AppendText(msg);
+        }
+
         private void KFlyConfig_Load(object sender, EventArgs e)
         {
             _telLink.SetPortNameValues(comportsCombo);
-          
             baudrateCombo.SelectedIndex = 0;
+            
+            TeleManager.Subscribe(KFlyCommandType.All, (KFlyCommand cmd) =>
+                {
+                     appendToTextbox(cmd.ToString());
+                });
 
+            TeleManager.Subscribe(KFlyCommandType.GetFirmwareVersion, (GetFirmwareVersion cmd) =>
+                {
+                    firmwareVersion.BeginInvoke((Action)(()=>
+                    {
+                        firmwareVersion.Text = cmd.Version;
+                    }));
+                });
+
+            TeleManager.Subscribe(KFlyCommandType.GetBootloaderVersion, (GetBootLoaderVersion cmd) =>
+            {
+                bootloaderVersion.BeginInvoke((Action)(() =>
+                {
+                    bootloaderVersion.Text = cmd.Version;
+                }));
+            });
+
+            
             ch1_role.SelectedIndex = 0;
             ch2_role.SelectedIndex = 0;
             ch3_role.SelectedIndex = 0;
@@ -268,7 +307,10 @@ namespace KFly
             if (_telLink.OpenPort())
             {
                 _connected = true;
-                _telLink.SendData(new Ping());
+                disconnectBtn.Enabled = true;
+                connectBtn.Enabled = false;
+               // _telLink.SendData(new Ping());
+                _telLink.SendData(new GetFirmwareVersion());
             }
             else
             {
@@ -285,5 +327,7 @@ namespace KFly
             disconnectBtn.Enabled = false;
             connectBtn.Enabled = true;
         }
+
+
     }
 }

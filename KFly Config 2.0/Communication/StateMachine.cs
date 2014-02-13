@@ -258,16 +258,11 @@ namespace KFly.Communication
         }
 
         private void Parser(List<byte> message) {
-		    Console.WriteLine("Arrived at Parser! :D");
-		    Console.Write("Command: ");
-		    Console.WriteLine((KFlyCommandType)message[1]);
-		    Console.Write("Message: ");
-            foreach (byte b in message)
+            KFlyCommand cmd = KFlyCommand.Parse(message.GetRange(1, message.Count-1));
+            if (cmd != null)
             {
-                Console.Write("0x" + b.ToString("X2") + " ");
+                TeleManager.Handle(cmd);
             }
-            Console.WriteLine();
-            Console.WriteLine();
 	    }
     }
 }

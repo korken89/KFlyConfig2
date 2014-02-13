@@ -13,7 +13,7 @@ namespace KFly.Communication
         {
         }
 
-        public override void ParseRx(List<byte> data)
+        public override void ParseData(List<byte> data)
         {
             _data = data;
         }
