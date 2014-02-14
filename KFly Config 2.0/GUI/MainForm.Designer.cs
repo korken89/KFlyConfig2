@@ -1770,7 +1770,7 @@
             this.ch1_min.Size = new System.Drawing.Size(130, 26);
             this.ch1_min.TabIndex = 189;
             this.ch1_min.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
+           // 
             // ch1_center
             // 
             this.ch1_center.Dock = System.Windows.Forms.DockStyle.Fill;

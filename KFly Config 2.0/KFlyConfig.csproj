@@ -8,10 +8,11 @@
     <ProjectGuid>{105F9DB5-5FBB-4271-AE9C-0A4C055F8AF4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KFly_Config_2._0</RootNamespace>
-    <AssemblyName>KFly Config 2.0</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <RootNamespace>KFly</RootNamespace>
+    <AssemblyName>KFly</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -23,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -32,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -46,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Communication\Protocol\Commands\GetBootLoaderVersion.cs" />
     <Compile Include="Communication\Protocol\Commands\GetFirmwareVersion.cs" />
     <Compile Include="Communication\Protocol\Commands\GetChannelMix.cs" />
     <Compile Include="Communication\Protocol\Commands\GetRCCalibration.cs" />
@@ -58,6 +62,7 @@
     <Compile Include="Communication\Protocol\Commands\SetControllerData.cs" />
     <Compile Include="Communication\Protocol\Commands\DebugMessage.cs" />
     <Compile Include="Communication\TeleManager.cs" />
+    <Compile Include="Communication\USBHandler.cs" />
     <Compile Include="DataClasses\ChannelData.cs" />
     <Compile Include="DataClasses\MixerData.cs" />
     <Compile Include="DataClasses\ControllerData.cs" />
@@ -87,7 +92,9 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

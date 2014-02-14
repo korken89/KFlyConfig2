@@ -6,24 +6,114 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Configuration;
 using KFly.Communication;
+using System.IO.Ports;
+ 
+
 
 namespace KFly
 {
     public partial class KFlyConfig : Form
     {
         private TelemetryLink _telLink;
+        private USBHandler _usbHandler;
 
         public KFlyConfig()
         {
             InitializeComponent();
             _telLink = new TelemetryLink();
+            _usbHandler = new USBHandler();
         }
 
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
+            _usbHandler.WndProc(ref m);
         }
+
+#region INIT
+        private NumericUpDown[] ch_mins;
+        private NumericUpDown[] ch_maxs;
+        private ComboBox[] ch_roles;
+
+        private void KFlyConfig_Load(object sender, EventArgs e)
+        {
+            InitCommunicationGUI();
+            SubscribeToCommunication();
+
+            ch_mins = new NumericUpDown[]
+            { 
+                ch1_min, ch2_min, ch3_min, ch4_min, 
+                ch5_min, ch6_min, ch7_min, ch8_min 
+            };
+            ch_maxs = new NumericUpDown[]
+            { 
+                ch1_max, ch2_max, ch3_max, ch4_max, 
+                ch5_max, ch6_max, ch7_max, ch8_max 
+            };
+            ch_roles = new ComboBox[]
+            { 
+                ch1_role, ch2_role, ch3_role, ch4_role, 
+                ch5_role, ch6_role, ch7_role, ch8_role 
+            };
+            foreach (ComboBox cb in ch_roles)
+            {
+                cb.SelectedIndex = 0;
+            }
+
+            ch1_updRate.SelectedIndex = 0;
+            ch5_updRate.SelectedIndex = 0;
+            ch7_updRate.SelectedIndex = 0;
+        }
+
+        private void InitCommunicationGUI()
+        {
+            reloadPorts();
+           // baudrateCombo.SelectedItem = AmbientProperties.
+        }
+
+        private void reloadPorts()
+        {
+            foreach (string str in SerialPort.GetPortNames())
+            {
+                comportsCombo.Items.Add(str);
+                if (str == Properties.Settings.Default.ComPort)
+                    comportsCombo.SelectedItem = str;
+            }
+        }
+
+        private void SubscribeToCommunication()
+        {
+            //Log window
+            TeleManager.Subscribe(KFlyCommandType.All, (KFlyCommand cmd) =>
+            {
+                infoBox.BeginInvoke((MethodInvoker)delegate
+                {
+                    infoBox.AppendText(cmd.ToString());
+                });
+            });
+
+            //Firmware version info textbox
+            TeleManager.Subscribe(KFlyCommandType.GetFirmwareVersion, (GetFirmwareVersion cmd) =>
+            {
+                firmwareVersion.BeginInvoke((Action)(() =>
+                {
+                    firmwareVersion.Text = cmd.Version;
+                }));
+            });
+
+            //Bootloader version info textbox
+            TeleManager.Subscribe(KFlyCommandType.GetBootloaderVersion, (GetBootLoaderVersion cmd) =>
+            {
+                bootloaderVersion.BeginInvoke((Action)(() =>
+                {
+                    bootloaderVersion.Text = cmd.Version;
+                }));
+            });
+        }
+
+#endregion //INIT
 
         private void selFirmware_Click(object sender, EventArgs e)
         {
@@ -32,61 +122,6 @@ namespace KFly
 
             if (odf.ShowDialog() == DialogResult.OK)
                 firmwarePath.Text = odf.FileName;
-        }
-
-        public void appendToTextbox(String msg)
-        {
-            if (this.InvokeRequired)
-            {
-                this.BeginInvoke((MethodInvoker)delegate
-                {
-                    appendToTextbox(msg);
-                });
-                return;
-            }
-
-           infoBox.AppendText(msg);
-        }
-
-        private void KFlyConfig_Load(object sender, EventArgs e)
-        {
-            _telLink.SetPortNameValues(comportsCombo);
-            baudrateCombo.SelectedIndex = 0;
-            
-            TeleManager.Subscribe(KFlyCommandType.All, (KFlyCommand cmd) =>
-                {
-                     appendToTextbox(cmd.ToString());
-                });
-
-            TeleManager.Subscribe(KFlyCommandType.GetFirmwareVersion, (GetFirmwareVersion cmd) =>
-                {
-                    firmwareVersion.BeginInvoke((Action)(()=>
-                    {
-                        firmwareVersion.Text = cmd.Version;
-                    }));
-                });
-
-            TeleManager.Subscribe(KFlyCommandType.GetBootloaderVersion, (GetBootLoaderVersion cmd) =>
-            {
-                bootloaderVersion.BeginInvoke((Action)(() =>
-                {
-                    bootloaderVersion.Text = cmd.Version;
-                }));
-            });
-
-            
-            ch1_role.SelectedIndex = 0;
-            ch2_role.SelectedIndex = 0;
-            ch3_role.SelectedIndex = 0;
-            ch4_role.SelectedIndex = 0;
-            ch5_role.SelectedIndex = 0;
-            ch6_role.SelectedIndex = 0;
-            ch7_role.SelectedIndex = 0;
-            ch8_role.SelectedIndex = 0;
-
-            ch1_updRate.SelectedIndex = 0;
-            ch5_updRate.SelectedIndex = 0;
-            ch7_updRate.SelectedIndex = 0;
         }
 
         private void btnCalStart_Click(object sender, EventArgs e)
@@ -304,13 +339,16 @@ namespace KFly
         private void connectBtn_Click(object sender, EventArgs e)
         {
             _telLink.PortName = comportsCombo.Text;
+            Properties.Settings.Default.ComPort = comportsCombo.Text;
+            Properties.Settings.Default.Save();
+
             if (_telLink.OpenPort())
             {
                 _connected = true;
                 disconnectBtn.Enabled = true;
                 connectBtn.Enabled = false;
-               // _telLink.SendData(new Ping());
                 _telLink.SendData(new GetFirmwareVersion());
+                _telLink.SendData(new GetBootLoaderVersion());
             }
             else
             {
@@ -327,6 +365,7 @@ namespace KFly
             disconnectBtn.Enabled = false;
             connectBtn.Enabled = true;
         }
+
 
 
     }

@@ -59,14 +59,6 @@ namespace KFly.Communication
             comPort.DataReceived += new SerialDataReceivedEventHandler(comPort_DataReceived);
         }
 
-        public void SetPortNameValues(object obj)
-        {
-            foreach (string str in SerialPort.GetPortNames())
-            {
-                ((ComboBox)obj).Items.Add(str);
-            }
-        }
-
         public bool OpenPort()
         {
             try

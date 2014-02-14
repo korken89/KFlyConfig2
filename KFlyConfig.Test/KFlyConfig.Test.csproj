@@ -54,9 +54,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\KFly Config 2.0\KFly Config 2.0.csproj">
+    <ProjectReference Include="..\KFly Config 2.0\KFlyConfig.csproj">
       <Project>{105f9db5-5fbb-4271-ae9c-0a4c055f8af4}</Project>
-      <Name>KFly Config 2.0</Name>
+      <Name>KFlyConfig</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KFly Config 2.0", "KFly Config 2.0\KFly Config 2.0.csproj", "{105F9DB5-5FBB-4271-AE9C-0A4C055F8AF4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KFlyConfig", "KFly Config 2.0\KFlyConfig.csproj", "{105F9DB5-5FBB-4271-AE9C-0A4C055F8AF4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KFlyConfig.Test", "KFlyConfig.Test\KFlyConfig.Test.csproj", "{BBF9FFD2-4AB8-462F-AFF6-67D1BD00098A}"
 EndProject
