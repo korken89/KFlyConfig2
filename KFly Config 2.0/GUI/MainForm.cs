@@ -17,19 +17,29 @@ namespace KFly
     public partial class KFlyConfig : Form
     {
         private TelemetryLink _telLink;
-        private USBHandler _usbHandler;
+       // private USBHandler _usbHandler;
 
         public KFlyConfig()
         {
             InitializeComponent();
             _telLink = new TelemetryLink();
-            _usbHandler = new USBHandler();
+           // _usbHandler = new USBHandler();
         }
 
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
-            _usbHandler.WndProc(ref m);
+            //_usbHandler.WndProc(ref m);
+            if (m.Msg == USBHandler.WM_DEVICECHANGE)
+            {
+                if (m.WParam.ToInt32() == USBHandler.DBT_DEVNODES_CHANGED)
+                {
+                    comportsCombo.BeginInvoke((MethodInvoker)delegate
+                    {
+                        reloadPorts();
+                    });
+                }
+            }
         }
 
 #region INIT
