@@ -72,9 +72,11 @@ namespace KFly.Communication
             if (data.Count > 0)
             {
                 tx.AddRange(data);
-                int crc16 = CRC_CCITT.GenerateCRC(data);
-                tx.Add((byte)(crc16 >> 8));
-                tx.Add((byte)(crc16));
+                int crc16 = CRC_CCITT.GenerateCRC(tx);
+                byte[] crcb = BitConverter.GetBytes(crc16);
+
+                tx.Add(crcb[1]);
+                tx.Add(crcb[0]);
             }
             return tx;
         }
@@ -95,10 +97,10 @@ namespace KFly.Communication
 
         public static KFlyCommand Parse(List<Byte> bytes)
         {
-            if (bytes.Count > 2)
+            if (bytes.Count > 3)
             {
                 KFlyCommand cmd = null;
-                switch ((KFlyCommandType)(bytes[0]))
+                switch ((KFlyCommandType)(bytes[1]))
                 {
                     case KFlyCommandType.DebugMessage:
                         cmd = new DebugMessage();
@@ -113,12 +115,12 @@ namespace KFly.Communication
                         cmd = new GetBootLoaderVersion();
                         break;
                     default:
-                        cmd = new KFlyCommand((KFlyCommandType)bytes[0]);
+                        cmd = new KFlyCommand((KFlyCommandType)bytes[1]);
                         break;
                 }
                 if (cmd != null)
                 {
-                    List<byte> data = bytes.GetRange(3, bytes.Count-3);
+                    List<byte> data = bytes.GetRange(4, bytes.Count-4);
                     cmd.ParseData(data);
                 }
                 return cmd;

@@ -19,7 +19,18 @@ namespace KFly.Communication
         {
             return base.ToString() + ":" + Version;
         }
-      
+
+        public override List<byte> ToTx()
+        {
+            if (Version != null)
+            {
+                return this.CreateTxWithHeader(new List<byte>(System.Text.ASCIIEncoding.Default.GetBytes(Version)));
+            }
+            else
+            {
+                return base.ToTx();
+            }
+        }
         public GetFirmwareVersion()
             : base(KFlyCommandType.GetFirmwareVersion)
         {

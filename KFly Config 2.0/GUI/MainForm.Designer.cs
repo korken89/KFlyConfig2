@@ -653,7 +653,6 @@
             this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel14.Size = new System.Drawing.Size(696, 189);
             this.tableLayoutPanel14.TabIndex = 0;
-            this.tableLayoutPanel14.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel14_Paint);
             // 
             // firmwareVersion
             // 
@@ -764,7 +763,6 @@
             this.baudrateCombo.Name = "baudrateCombo";
             this.baudrateCombo.Size = new System.Drawing.Size(166, 24);
             this.baudrateCombo.TabIndex = 22;
-            this.baudrateCombo.SelectedIndexChanged += new System.EventHandler(this.baudrateCombo_SelectedIndexChanged);
             // 
             // comportsCombo
             // 
@@ -776,7 +774,6 @@
             this.comportsCombo.Name = "comportsCombo";
             this.comportsCombo.Size = new System.Drawing.Size(166, 24);
             this.comportsCombo.TabIndex = 21;
-            this.comportsCombo.SelectedIndexChanged += new System.EventHandler(this.comportsCombo_SelectedIndexChanged);
             // 
             // groupBox2
             // 
@@ -1974,7 +1971,7 @@
             this.ch1_role.Name = "ch1_role";
             this.ch1_role.Size = new System.Drawing.Size(114, 24);
             this.ch1_role.TabIndex = 190;
-            this.ch1_role.SelectedIndexChanged += new System.EventHandler(this.ch1_role_SelectedIndexChanged);
+            this.ch1_role.SelectedIndexChanged += new System.EventHandler(this.ch_role_SelectedIndexChanged);
             // 
             // ch2_role
             // 
@@ -1995,7 +1992,7 @@
             this.ch2_role.Name = "ch2_role";
             this.ch2_role.Size = new System.Drawing.Size(114, 24);
             this.ch2_role.TabIndex = 195;
-            this.ch2_role.SelectedIndexChanged += new System.EventHandler(this.ch2_role_SelectedIndexChanged);
+            this.ch2_role.SelectedIndexChanged += new System.EventHandler(this.ch_role_SelectedIndexChanged);
             // 
             // ch1_type
             // 
@@ -2050,7 +2047,7 @@
             this.ch3_role.Name = "ch3_role";
             this.ch3_role.Size = new System.Drawing.Size(114, 24);
             this.ch3_role.TabIndex = 200;
-            this.ch3_role.SelectedIndexChanged += new System.EventHandler(this.ch3_role_SelectedIndexChanged);
+            this.ch3_role.SelectedIndexChanged += new System.EventHandler(this.ch_role_SelectedIndexChanged);
             // 
             // ch3_type
             // 
@@ -2133,7 +2130,7 @@
             this.ch4_role.Name = "ch4_role";
             this.ch4_role.Size = new System.Drawing.Size(114, 24);
             this.ch4_role.TabIndex = 205;
-            this.ch4_role.SelectedIndexChanged += new System.EventHandler(this.ch4_role_SelectedIndexChanged);
+            this.ch4_role.SelectedIndexChanged += new System.EventHandler(this.ch_role_SelectedIndexChanged);
             // 
             // ch4_type
             // 
@@ -2216,7 +2213,7 @@
             this.ch5_role.Name = "ch5_role";
             this.ch5_role.Size = new System.Drawing.Size(114, 24);
             this.ch5_role.TabIndex = 210;
-            this.ch5_role.SelectedIndexChanged += new System.EventHandler(this.ch5_role_SelectedIndexChanged);
+            this.ch5_role.SelectedIndexChanged += new System.EventHandler(this.ch_role_SelectedIndexChanged);
             // 
             // ch5_type
             // 
@@ -2299,7 +2296,7 @@
             this.ch6_role.Name = "ch6_role";
             this.ch6_role.Size = new System.Drawing.Size(114, 24);
             this.ch6_role.TabIndex = 215;
-            this.ch6_role.SelectedIndexChanged += new System.EventHandler(this.ch6_role_SelectedIndexChanged);
+            this.ch6_role.SelectedIndexChanged += new System.EventHandler(this.ch_role_SelectedIndexChanged);
             // 
             // ch6_type
             // 
@@ -2382,7 +2379,7 @@
             this.ch7_role.Name = "ch7_role";
             this.ch7_role.Size = new System.Drawing.Size(114, 24);
             this.ch7_role.TabIndex = 220;
-            this.ch7_role.SelectedIndexChanged += new System.EventHandler(this.ch7_role_SelectedIndexChanged);
+            this.ch7_role.SelectedIndexChanged += new System.EventHandler(this.ch_role_SelectedIndexChanged);
             // 
             // ch7_type
             // 
@@ -2482,7 +2479,7 @@
             this.ch8_role.Name = "ch8_role";
             this.ch8_role.Size = new System.Drawing.Size(114, 24);
             this.ch8_role.TabIndex = 225;
-            this.ch8_role.SelectedIndexChanged += new System.EventHandler(this.ch8_role_SelectedIndexChanged);
+            this.ch8_role.SelectedIndexChanged += new System.EventHandler(this.ch_role_SelectedIndexChanged);
             // 
             // ch8_max
             // 

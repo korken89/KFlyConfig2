@@ -27,6 +27,15 @@ namespace KFly.Communication
         private State _savedState = State.None;
         private bool _ack = false;
 
+        public void Reset()
+        {
+            _currentState = State.WaitingForSYNC;
+            _recievedData.Clear();
+            _ack = false;
+            _savedState = State.None;
+            _dataLength = 0;
+        }
+
         public bool Ack
         {
             get { return _ack; }
@@ -258,7 +267,8 @@ namespace KFly.Communication
         }
 
         private void Parser(List<byte> message) {
-            KFlyCommand cmd = KFlyCommand.Parse(message.GetRange(1, message.Count-1));
+            KFlyCommand cmd = KFlyCommand.Parse(message.GetRange(0, 
+                (message.Count > 4)? message.Count - 2 : message.Count));
             if (cmd != null)
             {
                 TeleManager.Handle(cmd);

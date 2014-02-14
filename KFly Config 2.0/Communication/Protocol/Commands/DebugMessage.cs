@@ -7,18 +7,47 @@ namespace KFly.Communication
 {
     public class DebugMessage: KFlyCommand
     {
-        private List<byte> _data;
+        private String _message = "";
 
-        public List<byte> Data
+        public String Message
         {
-            get { return _data; }
-            set { _data = value; }
+            get 
+            { 
+                return _message;
+            }
+            set 
+            {
+                _message = value;
+            }
         }
 
-        public String DataAsString
+        public override void ParseData(List<byte> data)
         {
-            get { return System.Text.ASCIIEncoding.Default.GetString(_data.ToArray()); }
-            set { _data = new List<byte>(System.Text.ASCIIEncoding.Default.GetBytes(value)); }
+            try
+            {
+                _message = System.Text.ASCIIEncoding.Default.GetString(data.ToArray());
+            }
+            catch
+            {
+                _message = "Message not a string";
+            }
+        }
+
+        public override List<byte> ToTx()
+        {
+            if (_message != null)
+            {
+                return this.CreateTxWithHeader(new List<byte>(System.Text.ASCIIEncoding.Default.GetBytes(_message)));
+            }
+            else
+            {
+                return base.ToTx();
+            }
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + ":" + Message;
         }
         
         public DebugMessage()
@@ -26,11 +55,10 @@ namespace KFly.Communication
         {
         }
 
-        public DebugMessage(List<byte> bytes)
+        public DebugMessage(String message)
             : base(KFlyCommandType.DebugMessage)
         {
-            Type = KFlyCommandType.DebugMessage;
-            _data = bytes.GetRange(3, bytes.Count - 4);
+            Message = message;
         }
     }
 }

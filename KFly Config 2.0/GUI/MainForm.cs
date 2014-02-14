@@ -33,30 +33,42 @@ namespace KFly
         }
 
 #region INIT
-        private NumericUpDown[] ch_mins;
-        private NumericUpDown[] ch_maxs;
-        private ComboBox[] ch_roles;
+        private List<NumericUpDown> ch_mins;
+        private List<NumericUpDown> ch_maxs;
+        private List<NumericUpDown> ch_centers;
+        private List<ComboBox> ch_roles;
+        private List<ComboBox> ch_types;
 
         private void KFlyConfig_Load(object sender, EventArgs e)
         {
             InitCommunicationGUI();
             SubscribeToCommunication();
 
-            ch_mins = new NumericUpDown[]
+            ch_mins = new List<NumericUpDown>
             { 
                 ch1_min, ch2_min, ch3_min, ch4_min, 
                 ch5_min, ch6_min, ch7_min, ch8_min 
             };
-            ch_maxs = new NumericUpDown[]
+            ch_maxs = new List<NumericUpDown>
             { 
                 ch1_max, ch2_max, ch3_max, ch4_max, 
                 ch5_max, ch6_max, ch7_max, ch8_max 
             };
-            ch_roles = new ComboBox[]
+            ch_centers = new List<NumericUpDown>
+            { 
+                ch1_center, ch2_center, ch3_center, ch4_center, 
+                ch5_center, ch6_center, ch7_center, ch8_center 
+            }; 
+            ch_roles = new List<ComboBox>
             { 
                 ch1_role, ch2_role, ch3_role, ch4_role, 
                 ch5_role, ch6_role, ch7_role, ch8_role 
             };
+            ch_types = new List<ComboBox>
+            { 
+                ch1_type, ch2_type, ch3_type, ch4_type, 
+                ch5_type, ch6_type, ch7_type, ch8_type 
+            }; 
             foreach (ComboBox cb in ch_roles)
             {
                 cb.SelectedIndex = 0;
@@ -70,7 +82,6 @@ namespace KFly
         private void InitCommunicationGUI()
         {
             reloadPorts();
-           // baudrateCombo.SelectedItem = AmbientProperties.
         }
 
         private void reloadPorts()
@@ -174,177 +185,16 @@ namespace KFly
             ch8_updRate.Text = val;
         }
 
-        private void ch1_role_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ch1_role.SelectedIndex == 0)
-            {
-                ch1_min.Enabled = false;
-                ch1_center.Enabled = false;
-                ch1_max.Enabled = false;
-                ch1_type.Enabled = false;
-            }
-            else
-            {
-                ch1_min.Enabled = true;
-                ch1_center.Enabled = true;
-                ch1_max.Enabled = true;
-                ch1_type.Enabled = true;
-            }
-        }
-
-        private void ch2_role_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ch2_role.SelectedIndex == 0)
-            {
-                ch2_min.Enabled = false;
-                ch2_center.Enabled = false;
-                ch2_max.Enabled = false;
-                ch2_type.Enabled = false;
-            }
-            else
-            {
-                ch2_min.Enabled = true;
-                ch2_center.Enabled = true;
-                ch2_max.Enabled = true;
-                ch2_type.Enabled = true;
-            }
-        }
-
-        private void ch3_role_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ch3_role.SelectedIndex == 0)
-            {
-                ch3_min.Enabled = false;
-                ch3_center.Enabled = false;
-                ch3_max.Enabled = false;
-                ch3_type.Enabled = false;
-            }
-            else
-            {
-                ch3_min.Enabled = true;
-                ch3_center.Enabled = true;
-                ch3_max.Enabled = true;
-                ch3_type.Enabled = true;
-            }
-        }
-
-        private void ch4_role_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ch4_role.SelectedIndex == 0)
-            {
-                ch4_min.Enabled = false;
-                ch4_center.Enabled = false;
-                ch4_max.Enabled = false;
-                ch4_type.Enabled = false;
-            }
-            else
-            {
-                ch4_min.Enabled = true;
-                ch4_center.Enabled = true;
-                ch4_max.Enabled = true;
-                ch4_type.Enabled = true;
-            }
-        }
-
-        private void ch5_role_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ch5_role.SelectedIndex == 0)
-            {
-                ch5_min.Enabled = false;
-                ch5_center.Enabled = false;
-                ch5_max.Enabled = false;
-                ch5_type.Enabled = false;
-            }
-            else
-            {
-                ch5_min.Enabled = true;
-                ch5_center.Enabled = true;
-                ch5_max.Enabled = true;
-                ch5_type.Enabled = true;
-            }
-        }
-
-        private void ch6_role_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ch6_role.SelectedIndex == 0)
-            {
-                ch6_min.Enabled = false;
-                ch6_center.Enabled = false;
-                ch6_max.Enabled = false;
-                ch6_type.Enabled = false;
-            }
-            else
-            {
-                ch6_min.Enabled = true;
-                ch6_center.Enabled = true;
-                ch6_max.Enabled = true;
-                ch6_type.Enabled = true;
-            }
-
-        }
-
-        private void ch7_role_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ch7_role.SelectedIndex == 0)
-            {
-                ch7_min.Enabled = false;
-                ch7_center.Enabled = false;
-                ch7_max.Enabled = false;
-                ch7_type.Enabled = false;
-            }
-            else
-            {
-                ch7_min.Enabled = true;
-                ch7_center.Enabled = true;
-                ch7_max.Enabled = true;
-                ch7_type.Enabled = true;
-            }
-        }
-
-        private void ch8_role_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ch8_role.SelectedIndex == 0)
-            {
-                ch8_min.Enabled = false;
-                ch8_center.Enabled = false;
-                ch8_max.Enabled = false;
-                ch8_type.Enabled = false;
-            }
-            else
-            {
-                ch8_min.Enabled = true;
-                ch8_center.Enabled = true;
-                ch8_max.Enabled = true;
-                ch8_type.Enabled = true;
-            }
-        }
-
-        private void tableLayoutPanel14_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void comportsCombo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void baudrateCombo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private Boolean _connected = false;
-
         private void connectBtn_Click(object sender, EventArgs e)
         {
             _telLink.PortName = comportsCombo.Text;
+            _telLink.BaudRate = baudrateCombo.Text;
             Properties.Settings.Default.ComPort = comportsCombo.Text;
+            Properties.Settings.Default.Baudrate = baudrateCombo.Text;
             Properties.Settings.Default.Save();
 
             if (_telLink.OpenPort())
             {
-                _connected = true;
                 disconnectBtn.Enabled = true;
                 connectBtn.Enabled = false;
                 _telLink.SendData(new GetFirmwareVersion());
@@ -352,18 +202,26 @@ namespace KFly
             }
             else
             {
+                infoBox.AppendText("Failed connection!");
             }
         }
 
         private void disconnectBtn_Click(object sender, EventArgs e)
         {
-            if (_connected)
-            {
-                _telLink.ClosePort();
-                _connected = false;
-            }
+            _telLink.ClosePort();
             disconnectBtn.Enabled = false;
             connectBtn.Enabled = true;
         }
+
+
+        private void ch_role_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var index = ch_roles.IndexOf(sender as ComboBox);
+            ch_mins[index].Enabled = (ch_roles[index].SelectedIndex != 0);
+            ch_maxs[index].Enabled = (ch_roles[index].SelectedIndex != 0);
+            ch_centers[index].Enabled = (ch_roles[index].SelectedIndex != 0);
+            ch_types[index].Enabled = (ch_roles[index].SelectedIndex != 0);
+        }
+
     }
 }
