@@ -1,79 +1,95 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace KFly.Communication
 {
     public static class TeleManager
     {
+        /// <summary>
+        /// All posts in the dictionary is created in the initializer and therefore no need for a threadsafe
+        /// dictionary. The ConcurrentStack part is a thread safe alternative to List. 
+        /// </summary>
+        private static Dictionary<KFlyCommandType, ConcurrentDictionary<dynamic, Delegate>> _subscribers;
+           
 
-        private static Dictionary<KFlyCommandType, List<Delegate>> _subscribers =
-            new Dictionary<KFlyCommandType,List<Delegate>>();
+        static TeleManager()
+        {
+            _subscribers = new Dictionary<KFlyCommandType, ConcurrentDictionary<dynamic, Delegate>>();
+            foreach (KFlyCommandType type in Enum.GetValues(typeof(KFlyCommandType)))
+            {
+                _subscribers.Add(type, new ConcurrentDictionary<dynamic, Delegate>());
+            }
+        }
+
+        /// <summary>
+        /// Subscribes to a certain KflyCommand
+        /// </summary>
+        /// <param name="command">CommandType to subscribe</param>
+        /// <param name="id">used to id this subscription (for unsubscription)</param>
+        /// <param name="action">delegate to run when message is recevied</param>
+        /// <returns>True if successful, false if already subscriber</returns>
+        public static Boolean Subscribe<T>(KFlyCommandType command, dynamic id, Action<T> action) where T : KFlyCommand
+        {
+            return _subscribers[command].TryAdd(id, action);
+        }
 
 
         /// <summary>
         /// Subscribes to a certain KflyCommand
+        /// id will be the same as action
         /// </summary>
         /// <param name="command"></param>
         /// <param name="action"></param>
         /// <returns>True if successful, false if already subscriber</returns>
         public static Boolean Subscribe<T>(KFlyCommandType command, Action<T> action) where T:KFlyCommand
-       // public static Boolean Subscribe(KFlyCommandType command, Action<KFlyCommand> action)
         {
-            Action<KFlyCommand> act = action as Action<KFlyCommand>;
-            if (_subscribers.ContainsKey(command))
-            {
-                if (_subscribers[command].Contains(action))
-                    return false;
-                _subscribers[command].Add(action);
-            }
-            else
-            {
-                _subscribers.Add(command, new List<Delegate>(){ action });
-            }
-            return true;
+            return Subscribe<T>(command, action, action);
         }
 
-        public static Boolean Unsubscribe(KFlyCommandType command, Action<KFlyCommand> action)
+        public static Boolean Unsubscribe(KFlyCommandType command, dynamic id)
         {
-            if (_subscribers.ContainsKey(command))
-            {
-                if (_subscribers[command].Contains(action))
-                {
-                    _subscribers[command].Remove(action);
-                    return true;
-                }
-            }
-            return false;
+            Delegate dummy;
+            return _subscribers[command].TryRemove(id, out dummy);
         }
+
+        private static Task _latestHandleTask;
 
         public static void Handle(KFlyCommand command)
         {
-            if (_subscribers.ContainsKey(command.Type))
-            {
-                foreach (var action in _subscribers[command.Type])
+            _latestHandleTask = Task.Factory.StartNew(() =>
                 {
-                    try
+                    foreach (var action in _subscribers[command.Type].Values)
                     {
-                        action.DynamicInvoke(command);
+                        try
+                        {
+                            action.DynamicInvoke(command);
+                        }
+                        catch
+                        { }
                     }
-                    catch
-                    { }
-                }
-            }
-            if (_subscribers.ContainsKey(KFlyCommandType.All))
-            {
-                foreach (var action in _subscribers[KFlyCommandType.All])
-                {
-                    try
+                    foreach (var action in _subscribers[KFlyCommandType.All].Values)
                     {
-                        action.DynamicInvoke(command);
+                        try
+                        {
+                            action.DynamicInvoke(command);
+                        }
+                        catch
+                        { }
                     }
-                    catch
-                    { }
-                }
-            }
+                });
+        }
+
+        /// <summary>
+        /// This is more for the testclasses
+        /// </summary>
+        public static void WaitForHandle()
+        {
+            if (_latestHandleTask != null)
+                _latestHandleTask.Wait(1000);
         }
     }
 
