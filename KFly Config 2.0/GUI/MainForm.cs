@@ -365,8 +365,5 @@ namespace KFly
             disconnectBtn.Enabled = false;
             connectBtn.Enabled = true;
         }
-
-
-
     }
 }
