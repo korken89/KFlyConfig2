@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KFlyConfig", "KFly Config 2.0\KFlyConfig.csproj", "{105F9DB5-5FBB-4271-AE9C-0A4C055F8AF4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KFlyConfig.OldGUI", "KFly Config 2.0\KFlyConfig.OldGUI.csproj", "{105F9DB5-5FBB-4271-AE9C-0A4C055F8AF4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KFlyConfig.Test", "KFlyConfig.Test\KFlyConfig.Test.csproj", "{BBF9FFD2-4AB8-462F-AFF6-67D1BD00098A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KFlyConfig.GUI", "KflyConfig.GUI\KFlyConfig.GUI.csproj", "{F9480627-03C4-4D66-B0E2-4EC321FB5B70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KFlyConfig", "KFlyConfig\KFlyConfig.csproj", "{87AD72F0-DE3A-4EE9-82AD-8DF42193E8DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +39,26 @@ Global
 		{BBF9FFD2-4AB8-462F-AFF6-67D1BD00098A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{BBF9FFD2-4AB8-462F-AFF6-67D1BD00098A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{BBF9FFD2-4AB8-462F-AFF6-67D1BD00098A}.Release|x86.ActiveCfg = Release|Any CPU
+		{F9480627-03C4-4D66-B0E2-4EC321FB5B70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9480627-03C4-4D66-B0E2-4EC321FB5B70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9480627-03C4-4D66-B0E2-4EC321FB5B70}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F9480627-03C4-4D66-B0E2-4EC321FB5B70}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F9480627-03C4-4D66-B0E2-4EC321FB5B70}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F9480627-03C4-4D66-B0E2-4EC321FB5B70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9480627-03C4-4D66-B0E2-4EC321FB5B70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9480627-03C4-4D66-B0E2-4EC321FB5B70}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F9480627-03C4-4D66-B0E2-4EC321FB5B70}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F9480627-03C4-4D66-B0E2-4EC321FB5B70}.Release|x86.ActiveCfg = Release|Any CPU
+		{87AD72F0-DE3A-4EE9-82AD-8DF42193E8DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87AD72F0-DE3A-4EE9-82AD-8DF42193E8DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87AD72F0-DE3A-4EE9-82AD-8DF42193E8DA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{87AD72F0-DE3A-4EE9-82AD-8DF42193E8DA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{87AD72F0-DE3A-4EE9-82AD-8DF42193E8DA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{87AD72F0-DE3A-4EE9-82AD-8DF42193E8DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87AD72F0-DE3A-4EE9-82AD-8DF42193E8DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87AD72F0-DE3A-4EE9-82AD-8DF42193E8DA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{87AD72F0-DE3A-4EE9-82AD-8DF42193E8DA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{87AD72F0-DE3A-4EE9-82AD-8DF42193E8DA}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

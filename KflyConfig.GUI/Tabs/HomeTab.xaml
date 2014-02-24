@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="KFly.GUI.HomeTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Background="White"
+             d:DesignHeight="536" d:DesignWidth="622">
+    <DockPanel LastChildFill="True" HorizontalAlignment="Stretch">
+        <DockPanel.Background>
+            <ImageBrush Stretch="None" AlignmentX="Right" AlignmentY="Top" ImageSource="../Resources/airplane.png">
+                <ImageBrush.RelativeTransform>
+                    <TransformGroup>
+                        <ScaleTransform CenterY="0" CenterX="1" ScaleX="0.5" ScaleY="0.5"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </ImageBrush.RelativeTransform>
+            </ImageBrush>
+        </DockPanel.Background>
+        <Rectangle DockPanel.Dock="Left" Fill="{DynamicResource AccentColorBrush}" Margin="0,6,0,6" Width="3" VerticalAlignment="Stretch" />
+        <DockPanel Margin="5,5,5,5" LastChildFill="True" HorizontalAlignment="Stretch">
+            <DockPanel DockPanel.Dock="Top" LastChildFill="False" VerticalAlignment="Center">
+                <Label Content="KFly" FontWeight="Bold" FontSize="80" Foreground="{DynamicResource AccentColorBrush}"
+                                   HorizontalAlignment="Left" VerticalAlignment="Center" />
+                <StackPanel VerticalAlignment="Center">
+                    <Label Content="Config" Margin="0" Padding="0" FontSize="40" Foreground="{DynamicResource AccentColorBrush}"
+                                   HorizontalAlignment="Left" VerticalAlignment="Center" />
+                    <Label Content="v.0.0.1" Margin="0" FontSize="20" Foreground="{DynamicResource AccentColorBrush}" />
+                </StackPanel>
+            </DockPanel>
+            <StackPanel>
+                <Label Content="blablabla" />
+            </StackPanel>
+        </DockPanel>
+    </DockPanel>
+</UserControl>

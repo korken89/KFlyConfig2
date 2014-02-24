@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Text;
 using System.Drawing;
@@ -8,11 +9,9 @@ using System.Windows.Forms;
 
 namespace KFly.Communication
 {
-    class TelemetryLink
+    public class TelemetryLink
     {
-        private delegate void VoidCallbackType(int data);
-
-        // Property variables
+         // Property variables
         private string _baudRate = string.Empty;
         private string _parity = string.Empty;
         private string _stopBits = string.Empty;
@@ -81,6 +80,14 @@ namespace KFly.Communication
             }
         }
 
+        public Boolean Connected
+        {
+            get
+            {
+                return comPort.IsOpen;
+            }
+        }
+
         public void ClosePort()
         {
             if (comPort.IsOpen == true) comPort.Close();
@@ -90,14 +97,6 @@ namespace KFly.Communication
         {
             byte[] data = cmd.ToTx().ToArray();
             comPort.Write(data, 0, data.Length);
-        }
-
-        public void SendData(List<KFlyCommand> cmds)
-        {
-            foreach (KFlyCommand cmd in cmds)
-            {
-                SendData(cmd);
-            }
         }
 
         private List<byte> _received = new List<byte>();

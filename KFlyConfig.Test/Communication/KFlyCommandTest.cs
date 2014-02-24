@@ -18,7 +18,8 @@ namespace KFlyConfig.Test
 
 
         public static KFlyCommand LatestReceived;
-        public static StateMachine State; 
+        public static StateMachine State;
+        private static TeleSubscription Ts;
            
         private static void HandleKFlyCommand(KFlyCommand cmd)
         {
@@ -29,14 +30,14 @@ namespace KFlyConfig.Test
         public static void Initialize(TestContext context)
         {
             State = new StateMachine();
-            TeleManager.Subscribe(KFlyCommandType.All, (Action<KFlyCommand>)HandleKFlyCommand); 
+            Ts = Telemetry.Subscribe(KFlyCommandType.All, (Action<KFlyCommand>)HandleKFlyCommand); 
         }
 
         [ClassCleanup]
         public static void Cleanup()
         {
             State = null;
-            TeleManager.Unsubscribe(KFlyCommandType.All, (Action<KFlyCommand>)HandleKFlyCommand);
+            Telemetry.Unsubscribe(Ts);
         }
 
         [TestMethod]
@@ -46,13 +47,13 @@ namespace KFlyConfig.Test
 
             DebugMessage dm = new DebugMessage();
             SendBytes(State, dm.ToTx());
-            TeleManager.WaitForHandle();
+            Telemetry.WaitForHandle();
             Assert.IsInstanceOfType(LatestReceived, typeof(DebugMessage));
             Assert.AreEqual("",(LatestReceived as DebugMessage).Message);
 
             dm = new DebugMessage("Test message");
             SendBytes(State, dm.ToTx());
-            TeleManager.WaitForHandle();
+            Telemetry.WaitForHandle();
             Assert.IsInstanceOfType(LatestReceived, typeof(DebugMessage));
             Assert.AreEqual("Test message", (LatestReceived as DebugMessage).Message);
         }
@@ -63,7 +64,7 @@ namespace KFlyConfig.Test
             State.Reset();
             Ping dm = new Ping();
             SendBytes(State, dm.ToTx());
-            TeleManager.WaitForHandle();
+            Telemetry.WaitForHandle();
             Assert.IsInstanceOfType(LatestReceived, typeof(Ping));
         }
 
@@ -74,7 +75,7 @@ namespace KFlyConfig.Test
 
             KFlyCommand cmd = new GetBootLoaderVersion(){ Version = "v.1.0.3" };
             SendBytes(State, cmd.ToTx());
-            TeleManager.WaitForHandle();
+            Telemetry.WaitForHandle();
             Assert.IsInstanceOfType(LatestReceived, typeof(GetBootLoaderVersion));
             Assert.AreEqual("v.1.0.3",(LatestReceived as GetBootLoaderVersion).Version);
         }
@@ -86,7 +87,7 @@ namespace KFlyConfig.Test
 
             KFlyCommand cmd = new GetFirmwareVersion(){ Version = "v.1.0.3" };
             SendBytes(State, cmd.ToTx());
-            TeleManager.WaitForHandle();
+            Telemetry.WaitForHandle();
             Assert.IsInstanceOfType(LatestReceived, typeof(GetFirmwareVersion));
             Assert.AreEqual("v.1.0.3",(LatestReceived as GetFirmwareVersion).Version);
         }

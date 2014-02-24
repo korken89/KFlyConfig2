@@ -16,15 +16,11 @@ namespace KFly
 {
     public partial class KFlyConfig : Form
     {
-        private TelemetryLink _telLink;
-       // private USBHandler _usbHandler;
-
+      
         public KFlyConfig()
         {
             InitializeComponent();
-            _telLink = new TelemetryLink();
-           // _usbHandler = new USBHandler();
-        }
+         }
 
         protected override void WndProc(ref Message m)
         {
@@ -107,7 +103,7 @@ namespace KFly
         private void SubscribeToCommunication()
         {
             //Log window
-            TeleManager.Subscribe(KFlyCommandType.All, (KFlyCommand cmd) =>
+            Telemetry.Subscribe(KFlyCommandType.All, (KFlyCommand cmd) =>
             {
                 infoBox.BeginInvoke((MethodInvoker)delegate
                 {
@@ -116,7 +112,7 @@ namespace KFly
             });
 
             //Firmware version info textbox
-            TeleManager.Subscribe(KFlyCommandType.GetFirmwareVersion, (GetFirmwareVersion cmd) =>
+            Telemetry.Subscribe(KFlyCommandType.GetFirmwareVersion, (GetFirmwareVersion cmd) =>
             {
                 firmwareVersion.BeginInvoke((Action)(() =>
                 {
@@ -125,7 +121,7 @@ namespace KFly
             });
 
             //Bootloader version info textbox
-            TeleManager.Subscribe(KFlyCommandType.GetBootloaderVersion, (GetBootLoaderVersion cmd) =>
+            Telemetry.Subscribe(KFlyCommandType.GetBootloaderVersion, (GetBootLoaderVersion cmd) =>
             {
                 bootloaderVersion.BeginInvoke((Action)(() =>
                 {
@@ -197,18 +193,21 @@ namespace KFly
 
         private void connectBtn_Click(object sender, EventArgs e)
         {
-            _telLink.PortName = comportsCombo.Text;
-            _telLink.BaudRate = baudrateCombo.Text;
+            Telemetry.Link.PortName = comportsCombo.Text;
+            Telemetry.Link.BaudRate = baudrateCombo.Text;
             Properties.Settings.Default.ComPort = comportsCombo.Text;
             Properties.Settings.Default.Baudrate = baudrateCombo.Text;
             Properties.Settings.Default.Save();
 
-            if (_telLink.OpenPort())
+           // var id = Log.NewRow(Log
+
+
+            if (Telemetry.Link.OpenPort())
             {
                 disconnectBtn.Enabled = true;
                 connectBtn.Enabled = false;
-                _telLink.SendData(new GetFirmwareVersion());
-                _telLink.SendData(new GetBootLoaderVersion());
+                Telemetry.SendAsync(new GetFirmwareVersion());
+                Telemetry.SendAsync(new GetBootLoaderVersion());
             }
             else
             {
@@ -218,7 +217,7 @@ namespace KFly
 
         private void disconnectBtn_Click(object sender, EventArgs e)
         {
-            _telLink.ClosePort();
+            Telemetry.Link.ClosePort();
             disconnectBtn.Enabled = false;
             connectBtn.Enabled = true;
         }
@@ -232,6 +231,46 @@ namespace KFly
             ch_centers[index].Enabled = (ch_roles[index].SelectedIndex != 0);
             ch_types[index].Enabled = (ch_roles[index].SelectedIndex != 0);
         }
+
+        private ControllerData GetAttitudeControllerData()
+        {
+            ControllerData cd = new ControllerData();
+            cd.Pitch.PGain = (float)attitude_pkp.Value;
+            cd.Pitch.IGain = (float)attitude_pki.Value;
+            cd.Pitch.ILimit = (float)attitude_pil.Value;
+            cd.Roll.PGain = (float)attitude_rkp.Value;
+            cd.Roll.IGain = (float)attitude_rki.Value;
+            cd.Roll.ILimit = (float)attitude_ril.Value;
+            cd.Yaw.PGain = (float)attitude_ykp.Value;
+            cd.Yaw.IGain = (float)attitude_yki.Value;
+            cd.Yaw.ILimit = (float)attitude_yil.Value;
+            return cd;
+        }
+
+        private ControllerData GetRateControllerData()
+        {
+            ControllerData cd = new ControllerData();
+            cd.Pitch.PGain = (float)rate_pkp.Value;
+            cd.Pitch.IGain = (float)rate_pki.Value;
+            cd.Pitch.ILimit = (float)rate_pil.Value;
+            cd.Roll.PGain = (float)rate_rkp.Value;
+            cd.Roll.IGain = (float)rate_rki.Value;
+            cd.Roll.ILimit = (float)rate_ril.Value;
+            cd.Yaw.PGain = (float)rate_ykp.Value;
+            cd.Yaw.IGain = (float)rate_yki.Value;
+            cd.Yaw.ILimit = (float)rate_yil.Value;
+            return cd;
+        }
+
+        private void saveAttitudeControllerButton_Click(object sender, EventArgs e)
+        {
+         /*   _telLink.SendDataWithAck(
+                new SetControllerData(KFlyCommandType.SetAttitudeControllerData, 
+                    GetAttitudeControllerData()),
+                100);*/
+        }
+
+  
 
     }
 }

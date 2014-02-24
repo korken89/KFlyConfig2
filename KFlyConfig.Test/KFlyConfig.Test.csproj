@@ -50,13 +50,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Communication\TeleManagerTest.cs" />
     <Compile Include="Communication\KFlyCommandTest.cs" />
     <Compile Include="Communication\StateMachineTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\KFly Config 2.0\KFlyConfig.csproj">
-      <Project>{105f9db5-5fbb-4271-ae9c-0a4c055f8af4}</Project>
+    <ProjectReference Include="..\KFlyConfig\KFlyConfig.csproj">
+      <Project>{87ad72f0-de3a-4ee9-82ad-8df42193e8da}</Project>
       <Name>KFlyConfig</Name>
     </ProjectReference>
   </ItemGroup>

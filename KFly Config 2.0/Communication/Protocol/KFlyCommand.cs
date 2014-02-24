@@ -24,14 +24,21 @@ namespace KFly.Communication
         GetFirmwareVersion = 18,
         SaveToFlash = 19,
 
-        GetControllerData = 30,
-        SetControllerData = 31,
-        GetChannelMix = 32,
-        SetChannelMix = 33,
-        GetRCCalibration = 34,
-        SetRCCalibration = 35,
-        GetRCValues = 36,
-        GetSensorData = 37,
+        GetRateControllerData = 30,
+        SetRateControllerData = 31,
+        GetAttitudeControllerData = 32,
+  	    SetAttitudeControllerData = 33,
+  	    GetVelocityControllerData = 34,
+	    SetVelocityControllerData = 35,
+        GetPositionControllerData = 36,
+        SetPositionControllerData = 37,
+        // 38 Excluded, will be sync when combined with ACK which is forbidden
+        GetChannelMix = 39,
+        SetChannelMix = 40,
+        GetRCCalibration = 41,
+        SetRCCalibration = 42,
+        GetRCValues = 43,
+        GetSensorData = 44,
 
 
         All = 127, //To subscribe everything
@@ -40,8 +47,8 @@ namespace KFly.Communication
     public class KFlyCommand
     {
         public static byte SYNC = (byte)0xa6;
-	    public static byte ACK_BIT = (byte)0x40;
-	    public static byte ACK_MASK = (byte)((int)~0x40 & 0xff);
+	    public static byte ACK_BIT = (byte)0x80;
+	    public static byte ACK_MASK = (byte)((int)~0x80 & 0xff);
 
         public KFlyCommandType Type;
 

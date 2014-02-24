@@ -37,6 +37,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -61,11 +62,14 @@
     <Compile Include="Communication\Protocol\Commands\SetRCCalibration.cs" />
     <Compile Include="Communication\Protocol\Commands\SetControllerData.cs" />
     <Compile Include="Communication\Protocol\Commands\DebugMessage.cs" />
-    <Compile Include="Communication\TeleManager.cs" />
+    <Compile Include="Communication\Telemetry.cs" />
     <Compile Include="Communication\USBHandler.cs" />
     <Compile Include="DataClasses\ChannelData.cs" />
+    <Compile Include="DataClasses\PIData.cs" />
     <Compile Include="DataClasses\MixerData.cs" />
     <Compile Include="DataClasses\ControllerData.cs" />
+    <Compile Include="Logging\LogManager.cs" />
+    <Compile Include="Logging\RichEditLog.cs" />
     <Compile Include="SensorCalibration.cs" />
     <Compile Include="Communication\CRC8.cs" />
     <Compile Include="Communication\CRC_CCITT.cs" />
