@@ -45,7 +45,7 @@ namespace KFly.GUI
             typeof(Brush),
             typeof(ModalContentPresenter),
             new UIPropertyMetadata(new SolidColorBrush(
-                Color.FromArgb(204, 169, 169, 169)),
+                Color.FromArgb(120, 169, 169, 169)),
                 OnOverlayBrushChanged));
 
         public bool IsModal

@@ -69,29 +69,7 @@
         <Controls:FlyoutsControl>
             <Controls:Flyout x:Name="ConnectionFlyout" Margin="100 0 0 0" IsModal="True"
                               Header="Connection" Position="Right">
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <StackPanel Margin="10" Width="180">
-                            <Label Content="SerialPort"/>
-                            <ComboBox Name="PortsCombo" HorizontalAlignment="Stretch"  />
-                        </StackPanel>
-                        <StackPanel Margin="10" Width="180">
-                            <Label Content="Baudrate"/>
-                            <ComboBox Name="BaudrateCombo" Initialized="BaudrateCombo_Initialized" HorizontalAlignment="Stretch">
-                                <ComboBoxItem>1000000</ComboBoxItem>
-                                <ComboBoxItem>250000</ComboBoxItem>
-                                <ComboBoxItem>115200</ComboBoxItem>
-                                <ComboBoxItem>57600</ComboBoxItem>
-                                <ComboBoxItem>19200</ComboBoxItem>
-                            </ComboBox>
-                        </StackPanel>
-                    </WrapPanel>
-                    <CheckBox Name="TryReconnectCB" Content="Try reconnect forever" HorizontalAlignment="Center"></CheckBox>
-                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button Name="ConnectBtn" Click="ConnectButton_Click" Margin="10" Width="100" Height="25" VerticalAlignment="Bottom" Content="Connect" />
-                        <Button Name="DisconnectBtn" Click="DisconnectButton_Click" Margin="10" Width="100" Height="25" VerticalAlignment="Bottom" Content="Disconnect" IsEnabled="False" />
-                    </WrapPanel>
-                </StackPanel>
+                <kfly:Connection x:Name="ConnectionControl" />
             </Controls:Flyout>
         </Controls:FlyoutsControl>
     </Controls:MetroWindow.Flyouts>

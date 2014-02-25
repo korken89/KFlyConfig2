@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:kfly="clr-namespace:KFly.GUI"       
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             Initialized="UserControl_Initialized"
              mc:Ignorable="d" 
              Background="White"
              d:DesignHeight="536" d:DesignWidth="622">
@@ -30,7 +32,7 @@
         <DockPanel Margin="5,5,5,5" LastChildFill="True" HorizontalAlignment="Stretch">
             <DockPanel DockPanel.Dock="Top" LastChildFill="False" VerticalAlignment="Center">
                 <Label Content="Firmware" Style="{StaticResource DescriptionHeaderStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                <Button Name="RefreshFirmwareBtn" Initialized="RefreshFirmwareBtn_Initialized" ToolTipService.ShowOnDisabled="True"
+                <Button Name="RefreshFirmwareBtn" Initialized="RefreshFirmwareBtn_Initialized" Click="RefreshFirmwareBtn_Click" ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Refresh" DockPanel.Dock="Right" Width="40"
                                         Height="40"
                                         Margin="0, 0, 0, 0"
@@ -43,35 +45,39 @@
                 </Button>
             </DockPanel>
             <Separator DockPanel.Dock="Top"/>
-            <StackPanel>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Content="Bootloader version:" />
-                    <Label Grid.Row="0" Grid.Column="1" Content="-Unknown-" />
-                    <Label Grid.Row="1" Grid.Column="0" Content="Firmware version:"/>
-                    <Label Grid.Row="1" Grid.Column="1" Content="-Unknown-" />
-                </Grid>
-                <Label Content="Update firmware" Margin="0,10,0,0" FontSize="16" />
-                <WrapPanel>
-                    <TextBox Width="300" Grid.Row="1" Grid.Column="0"  metro:TextboxHelper.Watermark="Path to file" VerticalAlignment="Center" />
-                    <Button Margin="5" Content="Browse" />
-                </WrapPanel>
-                <WrapPanel>
-                    <Button Margin="5"  Content="Program" />
-                    <Button Margin="5"  Content="Verify" />
-                    <Button Margin="5"  Content="Exit Bootloader" />
-                    <Button Margin="5"  Content="Write To Flash" />
-                </WrapPanel>
-
-            </StackPanel>
+            <kfly:ModalContentPresenter x:Name="connectionModal">
+                <StackPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Content="Bootloader version:" />
+                        <Label Name="BootloaderVersionLabel" Grid.Row="0" Grid.Column="1" Content="-Unknown-" />
+                        <Label Grid.Row="1" Grid.Column="0" Content="Firmware version:"/>
+                        <Label Name="FirmwareVersionLabel" Grid.Row="1" Grid.Column="1" Content="-Unknown-" />
+                    </Grid>
+                    <Label Content="Update firmware" Margin="0,10,0,0" FontSize="16" />
+                    <WrapPanel>
+                        <TextBox Width="300" Grid.Row="1" Grid.Column="0"  metro:TextboxHelper.Watermark="Path to file" VerticalAlignment="Center" />
+                        <Button Margin="5" Content="Browse" />
+                    </WrapPanel>
+                    <WrapPanel>
+                        <Button Margin="5"  Content="Program" />
+                        <Button Margin="5"  Content="Verify" />
+                        <Button Margin="5"  Content="Exit Bootloader" />
+                        <Button Margin="5"  Content="Write To Flash" />
+                    </WrapPanel>
+                </StackPanel>
+                <kfly:ModalContentPresenter.ModalContent>
+                    <kfly:ModalNotConnected/>
+                </kfly:ModalContentPresenter.ModalContent>
+            </kfly:ModalContentPresenter>
 
         </DockPanel>
     </DockPanel>

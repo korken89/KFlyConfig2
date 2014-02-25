@@ -59,8 +59,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Components\ModalNotConnected.xaml.cs">
+      <DependentUpon>ModalNotConnected.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Logging\LabelLog.cs" />
     <Compile Include="Logging\RichEditLog.cs" />
+    <Compile Include="Tabs\Connection.xaml.cs">
+      <DependentUpon>Connection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\FirmwareTab.xaml.cs">
       <DependentUpon>FirmwareTab.xaml</DependentUpon>
     </Compile>
@@ -68,6 +74,10 @@
       <DependentUpon>HomeTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\ModalContentPresenter.cs" />
+    <Page Include="Components\ModalNotConnected.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -83,6 +93,10 @@
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tabs\Connection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Tabs\FirmwareTab.xaml">
       <Generator>MSBuild:Compile</Generator>

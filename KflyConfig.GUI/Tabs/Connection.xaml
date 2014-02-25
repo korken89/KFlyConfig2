@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="KFly.GUI.Connection"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             Initialized="UserControl_Initialized"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="400">
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
+        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Margin="10" Width="180">
+                <Label Content="SerialPort"/>
+                <ComboBox Name="PortsCombo" HorizontalAlignment="Stretch"  />
+            </StackPanel>
+            <StackPanel Margin="10" Width="180">
+                <Label Content="Baudrate"/>
+                <ComboBox Name="BaudrateCombo" Initialized="BaudrateCombo_Initialized" HorizontalAlignment="Stretch">
+                </ComboBox>
+            </StackPanel>
+        </WrapPanel>
+        <CheckBox Name="TryReconnectCB" Content="Try reconnect forever" HorizontalAlignment="Center"></CheckBox>
+        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Name="ConnectBtn" Click="ConnectButton_Click" Margin="10" Width="100" Height="25" VerticalAlignment="Bottom" Content="Connect" />
+            <Button Name="DisconnectBtn" Click="DisconnectButton_Click" Margin="10" Width="100" Height="25" VerticalAlignment="Bottom" Content="Disconnect" IsEnabled="False" />
+        </WrapPanel>
+    </StackPanel>
+</UserControl>
