@@ -161,6 +161,17 @@ namespace KFly.Logging
             }));
         }
 
+        public void LogDebugLine(String msg)
+        {
+            _box.Dispatcher.BeginInvoke((Action)(() =>
+            {
+                msg = "<b><#AA000000>" + msg + "</#></b>";
+                Paragraph p = new Paragraph();
+                DrawHeader(p);
+                DrawToParagraph(p, msg);
+            }));
+        }
+
         public void LogCriticalLine(String msg)
         {
             LogErrorLine(msg);

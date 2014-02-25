@@ -7,6 +7,7 @@ namespace KFly.Communication
 {
     public class StateMachine
     {
+
         /* The different states the state machine can have */
         public enum State
         {
@@ -27,6 +28,13 @@ namespace KFly.Communication
         private State _savedState = State.None;
         private bool _ack = false;
 
+        private ITelemetryLink _link;
+
+        public StateMachine(ITelemetryLink link)
+        {
+            _link = link;
+        }
+      
         public void Reset()
         {
             _currentState = State.WaitingForSYNC;
@@ -271,7 +279,7 @@ namespace KFly.Communication
                 (message.Count > 4)? message.Count - 2 : message.Count));
             if (cmd != null)
             {
-                Telemetry.Handle(cmd);
+                _link.HandleReceived(cmd);
             }
 	    }
     }

@@ -30,7 +30,7 @@ namespace KFly.GUI
         private void RefreshFirmwareBtn_Initialized(object sender, EventArgs e)
         {
             RefreshFirmwareBtn.IsEnabled = true;// Telemetry.IsConnected;
-            RefreshFirmwareBtn.ToolTip = (Telemetry.IsConnected) ? "Refresh" : "Need to be connected to refresh";
+            RefreshFirmwareBtn.ToolTip = "Need to be connected to refresh";
 
             Telemetry.Subscribe(KFlyCommandType.ConnectionStatusChanged, (ConnectionStatusChanged csc) =>
             {

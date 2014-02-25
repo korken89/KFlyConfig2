@@ -6,7 +6,7 @@ using KFly.Communication;
 namespace KFlyConfig.Test
 {
     [TestClass]
-    public class KFlyCommandTest
+    public class KFlyCommandTest: ITelemetryLink
     {
         private void SendBytes(StateMachine state, IEnumerable<byte> bytes)
         {
@@ -19,25 +19,22 @@ namespace KFlyConfig.Test
 
         public static KFlyCommand LatestReceived;
         public static StateMachine State;
-        private static TeleSubscription Ts;
            
-        private static void HandleKFlyCommand(KFlyCommand cmd)
+        public void HandleReceived(KFlyCommand cmd)
         {
             LatestReceived = cmd;
         }
 
-        [ClassInitialize]
-        public static void Initialize(TestContext context)
+        [TestInitialize]
+        public void Initialize()
         {
-            State = new StateMachine();
-            Ts = Telemetry.Subscribe(KFlyCommandType.All, (Action<KFlyCommand>)HandleKFlyCommand); 
+            State = new StateMachine(this);
         }
 
-        [ClassCleanup]
-        public static void Cleanup()
+        [TestCleanup]
+        public void Cleanup()
         {
             State = null;
-            Telemetry.Unsubscribe(Ts);
         }
 
         [TestMethod]

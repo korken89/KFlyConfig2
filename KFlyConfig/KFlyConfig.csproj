@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Communication\CRC8.cs" />
     <Compile Include="Communication\CRC_CCITT.cs" />
+    <Compile Include="Communication\ITelemetryLink.cs" />
     <Compile Include="Communication\Protocol\Commands\ConnectionStatusChanged.cs" />
     <Compile Include="Communication\Protocol\Commands\DebugMessage.cs" />
     <Compile Include="Communication\Protocol\Commands\GetBootLoaderVersion.cs" />

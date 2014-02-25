@@ -45,6 +45,11 @@ namespace KFly.Logging
             LogErrorLine(msg);
         }
 
+        public void LogDebugLine(String msg)
+        {
+            //Dont show debug ever!   
+        }
+
         public void LogWarningLine(String msg)
         {
             LogLine(msg, Colors.Yellow);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,47 +21,42 @@ namespace KFly.Communication
         }
     }
 
-    public class TelemetrySerialPort
+    public class TelemetrySerialPort: ITelemetryLink
     {
-        public delegate void MessageReceivedEvent(byte[] message);
-        public event MessageReceivedEvent MessageReceived;
-
-        private SerialPort _serialport;
+       
+        private SerialPort _serialPort;
         private string _portname = "/dev/ttyUSB0";
         private Baudrate _baudrate = Baudrate.Baud_115200;
 
 
-        private StateMachine _stateMachine = new StateMachine();
+        private StateMachine _stateMachine; 
+
+        private static BlockingCollection<KFlyCommand> _sendBuffer = new BlockingCollection<KFlyCommand>(50);
+        private static BlockingCollection<KFlyCommand> _receiveBuffer = new BlockingCollection<KFlyCommand>(50);
+
     
-        private bool gotReadWriteError = true;
-        private bool keepconnectionalive = false;
-        private Thread _connectionwatcher;
-
-        private bool _isconnected = false;
+        private bool _gotReadWriteError = true;
+       
+        private bool _isOpen = false;
+        private bool _isConnectedToKFly = false;
         private bool _isrunning = true;
-
-        private object _writelock = new object();
 
         private Thread _receiverthread;
         private Thread _senderthread;
-
-
-        private bool _debug = false;
+        private Thread _connectionThread;
+        private DateTime _lastReceivedMsg;
+        private static TimeSpan KFLY_TIME_OUT = TimeSpan.FromSeconds(10);
+        private static TimeSpan KFLY_TIME_BETWEEN_PING = TimeSpan.FromSeconds(2);
 
 
         public TelemetrySerialPort()
         {
+            _stateMachine = new StateMachine(this);
         }
 
         public bool IsConnected
         {
-            get { return _isconnected && !gotReadWriteError; }
-        }
-
-        public bool Debug
-        {
-            get { return _debug; }
-            set { _debug = value; }
+            get { return _isConnectedToKFly; }
         }
 
         public String PortName
@@ -88,66 +84,38 @@ namespace KFly.Communication
         }
 
 
-        public bool Connect()
+        public void Connect()
         {
-            bool success = _open();
-            //
-            //
-            // we use reader loop for Linux/Mono compatibility
-            //
-            if (_connectionwatcher != null)
+            if (_connectionThread == null)
             {
-                try
-                {
-                    keepconnectionalive = false;
-                    _connectionwatcher.Abort();
-                }
-                catch { }
+                //Connection thread handles the opening of the port
+                _connectionThread = new Thread(ConnectionThread);
+                _connectionThread.Start();
             }
-            //
-            keepconnectionalive = true;
-            _connectionwatcher = new Thread(new ThreadStart(delegate()
-            {
-                gotReadWriteError = !success;
-                //
-                while (keepconnectionalive)
-                {
-                    if (gotReadWriteError)
-                    {
-                        try
-                        {
-                            _close();
-                        }
-                        catch (Exception unex)
-                        {
-                            if (Debug)
-                                LogManager.LogErrorLine(unex.Message + "\n" + unex.StackTrace);
-                        }
-                        Thread.Sleep(5000);
-                        if (keepconnectionalive)
-                        {
-                            try
-                            {
-                                gotReadWriteError = !_open();
-                            }
-                            catch (Exception unex)
-                            {
-                                if (Debug)
-                                    LogManager.LogErrorLine(unex.Message + "\n" + unex.StackTrace);
-                            }
-                        }
-                    }
-                    //
-                    Thread.Sleep(1000);
-                }
-            }));
-            _connectionwatcher.Start();
-            return success;
         }
 
         public void Disconnect()
         {
-            keepconnectionalive = false;
+            if (_connectionThread != null)
+            {
+                try
+                {
+                    _connectionThread.Abort();
+                }
+                catch { };
+                _connectionThread = null;
+            }
+
+            if (_isConnectedToKFly)
+            {
+                _isOpen = false;
+                _isConnectedToKFly = false;
+                _gotReadWriteError = false;
+                Telemetry.Handle(new ConnectionStatusChanged() { Connected = false });
+            }
+            //Error, lets close the port
+            LogManager.LogInfoLine("Closing connection to Serialport " + _portname);
+               
             //
             try { _senderthread.Abort(); }
             catch { }
@@ -156,53 +124,47 @@ namespace KFly.Communication
             catch { }
             _receiverthread = null;
             //
-            _close();
+            ClosePort();
         }
 
 
-        public void SendMessage(byte[] message)
+        public void SendMessage(KFlyCommand cmd)
         {
-            _messagequeue.Enqueue(message);
+            //Nonblocking add to buffer
+            if (!_sendBuffer.TryAdd(cmd))
+            {
+                LogManager.LogWarningLine("Sendbuffer Full");
+            }
         }
 
-        private bool _open()
+        private bool OpenPort()
         {
             bool success = false;
             try
             {
-                bool tryopen = (_serialport == null);
+                bool tryopen = (_serialPort == null);
                 if (Environment.OSVersion.Platform.ToString().StartsWith("Win") == false)
                 {
                     tryopen = (tryopen && System.IO.File.Exists(_portname));
                 }
                 if (tryopen)
                 {
-                    _serialport = new SerialPort();
-                    _serialport.PortName = _portname;
-                    _serialport.BaudRate = Convert.ToInt32(DisplayValueEnum.GetDescriptionValue(_baudrate));
-                    _serialport.ErrorReceived += HanldeErrorReceived;
+                    _serialPort = new SerialPort();
+                    _serialPort.PortName = _portname;
+                    _serialPort.BaudRate = Convert.ToInt32(DisplayValueEnum.GetDescriptionValue(_baudrate));
+                    _serialPort.ErrorReceived += HandleErrorReceived;
+                    _serialPort.DataReceived += HandleDataReceived;
                 }
-                if (_serialport.IsOpen == false)
+                if (_serialPort.IsOpen == false)
                 {
-                    _serialport.Open();
+                    _serialPort.Open();
                 }
                 success = true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
             }
-            if (success)
-            {
-                Telemetry.Handle(new ConnectionStatusChanged() { Connected = true });
-                LogManager.LogInfoLine("Serialport " + _portname + " connected");                   
-            }
-            else
-            {
-                LogManager.LogErrorLine("Connection to Serialport " + _portname + " failed");
-            }
-
-            _isconnected = success;
-            //
+           
             if (success && _receiverthread == null)
             {
                 _receiverthread = new Thread(_receiverloop);
@@ -215,164 +177,154 @@ namespace KFly.Communication
         }
 
 
-        private void _close()
+        private void ClosePort()
         {
-            if (_serialport != null)
+            if (_serialPort != null)
             {
                 try
                 {
-                    _serialport.Close();
-                    _serialport.ErrorReceived -= HanldeErrorReceived;
+                    _serialPort.Close();
+                    _serialPort.ErrorReceived -= HandleErrorReceived;
+                    _serialPort.DataReceived -= HandleDataReceived;
                 }
                 catch
                 {
                 }
-                _serialport = null;
-                //
-                if (_isconnected)
-                {
-                    Telemetry.Handle(new ConnectionStatusChanged() { Connected = false });
-                }
-                //
-                _isconnected = false;
+                _serialPort = null;
             }
         }
 
-        private void HanldeErrorReceived(object sender, SerialErrorReceivedEventArgs e)
+        private void HandleErrorReceived(object sender, SerialErrorReceivedEventArgs e)
         {
             LogManager.LogErrorLine("SerialPortInput ERROR: " + e.EventType.ToString() + " => " + e.ToString());
+            _gotReadWriteError = true;
         }
 
-        private Queue<byte[]> _messagequeue = new Queue<byte[]>();
+        private void HandleDataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            byte[] buffer = new byte[2048];
+            int bytesread = _serialPort.Read(buffer, 0, 2048);
+            for (int i = 0; i < bytesread; i++)
+            {
+                _stateMachine.SerialManager(buffer[i]);
+            }
+        }
+
+        /// <summary>
+        /// This thread handles the connection
+        /// It waits for the port to be available and then connects
+        /// It detects when the port has been disconnected and
+        /// then reconnects
+        /// </summary>
+        private void ConnectionThread()
+        {
+            _isOpen = false;
+            _gotReadWriteError = false;
+            while (true)
+            {
+                LogManager.LogInfoLine("Connecting to Serialport " + _portname);      
+                //Ok, port not open, lets try connect until successful
+                bool firstFailure = true;
+                while (!_isOpen)
+                {
+                    _isOpen = OpenPort();
+                    if ((!_isOpen) && (firstFailure))
+                    {
+                        LogManager.LogErrorLine("First connection to Serialport " + _portname + " failed. Going into surveying mode...");
+                        firstFailure = false;
+                    }
+                    if (!_isOpen)
+                    {
+                        Thread.Sleep(3000);
+                    }
+                }
+
+                //Ok, now open, lets ping and check that we have a Kfly
+                LogManager.LogInfoLine("Serialport " + _portname + " connected");
+                _lastReceivedMsg = DateTime.Now; //Set so timeout for first ping is right
+
+                //Going into checkforerror mode
+                while (!_gotReadWriteError)
+                {
+                    if (!_sendBuffer.TryAdd(new Ping()))
+                    {
+                        LogManager.LogDebugLine("Could not add ping to send buffer");
+                    }
+                    Thread.Sleep(KFLY_TIME_BETWEEN_PING);
+                    if ((_lastReceivedMsg + KFLY_TIME_OUT) < DateTime.Now )
+                    {
+                        LogManager.LogErrorLine("Communication timeout!");
+                        _gotReadWriteError = true;
+                    }
+                }
+
+                //Error, lets close the port
+                LogManager.LogInfoLine("Closing connection to Serialport " + _portname);
+                _isOpen = false;
+                _isConnectedToKFly = false;
+                _gotReadWriteError = false;
+                Telemetry.Handle(new ConnectionStatusChanged() { Connected = false });
+  
+                ClosePort();
+            }
+        }
+
         private void _senderLoop(object obj)
         {
-            _messagequeue.Clear();
-            while (_isrunning)
+            Clear(_sendBuffer);
+            while (!_sendBuffer.IsCompleted)
             {
-                if (_serialport != null)
-                {
-                    try
-                    {
-                        while (_messagequeue.Count > 0)
-                        {
-                            byte[] message = _messagequeue.Dequeue();
-                            //lock (_writelock)
-                            try
-                            {
-                                if (Debug)
-                                {
-                                    Console.ForegroundColor = ConsoleColor.Yellow;
-                                    Console.WriteLine("SPO < " + ByteArrayToString(message));
-                                    Console.ForegroundColor = ConsoleColor.White;
-                                }
-                                _serialport.Write(message, 0, message.Length);
-                            }
-                            catch (Exception e)
-                            {
-                                if (Debug)
-                                {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine("SPO ! ERROR: " + e.Message);
-                                    Console.ForegroundColor = ConsoleColor.White;
-                                }
-                            }
-                        }
-                    }
-                    catch
-                    {
-
-                    }
-                }
-                else
-                {
-                    Thread.Sleep(950);
-                }
-                Thread.Sleep(50);
-            }
-        }
-
-
-        private void _receiverloop()
-        {
-            while (_isrunning)
-            {
-                int msglen = 0;
-                //
-                if (_serialport != null)
-                {
-                    try
-                    {
-                        msglen = _serialport.BytesToRead;
-                        //
-                        if (msglen > 0)
-                        {
-                            byte[] message = new byte[msglen];
-                            //
-                            int readbytes = 0;
-                            while (_serialport.Read(message, readbytes, msglen - readbytes) <= 0)
-                                ; // noop
-                            if (Debug)
-                            {
-                                Console.ForegroundColor = ConsoleColor.Cyan;
-                                Console.WriteLine("SPI > " + ByteArrayToString(message));
-                                Console.ForegroundColor = ConsoleColor.White;
-                            }
-                            if (MessageReceived != null)
-                            {
-                                _runAsync(() =>
-                                {
-                                    MessageReceived(message);
-                                });
-                            }
-                        }
-                        else
-                        {
-                            Thread.Sleep(50);
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        gotReadWriteError = true;
-                        Thread.Sleep(1000);
-                    }
-                }
-                else
-                {
-                    Thread.Sleep(1000);
-                }
-            }
-        }
-
-
-        public String ByteArrayToString(byte[] message)
-        {
-            String ret = String.Empty;
-            foreach (byte b in message)
-            {
-                ret += b.ToString("X2") + " ";
-            }
-            return ret.Trim();
-        }
-
-
-        private void _runAsync(Action action)
-        {
-            Thread t = new Thread(delegate()
-            {
+                KFlyCommand message = _sendBuffer.Take();
+                //LogManager.LogDebugLine("Sending " + message.ToString()); 
+                List<byte> data = message.ToTx();
                 try
                 {
-                    action();
+                    _serialPort.Write(data.ToArray(), 0, data.Count);
                 }
                 catch (Exception e)
                 {
-
-                    Console.WriteLine("SerialPortLib ERROR!!!!!! " + e.Message + "\n" + e.StackTrace);
-
+                    LogManager.LogErrorLine(e.Message);
+                    _gotReadWriteError = true;
                 }
-            });
-            t.Start();
+            }
+            LogManager.LogErrorLine("Sendbuffer completed, should not happen");
+        }
+
+        private void _receiverloop()
+        {
+            Clear(_receiveBuffer);
+            while (_isrunning)
+            {
+                KFlyCommand message = _receiveBuffer.Take();
+                Telemetry.Handle(message);
+            }
+        }
+
+        private void Clear<T>(BlockingCollection<T> blockingCollection)
+        {
+            while (blockingCollection.Count > 0)
+            {
+                T item;
+                blockingCollection.TryTake(out item);
+            }
+        }
+
+       
+        public void HandleReceived(KFlyCommand cmd)
+        {
+            _lastReceivedMsg = DateTime.Now;
+            //LogManager.LogDebugLine(cmd.ToString()+ " received");
+            if (!_isConnectedToKFly)
+            {
+                _isConnectedToKFly = true;
+                LogManager.LogInfoLine("KFly identified");
+                Telemetry.Handle(new ConnectionStatusChanged() { Connected = true });
+            }
+            else
+                _receiveBuffer.Add(cmd);
         }
     }
+
 
 }
 

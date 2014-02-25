@@ -2,26 +2,39 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              Initialized="UserControl_Initialized"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="400">
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
-        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <StackPanel Margin="10" Width="180">
-                <Label Content="SerialPort"/>
-                <ComboBox Name="PortsCombo" HorizontalAlignment="Stretch"  />
-            </StackPanel>
-            <StackPanel Margin="10" Width="180">
-                <Label Content="Baudrate"/>
-                <ComboBox Name="BaudrateCombo" Initialized="BaudrateCombo_Initialized" HorizontalAlignment="Stretch">
-                </ComboBox>
-            </StackPanel>
-        </WrapPanel>
-        <CheckBox Name="TryReconnectCB" Content="Try reconnect forever" HorizontalAlignment="Center"></CheckBox>
-        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+        <Grid Margin="30,0,30,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Label Margin="5" Grid.Row="0" Grid.Column="0" Content="SerialPort"/>
+            <ComboBox Margin="5" Grid.Row="0" Grid.Column="1" Name="PortsCombo" Width="180"  />
+            <Label Margin="5" Grid.Row="1" Grid.Column="0" Content="Baudrate"/>
+            <ComboBox Margin="5" Grid.Row="1" Grid.Column="1" Name="BaudrateCombo" Width="180"
+                          Initialized="BaudrateCombo_Initialized"/>
+        </Grid>
+        <CheckBox Name="AutoConnect" Click="AutoConnect_Click" Content="Auto connect on program start" HorizontalAlignment="Center"></CheckBox>
+        <metro:ToggleSwitch Content="Connect" Width="150" Padding="5"
+                            OnLabel="Connected"
+                            Checked="MagicToggleButton_Checked"
+                            Unchecked="MagicToggleButton_Unchecked"
+                            OffLabel="Disconnected"
+                            x:Name="MagicToggleButton"
+                            HorizontalAlignment="Center"/>
+       <!--  <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Name="ConnectBtn" Click="ConnectButton_Click" Margin="10" Width="100" Height="25" VerticalAlignment="Bottom" Content="Connect" />
             <Button Name="DisconnectBtn" Click="DisconnectButton_Click" Margin="10" Width="100" Height="25" VerticalAlignment="Bottom" Content="Disconnect" IsEnabled="False" />
-        </WrapPanel>
+        </WrapPanel>-->
     </StackPanel>
 </UserControl>

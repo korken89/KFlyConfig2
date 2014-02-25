@@ -94,16 +94,17 @@ namespace KFly.GUI
         {
             if (PortsCombo.Text.Length > 0)
             {
-                Telemetry.Port = PortsCombo.Text.Split(' ').First();
+                var port = PortsCombo.Text.Split(' ').First();
+                Telemetry.Port = port; 
                 // Telemetry.BaudRate = BaudrateCombo.Text;
-                Properties.Settings.Default.ComPort = PortsCombo.Text;
+                Properties.Settings.Default.ComPort = port;
                 Properties.Settings.Default.Baudrate = BaudrateCombo.Text;
                 Properties.Settings.Default.Save();
 
-                LogManager.LogInfoLine("Connecting to serial port " + PortsCombo.Text + "...");
+                LogManager.LogInfoLine("Connecting to serial port " + port + "...");
                 Telemetry.Connect();
-                DisconnectBtn.IsEnabled = true;
-                ConnectBtn.IsEnabled = false;
+               // DisconnectBtn.IsEnabled = true;
+               // ConnectBtn.IsEnabled = false;
             }
             else
             {
@@ -116,13 +117,49 @@ namespace KFly.GUI
         private void DisconnectButton_Click(object sender, RoutedEventArgs e)
         {
             Telemetry.Disconnect();
-            DisconnectBtn.IsEnabled = false;
-            ConnectBtn.IsEnabled = true;
+           // DisconnectBtn.IsEnabled = false;
+           // ConnectBtn.IsEnabled = true;
         }
 
         private void UserControl_Initialized(object sender, EventArgs e)
         {
             ReloadPorts();
+        }
+
+        
+        private void AutoConnect_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.AutoConnectOnStartup = (AutoConnect.IsChecked == true);
+            Properties.Settings.Default.Save();
+        }
+
+        private void MagicToggleButton_Checked(object sender, RoutedEventArgs e)
+        {
+            if (PortsCombo.Text.Length > 0)
+            {
+                var port = PortsCombo.Text.Split(' ').First();
+                Telemetry.Port = port;
+                // Telemetry.BaudRate = BaudrateCombo.Text;
+                Properties.Settings.Default.ComPort = port;
+                Properties.Settings.Default.Baudrate = BaudrateCombo.Text;
+                Properties.Settings.Default.Save();
+
+                LogManager.LogInfoLine("Connecting to serial port " + port + "...");
+                Telemetry.Connect();
+                // DisconnectBtn.IsEnabled = true;
+                // ConnectBtn.IsEnabled = false;
+            }
+            else
+            {
+                //  MetroDialogOptions.ColorScheme = MetroDialogColorScheme.Accented;
+                //  this.ShowMessageAsync("Can not connect", "You need to choose a serial port");
+            }
+        }
+
+        private void MagicToggleButton_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Telemetry.Disconnect();
+         
         }
 
     }

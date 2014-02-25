@@ -19,7 +19,7 @@ namespace KFlyConfig.Test
         [TestMethod]
         public void TestSuccessfulStates()
         {
-            StateMachine state = new StateMachine();
+            StateMachine state = new StateMachine(null);
             
             //New machine should be in waitforsync state:
             Assert.AreEqual(StateMachine.State.WaitingForSYNC, state.CurrentState);
@@ -67,7 +67,7 @@ namespace KFlyConfig.Test
         [TestMethod]
         public void TestAck()
         {
-            StateMachine state = new StateMachine();
+            StateMachine state = new StateMachine(null);
             SendBytes(state, new byte[] { KFlyCommand.SYNC });
             Assert.AreEqual(StateMachine.State.ReceivingCommand, state.CurrentState);
             Assert.AreEqual(false, state.Ack);
@@ -79,7 +79,7 @@ namespace KFlyConfig.Test
         [TestMethod]
         public void TestReSync()
         {
-            StateMachine state = new StateMachine();
+            StateMachine state = new StateMachine(null);
             SendBytes(state, new byte[] { KFlyCommand.SYNC });
             SendBytes(state, new byte[] { (byte)KFlyCommandType.DebugMessage });
             SendBytes(state, new byte[] { 0x05 });
@@ -103,7 +103,7 @@ namespace KFlyConfig.Test
         [TestMethod]
         public void TestSyncLikeData()
         {
-            StateMachine state = new StateMachine();
+            StateMachine state = new StateMachine(null);
             SendBytes(state, new byte[] { KFlyCommand.SYNC });
             SendBytes(state, new byte[] { (byte)KFlyCommandType.DebugMessage });
             SendBytes(state, new byte[] { 0x05 });
@@ -124,7 +124,7 @@ namespace KFlyConfig.Test
         [TestMethod]
         public void TestSyncLikeSize()
         {
-            StateMachine state = new StateMachine();
+            StateMachine state = new StateMachine(null);
             SendBytes(state, new byte[] { KFlyCommand.SYNC });
             SendBytes(state, new byte[] { (byte)KFlyCommandType.DebugMessage });
             SendBytes(state, new byte[] { KFlyCommand.SYNC, KFlyCommand.SYNC });

@@ -19,7 +19,7 @@ namespace KFly.Communication
 
         private SerialPort comPort = new SerialPort();
 
-        private StateMachine _stateMachine = new StateMachine();
+        private StateMachine _stateMachine = new StateMachine(null);
     
         public enum State
         {

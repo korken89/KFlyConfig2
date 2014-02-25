@@ -50,7 +50,8 @@ namespace KFly.Communication
 
             public static bool Connect()
             {
-                return _link.Connect();
+                _link.Connect();
+                return true;
             }
 
             public static void Disconnect()
@@ -73,11 +74,7 @@ namespace KFly.Communication
         {
             if (_link.IsConnected)
             {
-                _sendBuffer.Enqueue(cmd);
-                Task.Run(() =>
-                {
-                    SendNextMessage();
-                });
+                _link.SendMessage(cmd);
                 return SendResult.OK;
             }
             else

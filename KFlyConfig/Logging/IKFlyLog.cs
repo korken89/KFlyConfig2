@@ -12,5 +12,6 @@ namespace KFly.Logging
         void LogErrorLine(String msg);
         void LogWarningLine(String msg);
         void LogCriticalLine(String msg);
+        void LogDebugLine(String msg);
     }
 }

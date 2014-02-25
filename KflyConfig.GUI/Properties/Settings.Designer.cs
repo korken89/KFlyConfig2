@@ -46,5 +46,17 @@ namespace KFly.GUI.Properties {
                 this["Baudrate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoConnectOnStartup {
+            get {
+                return ((bool)(this["AutoConnectOnStartup"]));
+            }
+            set {
+                this["AutoConnectOnStartup"] = value;
+            }
+        }
     }
 }

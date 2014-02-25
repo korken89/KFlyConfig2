@@ -9,6 +9,8 @@ namespace KFly.Logging
 {
     public static class LogManager
     {
+        private static Boolean DEBUG = false;
+
         private static ConcurrentStack<IKFlyLog> _logs = new ConcurrentStack<IKFlyLog>();
 
         public static void AddLogDestination(IKFlyLog log)
@@ -45,6 +47,17 @@ namespace KFly.Logging
             foreach (IKFlyLog log in _logs)
             {
                 log.LogCriticalLine(msg);
+            }
+        }
+
+        public static void LogDebugLine(String msg)
+        {
+            if (DEBUG)
+            {
+                foreach (IKFlyLog log in _logs)
+                {
+                    log.LogDebugLine(msg);
+                }
             }
         }
 
