@@ -5,8 +5,8 @@
     <Setting Name="ComPort" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="Baudrate" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="Baudrate" Type="KFly.Communication.Baudrate" Scope="User">
+      <Value Profile="(Default)">Baud_1000000</Value>
     </Setting>
     <Setting Name="AutoConnectOnStartup" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

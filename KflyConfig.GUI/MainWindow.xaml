@@ -11,6 +11,16 @@
         Title="KFly Config" Height="600" Width="800">
     <Controls:MetroWindow.Resources>
          <ResourceDictionary>
+            <Rectangle x:Key="connected" Fill="White" Width="16" Height="16">
+                <Rectangle.OpacityMask>
+                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_disconnect}" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+            <Rectangle x:Key="disconnected" Fill="White" Width="16" Height="16">
+                <Rectangle.OpacityMask>
+                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_connect}" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
             <Storyboard x:Key="LogPanelExpand">
                 <DoubleAnimation Storyboard.TargetName="LogPanel" Storyboard.TargetProperty="Height"
                   To="200" Duration="0:0:0.5" />
@@ -55,12 +65,8 @@
         <Controls:WindowCommands>
             <Button Name="OpenConnectBtn" Click="OpenConnectBtn_Click">
                 <StackPanel Orientation="Horizontal">
-                    <Rectangle Name="ConnectionStatusIcon" Fill="White" Width="18" Height="18">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_connect}" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                    <TextBlock Name="ConnectionStatusText" Text="Not connected" />
+                    <UserControl Name="ConnectionStatusIcon" Content="{DynamicResource ResourceKey=disconnected}"/>
+                    <TextBlock Margin="5" Foreground="White" Name="ConnectionStatusText" Text="Not connected" />
                 </StackPanel>
             </Button>
         </Controls:WindowCommands>

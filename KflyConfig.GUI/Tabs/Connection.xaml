@@ -7,7 +7,41 @@
              Initialized="UserControl_Initialized"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="400">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Rectangle x:Key="connected" Fill="{DynamicResource ResourceKey=AccentColorBrush}" Width="16" Height="16">
+                <Rectangle.OpacityMask>
+                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_disconnect}" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+            <Rectangle x:Key="disconnected" Fill="Red" Width="16" Height="16">
+                <Rectangle.OpacityMask>
+                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_connect}" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+            <metro:ProgressRing x:Key="polling" IsActive="True" Width="16" Height="16" />
+        </ResourceDictionary>
+    </UserControl.Resources>
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
+        <Grid Margin="30,0,30,30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Label Margin="2" Grid.Row="0" Grid.Column="0" FontSize="16" Content="Status:"/>
+            <Label x:Name="StatusLabel" Margin="2" Grid.Row="0" Grid.Column="1" FontSize="16" Content="Not connected" />
+            <UserControl x:Name="StatusIcon" Margin="2" Grid.Row="0" Grid.Column="2" Content="{DynamicResource ResourceKey=disconnected}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label Margin="0" Grid.Row="1" Grid.Column="0" Content="Total in:"/>
+            <Label x:Name="TotalInLabel" Margin="0" Grid.Row="1" Grid.Column="1" Content="0"/>
+            <Label Margin="0" Grid.Row="2" Grid.Column="0" Content="Total out:"/>
+            <Label x:Name="TotalOutLabel" Margin="0" Grid.Row="2" Grid.Column="1" Content="0"/>
+        </Grid>
         <Grid Margin="30,0,30,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -18,20 +52,22 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Label Margin="5" Grid.Row="0" Grid.Column="0" Content="SerialPort"/>
-            <ComboBox Margin="5" Grid.Row="0" Grid.Column="1" Name="PortsCombo" Width="180"  />
-            <Label Margin="5" Grid.Row="1" Grid.Column="0" Content="Baudrate"/>
+            <Label Margin="5" Grid.Row="0" Grid.Column="0" Content="SerialPort:"/>
+            <ComboBox Margin="5" Grid.Row="0" Grid.Column="1" metro:TextboxHelper.IsWaitingForData="True" Name="SerialPortCombo" Width="180"
+                      Initialized="SerialPortCombo_Initialized"  />
+            <Label Margin="5" Grid.Row="1" Grid.Column="0" Content="Baudrate:"/>
             <ComboBox Margin="5" Grid.Row="1" Grid.Column="1" Name="BaudrateCombo" Width="180"
                           Initialized="BaudrateCombo_Initialized"/>
         </Grid>
         <CheckBox Name="AutoConnect" Click="AutoConnect_Click" Content="Auto connect on program start" HorizontalAlignment="Center"></CheckBox>
         <metro:ToggleSwitch Content="Connect" Width="150" Padding="5"
                             OnLabel="Connected"
-                            Checked="MagicToggleButton_Checked"
-                            Unchecked="MagicToggleButton_Unchecked"
+                            Checked="ConnectionToggle_Checked"
+                            Unchecked="ConnectionToggle_Unchecked"
                             OffLabel="Disconnected"
-                            x:Name="MagicToggleButton"
+                            x:Name="ConnectionToggle"
                             HorizontalAlignment="Center"/>
+        <Label x:Name="ConnectErrorLabel" Foreground="Red" Content="" HorizontalAlignment="Center" />
        <!--  <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Name="ConnectBtn" Click="ConnectButton_Click" Margin="10" Width="100" Height="25" VerticalAlignment="Bottom" Content="Connect" />
             <Button Name="DisconnectBtn" Click="DisconnectButton_Click" Margin="10" Width="100" Height="25" VerticalAlignment="Bottom" Content="Disconnect" IsEnabled="False" />

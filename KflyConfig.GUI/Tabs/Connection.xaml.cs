@@ -31,24 +31,24 @@ namespace KFly.GUI
 
         private void ReloadPorts()
         {
-            PortsCombo.Items.Clear();
+            SerialPortCombo.Items.Clear();
             foreach (string str in SerialPort.GetPortNames())
             {
-                PortsCombo.Items.Add(str);
+                SerialPortCombo.Items.Add(str);
             }
             var oldChoosen = Properties.Settings.Default.ComPort;
             if ((oldChoosen != null) && (oldChoosen.Length > 0))
             {
-                if (!(PortsCombo.Items.Contains(oldChoosen)))
+                if (!(SerialPortCombo.Items.Contains(oldChoosen)))
                 {
                     oldChoosen += " <Not available>";
-                    PortsCombo.Items.Add(oldChoosen);
+                    SerialPortCombo.Items.Add(oldChoosen);
                 }
-                PortsCombo.SelectedItem = oldChoosen;
+                SerialPortCombo.SelectedItem = oldChoosen;
             }
-            else if (PortsCombo.Items.Count > 0)
+            else if (SerialPortCombo.Items.Count > 0)
             {
-                PortsCombo.SelectedItem = PortsCombo.Items[0];
+                SerialPortCombo.SelectedItem = SerialPortCombo.Items[0];
             }
         }
         
@@ -67,7 +67,7 @@ namespace KFly.GUI
             {
                 if (wParam.ToInt32() == USBHandler.DBT_DEVNODES_CHANGED)
                 {
-                    PortsCombo.Dispatcher.BeginInvoke((Action)(() =>
+                    SerialPortCombo.Dispatcher.BeginInvoke((Action)(() =>
                     {
                         ReloadPorts();
                     }));
@@ -77,53 +77,52 @@ namespace KFly.GUI
         }
 
 
+        private void SerialPortCombo_Initialized(object sender, EventArgs e)
+        {
+            ReloadPorts();
+        }
+        
         private void BaudrateCombo_Initialized(object sender, EventArgs e)
         {
             BaudrateCombo.Items.Clear();
-            foreach (Baudrate baudrate in Enum.GetValues(typeof(Baudrate)))
-            {
-                BaudrateCombo.Items.Add(DisplayValueEnum.GetDescriptionValue(baudrate));
-            }
-            if (Properties.Settings.Default.Baudrate.Length > 0)
-                BaudrateCombo.Text = Properties.Settings.Default.Baudrate;
-            else
-                BaudrateCombo.Text = "1000000";
+            BaudrateCombo.ItemsSource = Enum.GetValues(typeof(Baudrate)).Cast<Baudrate>();
+            BaudrateCombo.SelectedItem = Properties.Settings.Default.Baudrate;
         }
 
-        private void ConnectButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (PortsCombo.Text.Length > 0)
-            {
-                var port = PortsCombo.Text.Split(' ').First();
-                Telemetry.Port = port; 
-                // Telemetry.BaudRate = BaudrateCombo.Text;
-                Properties.Settings.Default.ComPort = port;
-                Properties.Settings.Default.Baudrate = BaudrateCombo.Text;
-                Properties.Settings.Default.Save();
-
-                LogManager.LogInfoLine("Connecting to serial port " + port + "...");
-                Telemetry.Connect();
-               // DisconnectBtn.IsEnabled = true;
-               // ConnectBtn.IsEnabled = false;
-            }
-            else
-            {
-              //  MetroDialogOptions.ColorScheme = MetroDialogColorScheme.Accented;
-              //  this.ShowMessageAsync("Can not connect", "You need to choose a serial port");
-            }
-
-        }
-
-        private void DisconnectButton_Click(object sender, RoutedEventArgs e)
-        {
-            Telemetry.Disconnect();
-           // DisconnectBtn.IsEnabled = false;
-           // ConnectBtn.IsEnabled = true;
-        }
-
+        
         private void UserControl_Initialized(object sender, EventArgs e)
         {
-            ReloadPorts();
+            Telemetry.Subscribe(KFlyCommandType.ConnectionStatusChanged, (ConnectionStatusChanged csc) =>
+            {
+                StatusLabel.Dispatcher.Invoke(new Action(() =>{
+                    switch (csc.Status)
+                    {
+                        case ConnectionStatus.Connected:
+                            StatusLabel.Content = "Connected";
+                            StatusLabel.Foreground = (Brush)FindResource("AccentColorBrush");
+                            StatusIcon.Content = FindResource("connected");
+                            break;
+                        case ConnectionStatus.Polling:
+                            StatusLabel.Content = "Polling " + Telemetry.Port;
+                            StatusLabel.Foreground = Brushes.Yellow;
+                            StatusIcon.Content = FindResource("polling");
+                            break;
+                        default:
+                            StatusLabel.Content = "Disconnected";
+                            StatusLabel.Foreground = Brushes.Red;
+                            StatusIcon.Content = FindResource("disconnected");
+                            break;
+                    }
+                }));
+            });
+            Telemetry.Subscribe(KFlyCommandType.ConnectionStatistics, (ConnectionStatistics cs) =>
+            {
+                TotalInLabel.Dispatcher.Invoke(new Action(() =>
+                {
+                    TotalInLabel.Content = cs.BytesIn.ToString();
+                    TotalOutLabel.Content = cs.BytesOut.ToString();
+                }));
+            });
         }
 
         
@@ -133,34 +132,38 @@ namespace KFly.GUI
             Properties.Settings.Default.Save();
         }
 
-        private void MagicToggleButton_Checked(object sender, RoutedEventArgs e)
-        {
-            if (PortsCombo.Text.Length > 0)
-            {
-                var port = PortsCombo.Text.Split(' ').First();
-                Telemetry.Port = port;
-                // Telemetry.BaudRate = BaudrateCombo.Text;
-                Properties.Settings.Default.ComPort = port;
-                Properties.Settings.Default.Baudrate = BaudrateCombo.Text;
-                Properties.Settings.Default.Save();
 
-                LogManager.LogInfoLine("Connecting to serial port " + port + "...");
-                Telemetry.Connect();
-                // DisconnectBtn.IsEnabled = true;
-                // ConnectBtn.IsEnabled = false;
-            }
-            else
-            {
-                //  MetroDialogOptions.ColorScheme = MetroDialogColorScheme.Accented;
-                //  this.ShowMessageAsync("Can not connect", "You need to choose a serial port");
-            }
-        }
-
-        private void MagicToggleButton_Unchecked(object sender, RoutedEventArgs e)
+        private void ConnectionToggle_Checked(object sender, RoutedEventArgs e)
         {
-            Telemetry.Disconnect();
+            var port = SerialPortCombo.Text.Split(' ').First();          
+            if (port.Length <= 0)
+            {
+                ConnectionToggle.IsChecked = false;
+                ConnectErrorLabel.Content = "You must choose a serial port";
+                return;
+            }
+            if (BaudrateCombo.SelectedItem == null)
+            {
+                ConnectionToggle.IsChecked = false;
+                ConnectErrorLabel.Content = "You must choose a valid baudrate";
+                return;
+            }
+
+            Telemetry.Port = port;
+            Properties.Settings.Default.ComPort = port;
+            Properties.Settings.Default.Baudrate = (Baudrate)BaudrateCombo.SelectedItem;
+            Properties.Settings.Default.Save();
+
+            LogManager.LogInfoLine("Connecting to serial port " + port + "...");
+            Telemetry.Connect();
          
         }
+
+        private void ConnectionToggle_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Telemetry.Disconnect();
+        }
+
 
     }
 }

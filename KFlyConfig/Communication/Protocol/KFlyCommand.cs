@@ -44,7 +44,7 @@ namespace KFly.Communication
         //Following is for easy access to subscribe/unsubscribe and ís not part of the communication protocol
         All = 120, //To subscribe everything
         ConnectionStatusChanged = 121, //Connection status has changed
-
+        ConnectionStatistics = 122, //Info about the connection, sent every 2 seconds while connected
     };
 
     public class KFlyCommand

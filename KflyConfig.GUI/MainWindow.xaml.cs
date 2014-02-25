@@ -64,14 +64,14 @@ namespace KFly.GUI
             {
                 ConnectionStatusText.Dispatcher.BeginInvoke((Action)(()=>
                     {
-                        ConnectionStatusText.Text = (cmd.Connected)? "Connected" : "Not connected";
-                        if (cmd.Connected)
+                        ConnectionStatusText.Text = (cmd.IsConnected)? "Connected" : "Not connected";
+                        if (cmd.IsConnected)
                         {
-                            ConnectionStatusIcon.Fill = new VisualBrush((Canvas)Resources["appbar_disconnect"]);
+                            ConnectionStatusIcon.Content = FindResource("connected");
                         }
                         else
                         {
-                            ConnectionStatusIcon.Fill = new VisualBrush((Canvas)Resources["appbar_connect"]);
+                            ConnectionStatusIcon.Content = FindResource("disconnected");
                         }
                     }));
             });

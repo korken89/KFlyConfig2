@@ -7,12 +7,19 @@ namespace KFly.Communication
 {
     public class ConnectionStatusChanged: KFlyCommand
     {
-        public Boolean Connected = false;
-
-       
-        public ConnectionStatusChanged()
+        public ConnectionStatus Status;
+        public ConnectionStatusChanged(ConnectionStatus status)
             : base(KFlyCommandType.ConnectionStatusChanged)
         {
+            Status = status;
+        }
+
+        public bool IsConnected
+        {
+            get
+            {
+                return Status == ConnectionStatus.Connected;
+            }
         }
     }
 }

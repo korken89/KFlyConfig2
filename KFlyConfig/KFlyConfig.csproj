@@ -7,7 +7,7 @@
     <ProjectGuid>{87AD72F0-DE3A-4EE9-82AD-8DF42193E8DA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KFlyConfig</RootNamespace>
+    <RootNamespace>KFly</RootNamespace>
     <AssemblyName>KFlyConfig</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -43,6 +43,7 @@
     <Compile Include="Communication\CRC_CCITT.cs" />
     <Compile Include="Communication\ITelemetryLink.cs" />
     <Compile Include="Communication\Protocol\Commands\ConnectionStatusChanged.cs" />
+    <Compile Include="Communication\Protocol\Commands\ConnectionStatistics.cs" />
     <Compile Include="Communication\Protocol\Commands\DebugMessage.cs" />
     <Compile Include="Communication\Protocol\Commands\GetBootLoaderVersion.cs" />
     <Compile Include="Communication\Protocol\Commands\GetChannelMix.cs" />
@@ -57,10 +58,10 @@
     <Compile Include="Communication\Protocol\Commands\SetRCCalibration.cs" />
     <Compile Include="Communication\Protocol\KFlyCommand.cs" />
     <Compile Include="Communication\SerialPort\Baudrate.cs" />
+    <Compile Include="Communication\SerialPort\ConnectionStatus.cs" />
     <Compile Include="Communication\SerialPort\TelemetrySerialPort.cs" />
     <Compile Include="Communication\StateMachine.cs" />
     <Compile Include="Communication\Telemetry.cs" />
-    <Compile Include="Communication\TelemetryLink.cs" />
     <Compile Include="Communication\USBHandler.cs" />
     <Compile Include="DataClasses\ChannelData.cs" />
     <Compile Include="DataClasses\ControllerData.cs" />

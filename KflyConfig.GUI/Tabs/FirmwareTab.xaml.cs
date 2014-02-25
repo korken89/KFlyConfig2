@@ -36,8 +36,8 @@ namespace KFly.GUI
             {
                 RefreshFirmwareBtn.Dispatcher.Invoke((Action)(() =>
                 {
-                    RefreshFirmwareBtn.IsEnabled = csc.Connected;
-                    RefreshFirmwareBtn.ToolTip = (csc.Connected) ? "Refresh" : "Need to be connected to refresh";
+                    RefreshFirmwareBtn.IsEnabled = csc.IsConnected;
+                    RefreshFirmwareBtn.ToolTip = (csc.IsConnected) ? "Refresh" : "Need to be connected to refresh";
                 }));
             });
         }
@@ -74,7 +74,7 @@ namespace KFly.GUI
             Telemetry.Subscribe(KFlyCommandType.ConnectionStatusChanged, (ConnectionStatusChanged csc) =>
             {
                 RefreshFirmwareBtn.Dispatcher.Invoke(new Action(()=> UpdateConnectionControls()));
-                if (csc.Connected)
+                if (csc.IsConnected)
                 {
                     UpdateFirmwareInfo();
                 }

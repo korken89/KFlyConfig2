@@ -34,11 +34,15 @@ namespace KFly.Communication
         private static BlockingCollection<KFlyCommand> _sendBuffer = new BlockingCollection<KFlyCommand>(50);
         private static BlockingCollection<KFlyCommand> _receiveBuffer = new BlockingCollection<KFlyCommand>(50);
 
+        private ConnectionStatus _status = ConnectionStatus.Disconnected;
+        
     
         private bool _gotReadWriteError = true;
+
+        private ulong _totalOut = 0;
+        private ulong _totalIn = 0;
        
         private bool _isOpen = false;
-        private bool _isConnectedToKFly = false;
         private bool _isrunning = true;
 
         private Thread _receiverthread;
@@ -56,7 +60,12 @@ namespace KFly.Communication
 
         public bool IsConnected
         {
-            get { return _isConnectedToKFly; }
+            get { return _status == ConnectionStatus.Connected; }
+        }
+
+        public ConnectionStatus Status
+        {
+            get { return _status; }
         }
 
         public String PortName
@@ -94,6 +103,15 @@ namespace KFly.Communication
             }
         }
 
+        private void SetStatus(ConnectionStatus status)
+        {
+            if (status != _status)
+            {
+                _status = status;
+            Telemetry.Handle(new ConnectionStatusChanged(status));
+            }
+        }
+
         public void Disconnect()
         {
             if (_connectionThread != null)
@@ -106,14 +124,10 @@ namespace KFly.Communication
                 _connectionThread = null;
             }
 
-            if (_isConnectedToKFly)
-            {
-                _isOpen = false;
-                _isConnectedToKFly = false;
-                _gotReadWriteError = false;
-                Telemetry.Handle(new ConnectionStatusChanged() { Connected = false });
-            }
-            //Error, lets close the port
+           
+            _isOpen = false;
+            _gotReadWriteError = false;
+            SetStatus(ConnectionStatus.Disconnected);
             LogManager.LogInfoLine("Closing connection to Serialport " + _portname);
                
             //
@@ -151,7 +165,7 @@ namespace KFly.Communication
                 {
                     _serialPort = new SerialPort();
                     _serialPort.PortName = _portname;
-                    _serialPort.BaudRate = Convert.ToInt32(DisplayValueEnum.GetDescriptionValue(_baudrate));
+                    _serialPort.BaudRate = (int)(_baudrate);
                     _serialPort.ErrorReceived += HandleErrorReceived;
                     _serialPort.DataReceived += HandleDataReceived;
                 }
@@ -204,6 +218,7 @@ namespace KFly.Communication
         {
             byte[] buffer = new byte[2048];
             int bytesread = _serialPort.Read(buffer, 0, 2048);
+            _totalIn += (uint)bytesread;
             for (int i = 0; i < bytesread; i++)
             {
                 _stateMachine.SerialManager(buffer[i]);
@@ -230,7 +245,8 @@ namespace KFly.Communication
                     _isOpen = OpenPort();
                     if ((!_isOpen) && (firstFailure))
                     {
-                        LogManager.LogErrorLine("First connection to Serialport " + _portname + " failed. Going into surveying mode...");
+                        LogManager.LogErrorLine("First connection to Serialport " + _portname + " failed. Going into polling mode...");
+                        SetStatus(ConnectionStatus.Polling);
                         firstFailure = false;
                     }
                     if (!_isOpen)
@@ -251,6 +267,7 @@ namespace KFly.Communication
                         LogManager.LogDebugLine("Could not add ping to send buffer");
                     }
                     Thread.Sleep(KFLY_TIME_BETWEEN_PING);
+                    _receiveBuffer.TryAdd(new ConnectionStatistics(_totalIn, _totalOut));
                     if ((_lastReceivedMsg + KFLY_TIME_OUT) < DateTime.Now )
                     {
                         LogManager.LogErrorLine("Communication timeout!");
@@ -261,10 +278,8 @@ namespace KFly.Communication
                 //Error, lets close the port
                 LogManager.LogInfoLine("Closing connection to Serialport " + _portname);
                 _isOpen = false;
-                _isConnectedToKFly = false;
                 _gotReadWriteError = false;
-                Telemetry.Handle(new ConnectionStatusChanged() { Connected = false });
-  
+               
                 ClosePort();
             }
         }
@@ -275,11 +290,13 @@ namespace KFly.Communication
             while (!_sendBuffer.IsCompleted)
             {
                 KFlyCommand message = _sendBuffer.Take();
-                //LogManager.LogDebugLine("Sending " + message.ToString()); 
+                LogManager.LogDebugLine("Sending " + message.ToString()); 
                 List<byte> data = message.ToTx();
                 try
                 {
-                    _serialPort.Write(data.ToArray(), 0, data.Count);
+                    var count = data.Count;
+                    _totalOut += (uint)count;
+                    _serialPort.Write(data.ToArray(), 0, count);
                 }
                 catch (Exception e)
                 {
@@ -313,12 +330,11 @@ namespace KFly.Communication
         public void HandleReceived(KFlyCommand cmd)
         {
             _lastReceivedMsg = DateTime.Now;
-            //LogManager.LogDebugLine(cmd.ToString()+ " received");
-            if (!_isConnectedToKFly)
+            LogManager.LogDebugLine(cmd.ToString()+ " received");
+            if (_status != ConnectionStatus.Connected)
             {
-                _isConnectedToKFly = true;
                 LogManager.LogInfoLine("KFly identified");
-                Telemetry.Handle(new ConnectionStatusChanged() { Connected = true });
+                SetStatus(ConnectionStatus.Connected);
             }
             else
                 _receiveBuffer.Add(cmd);
