@@ -9,7 +9,7 @@ namespace KFly.Logging
 {
     public static class LogManager
     {
-        private static Boolean DEBUG = false;
+        private static Boolean DEBUG = true;
 
         private static ConcurrentStack<IKFlyLog> _logs = new ConcurrentStack<IKFlyLog>();
 

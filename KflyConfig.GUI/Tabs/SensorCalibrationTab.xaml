@@ -10,8 +10,69 @@
              Background="White"
              d:DesignHeight="536" d:DesignWidth="622">
     <kfly:KFlyTab Title="Sensor Calibration" BackgroundImage="../Resources/gyroscope_small.png">
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
-
-                </StackPanel>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
+            <GroupBox Header="Accelerometer" HorizontalAlignment="Left">
+                <Grid x:Name="AccelerometerGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="60" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="1" Content="X-axis" HorizontalAlignment="Center" />
+                    <Label Grid.Row="0" Grid.Column="2" Content="Y-axis" HorizontalAlignment="Center" />
+                    <Label Grid.Row="0" Grid.Column="3" Content="Z-axis" HorizontalAlignment="Center"/>
+                    <Label Grid.Row="1" Grid.Column="0" Content="Bias" VerticalAlignment="Center" />
+                    <Label Grid.Row="2" Grid.Column="0" Content="Gain" VerticalAlignment="Center" />
+                    <Label Grid.Row="3" Grid.Column="0" Content="Std. Dev." VerticalAlignment="Center" />
+                    <TextBox Text="{Binding AccelerometerBias.XString, Mode=OneWay}" Grid.Row="1" Grid.Column="1" IsReadOnly="True" TextAlignment="Center" />
+                    <TextBox Text="{Binding AccelerometerBias.YString, Mode=OneWay}" Grid.Row="1" Grid.Column="2" IsReadOnly="True" TextAlignment="Center" />
+                    <TextBox Text="{Binding AccelerometerBias.ZString, Mode=OneWay}" Grid.Row="1" Grid.Column="3" IsReadOnly="True" TextAlignment="Center" />
+                    <TextBox Text="{Binding AccelerometerGain.XString, Mode=OneWay}" Grid.Row="2" Grid.Column="1" IsReadOnly="True" TextAlignment="Center" />
+                    <TextBox Text="{Binding AccelerometerGain.YString, Mode=OneWay}" Grid.Row="2" Grid.Column="2" IsReadOnly="True" TextAlignment="Center" />
+                    <TextBox Text="{Binding AccelerometerGain.ZString, Mode=OneWay}" Grid.Row="2" Grid.Column="3" IsReadOnly="True" TextAlignment="Center" />
+                    <TextBox Text="{Binding AccelerometerStdDev.XString, Mode=OneWay}" Grid.Row="3" Grid.Column="1" IsReadOnly="True" TextAlignment="Center" />
+                    <TextBox Text="{Binding AccelerometerStdDev.YString, Mode=OneWay}" Grid.Row="3" Grid.Column="2" IsReadOnly="True" TextAlignment="Center" />
+                    <TextBox Text="{Binding AccelerometerStdDev.ZString, Mode=OneWay}" Grid.Row="3" Grid.Column="3" IsReadOnly="True" TextAlignment="Center" />
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Magnometer" HorizontalAlignment="Left">
+                <Grid x:Name="MagnometerGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="60" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="1" Content="X-axis" HorizontalAlignment="Center" />
+                    <Label Grid.Row="0" Grid.Column="2" Content="Y-axis" HorizontalAlignment="Center" />
+                    <Label Grid.Row="0" Grid.Column="3" Content="Z-axis" HorizontalAlignment="Center"/>
+                    <Label Grid.Row="1" Grid.Column="0" Content="Bias" VerticalAlignment="Center" />
+                    <Label Grid.Row="2" Grid.Column="0" Content="Gain" VerticalAlignment="Center" />
+                    <Label Grid.Row="3" Grid.Column="0" Content="Std. Dev." VerticalAlignment="Center" />
+                    <TextBox Text="{Binding MagnometerBias.XString, Mode=OneWay}" Grid.Row="1" Grid.Column="1" IsReadOnly="True" TextAlignment="Center" />
+                    <TextBox Text="{Binding MagnometerBias.YString, Mode=OneWay}" Grid.Row="1" Grid.Column="2" IsReadOnly="True" TextAlignment="Center" />
+                    <TextBox Text="{Binding MagnometerBias.ZString, Mode=OneWay}" Grid.Row="1" Grid.Column="3" IsReadOnly="True" TextAlignment="Center" />
+                    <TextBox Text="{Binding MagnometerGain.XString, Mode=OneWay}" Grid.Row="2" Grid.Column="1" IsReadOnly="True" TextAlignment="Center" />
+                    <TextBox Text="{Binding MagnometerGain.YString, Mode=OneWay}" Grid.Row="2" Grid.Column="2" IsReadOnly="True" TextAlignment="Center" />
+                    <TextBox Text="{Binding MagnometerGain.ZString, Mode=OneWay}" Grid.Row="2" Grid.Column="3" IsReadOnly="True" TextAlignment="Center" />
+                    <TextBox Text="{Binding MagnometerStdDev.XString, Mode=OneWay}" Grid.Row="3" Grid.Column="1" IsReadOnly="True" TextAlignment="Center" />
+                    <TextBox Text="{Binding MagnometerStdDev.YString, Mode=OneWay}" Grid.Row="3" Grid.Column="2" IsReadOnly="True" TextAlignment="Center" />
+                    <TextBox Text="{Binding MagnometerStdDev.ZString, Mode=OneWay}" Grid.Row="3" Grid.Column="3" IsReadOnly="True" TextAlignment="Center" />
+                </Grid>
+            </GroupBox>
+        </StackPanel>
     </kfly:KFlyTab>
 </UserControl>

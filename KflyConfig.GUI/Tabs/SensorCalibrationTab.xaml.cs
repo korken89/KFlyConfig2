@@ -27,12 +27,35 @@ namespace KFly.GUI
             InitializeComponent();
         }
 
+        private void UpdateSensorCalibrationData()
+        {
+            LogManager.LogInfoLine("Requesting sensor calibration");
+            Telemetry.SendAsync(new GetSensorCalibration());
+        }
       
         private void UserControl_Initialized(object sender, EventArgs e)
         {
+            SensorCalibration sd = new SensorCalibration();
+            this.AccelerometerGrid.DataContext = sd;
+            this.MagnometerGrid.DataContext = sd;
+
             Telemetry.Subscribe(KFlyCommandType.ConnectionStatusChanged, (ConnectionStatusChanged csc) =>
             {
+                if (csc.IsConnected)
+                {
+                    UpdateSensorCalibrationData();
+                }
             });
+            Telemetry.Subscribe(KFlyCommandType.GetSensorCalibration, (GetSensorCalibration msg) =>
+            {
+                AccelerometerGrid.Dispatcher.Invoke(new Action(() =>
+                {
+                    AccelerometerGrid.DataContext = msg.Data;
+                    MagnometerGrid.DataContext = msg.Data;
+                }));
+                LogManager.LogInfoLine("Sensor calibration recevied!");
+            });
+          
             
         }
 

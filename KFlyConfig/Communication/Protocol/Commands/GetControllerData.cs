@@ -12,7 +12,7 @@ namespace KFly.Communication
     /// GetPositionControllerData
     /// GetVelocityControllerData
     /// </summary>
-    class GetControllerData : KFlyCommand
+    public class GetControllerData : KFlyCommand
     {
 
         public ControllerData Data;

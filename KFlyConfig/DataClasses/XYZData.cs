@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Globalization;
 
 namespace KFly.Communication
 {
@@ -10,6 +11,30 @@ namespace KFly.Communication
         public float X;
         public float Y;
         public float Z;
+
+        public String XString
+        {
+            get
+            {
+                return X.ToString("0.000",CultureInfo.InvariantCulture);
+            }
+        }
+
+        public String YString
+        {
+            get
+            {
+                return Y.ToString("0.000", CultureInfo.InvariantCulture);
+            }
+        }
+
+        public String ZString
+        {
+            get
+            {
+                return Z.ToString("0.000", CultureInfo.InvariantCulture);
+            }
+        }
 
         public List<byte> GetBytes()
         {
@@ -26,8 +51,8 @@ namespace KFly.Communication
             {
                 byte[] data = bytes.ToArray();
                 X = BitConverter.ToSingle(data, 0);
-                Y = BitConverter.ToSingle(data, 3);
-                Z = BitConverter.ToSingle(data, 7);
+                Y = BitConverter.ToSingle(data, 4);
+                Z = BitConverter.ToSingle(data, 8);
             }
 
         }

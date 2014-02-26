@@ -39,7 +39,6 @@ namespace KFly.GUI
         {
             Telemetry.Subscribe(KFlyCommandType.ConnectionStatusChanged, (ConnectionStatusChanged csc) =>
             {
-              //  RefreshFirmwareBtn.Dispatcher.Invoke(new Action(()=> UpdateConnectionControls()));
                 if (csc.IsConnected)
                 {
                     UpdateFirmwareInfo();

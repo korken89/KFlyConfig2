@@ -12,7 +12,7 @@ namespace KFly.Communication
     /// SetPositionControllerData
     ///SetVelocityControllerData
     /// </summary>
-    class SetControllerData : KFlyCommand
+    public class SetControllerData : KFlyCommand
     {
         public ControllerData Data;
 

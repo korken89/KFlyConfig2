@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using KFly.Communication;
+using System.ComponentModel;
 
 namespace KFly.GUI
 {
@@ -29,7 +30,14 @@ namespace KFly.GUI
 
         void KFlyTab_Loaded(object sender, RoutedEventArgs e)
         {
-            UpdateComponentsOnConnectedChange(IsConnected);
+            if (DesignerProperties.GetIsInDesignMode(this))
+            {
+                UpdateComponentsOnConnectedChange(true);
+            }
+            else
+            {
+                UpdateComponentsOnConnectedChange(IsConnected);
+            }
             Telemetry.Subscribe(KFlyCommandType.ConnectionStatusChanged, (ConnectionStatusChanged csc) =>
             {
                 this.Dispatcher.BeginInvoke(new Action(() =>
@@ -72,8 +80,8 @@ namespace KFly.GUI
             {
                 if (connected)
                     mcp.HideModalContent();
-                else
-                    mcp.ShowModalContent();
+               // else
+                 //   mcp.ShowModalContent();
             }
         }
 

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace KFly.Communication
 {
-    class SetChannelMix : KFlyCommand
+    public class SetChannelMix : KFlyCommand
     {
         private MixerData _data;
 

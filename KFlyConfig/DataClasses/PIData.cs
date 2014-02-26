@@ -26,8 +26,8 @@ namespace KFly.Communication
             {
                 byte[] data = bytes.ToArray();
                 PGain = BitConverter.ToSingle(data, 0);
-                IGain = BitConverter.ToSingle(data, 3);
-                ILimit = BitConverter.ToSingle(data, 7);
+                IGain = BitConverter.ToSingle(data, 4);
+                ILimit = BitConverter.ToSingle(data, 8);
             }
 
         }

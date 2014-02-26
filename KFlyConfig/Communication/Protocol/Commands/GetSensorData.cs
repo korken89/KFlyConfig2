@@ -12,13 +12,13 @@ namespace KFly.Communication
     /// GetPositionControllerData
     /// GetVelocityControllerData
     /// </summary>
-    class GetSensorData : KFlyCommand
+    public class GetSensorData : KFlyCommand
     {
 
         public SensorData Data;
 
-        public GetSensorData(KFlyCommandType getControllerType) : 
-            base(getControllerType)
+        public GetSensorData() : 
+            base(KFlyCommandType.GetSensorData)
         {}
 
         public override void ParseData(List<byte> data)

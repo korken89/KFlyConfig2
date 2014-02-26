@@ -12,6 +12,10 @@ namespace KFly.Communication
         private XYZData _magnometer__bias = new XYZData();
         private XYZData _magnometer__gain = new XYZData();
 
+        //Client only
+        private XYZData _accelerometer_std_dev = new XYZData();
+        private XYZData _magnometer_std_dev = new XYZData();
+        
         public XYZData AccelerometerBias
         {
             get
@@ -28,6 +32,14 @@ namespace KFly.Communication
             }
         }
 
+        public XYZData AccelerometerStdDev
+        {
+            get
+            {
+                return _accelerometer_std_dev;
+            }
+        }
+
         public XYZData MagnometerBias
         {
             get
@@ -41,6 +53,13 @@ namespace KFly.Communication
             get
             {
                 return _magnometer__gain;
+            }
+        }
+        public XYZData MagnometerStdDev
+        {
+            get
+            {
+                return _magnometer_std_dev;
             }
         }
 

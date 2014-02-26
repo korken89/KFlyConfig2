@@ -49,7 +49,7 @@ namespace KFly.Communication
         ConnectionStatistics = 122, //Info about the connection, sent every 2 seconds while connected
     };
 
-    public class KFlyCommand
+    public abstract class KFlyCommand
     {
         public static byte SYNC = (byte)0xa6;
 	    public static byte ACK_BIT = (byte)0x80;
@@ -130,8 +130,17 @@ namespace KFly.Communication
                     case KFlyCommandType.GetBootloaderVersion:
                         cmd = new GetBootLoaderVersion();
                         break;
+                    case KFlyCommandType.GetSensorData:
+                        cmd = new GetSensorData();
+                        break;
+                    case KFlyCommandType.GetSensorCalibration:
+                        cmd = new GetSensorCalibration();
+                        break;
+                    case KFlyCommandType.ACK:
+                        cmd = new Ack();
+                        break;
                     default:
-                        cmd = new KFlyCommand((KFlyCommandType)bytes[1]);
+                        cmd = null;
                         break;
                 }
                 if (cmd != null)

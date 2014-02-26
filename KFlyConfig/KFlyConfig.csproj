@@ -44,6 +44,7 @@
     <Compile Include="Communication\ITelemetryLink.cs" />
     <Compile Include="Communication\Protocol\Commands\ConnectionStatusChanged.cs" />
     <Compile Include="Communication\Protocol\Commands\ConnectionStatistics.cs" />
+    <Compile Include="Communication\Protocol\Commands\ACK.cs" />
     <Compile Include="Communication\Protocol\Commands\GetSensorData.cs" />
     <Compile Include="Communication\Protocol\Commands\SetSensorCalibration.cs" />
     <Compile Include="Communication\Protocol\Commands\GetSensorCalibration.cs" />
