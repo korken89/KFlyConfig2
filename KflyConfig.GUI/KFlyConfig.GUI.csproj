@@ -62,6 +62,9 @@
     <Compile Include="Components\ModalNotConnected.xaml.cs">
       <DependentUpon>ModalNotConnected.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LogPanel.xaml.cs">
+      <DependentUpon>LogPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Logging\LabelLog.cs" />
     <Compile Include="Logging\RichEditLog.cs" />
     <Compile Include="Tabs\Connection.xaml.cs">
@@ -77,6 +80,10 @@
     <Page Include="Components\ModalNotConnected.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LogPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -149,18 +156,11 @@
     <Resource Include="MainWindow.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\chip.png" />
+    <Resource Include="Resources\airplane_small.png" />
+    <Resource Include="Resources\chip_small.png" />
+    <Resource Include="Resources\gyroscope_small.png" />
+    <Resource Include="Resources\joystick_small.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\gyroscope.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\airplane.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\joystick.png" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

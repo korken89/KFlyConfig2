@@ -23,6 +23,7 @@ using MahApps.Metro;
 using MahApps.Metro.Controls.Dialogs;
 using KFly.Logging;
 
+
 namespace KFly.GUI
 {
     /// <summary>
@@ -35,11 +36,11 @@ namespace KFly.GUI
             InitializeComponent();
         }
 
+        
+
         private void Window_Initialized(object sender, EventArgs e)
         {
             SubscribeToCommunication();
-            LogManager.AddLogDestination(new RichTextBoxLog(LogBox));
-            LogManager.AddLogDestination(new LabelLog(LogRowLabel));
         }
 
         /// <summary>
@@ -78,46 +79,23 @@ namespace KFly.GUI
 
         }
 
-        private void LogBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            LogBox.ScrollToEnd();
-        }
-
-        private void LogBox_Initialized(object sender, EventArgs e)
-        {
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
 
         private void OpenConnectBtn_Click(object sender, RoutedEventArgs e)
         {
             ConnectionFlyout.IsOpen = !ConnectionFlyout.IsOpen;
         }
 
-        private void ExpandLogPanelBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (LogPanel.Height == 30)
-            {
-                ExpandLogPanelBtn.Content = FindResource("arrowDown");
-                BeginStoryboard((Storyboard)FindResource("LogPanelExpand"));
-                ExpandLogPanelBtn.ToolTip = "Hide log";
-            }
-            else
-            {
-                ExpandLogPanelBtn.Content = FindResource("arrowUp");
-                BeginStoryboard((Storyboard)FindResource("LogPanelShrink"));
-                ExpandLogPanelBtn.ToolTip = "Show log";
-            }
-        }
 
         private void MetroWindow_Closed(object sender, EventArgs e)
         {
             Telemetry.Disconnect();
         }
 
+       
+        
+       
+       
 
     }
 }

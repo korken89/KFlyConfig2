@@ -4,17 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             Background="White"
-             d:DesignHeight="536" d:DesignWidth="622">
+             d:DesignHeight="200" d:DesignWidth="622">
     <DockPanel LastChildFill="True" HorizontalAlignment="Stretch">
         <DockPanel.Background>
-            <ImageBrush Stretch="None" AlignmentX="Right" AlignmentY="Top" ImageSource="../Resources/airplane.png">
-                <ImageBrush.RelativeTransform>
-                    <TransformGroup>
-                        <ScaleTransform CenterY="0" CenterX="1" ScaleX="0.5" ScaleY="0.5"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </ImageBrush.RelativeTransform>
+            <ImageBrush Stretch="None" AlignmentX="Right" AlignmentY="Top" ImageSource="../Resources/airplane_small.png">
             </ImageBrush>
         </DockPanel.Background>
         <Rectangle DockPanel.Dock="Left" Fill="{DynamicResource AccentColorBrush}" Margin="0,6,0,6" Width="3" VerticalAlignment="Stretch" />

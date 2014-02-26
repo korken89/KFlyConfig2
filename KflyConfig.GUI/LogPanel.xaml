@@ -1,0 +1,65 @@
+﻿<DockPanel x:Class="KFly.GUI.LogPanel"
+             Name="MainControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="622"
+             LastChildFill="True"
+             Height="30"
+             Initialized="MainControl_Initialized">
+    <DockPanel.Resources>
+        <ResourceDictionary>
+            <Storyboard x:Name="LogPanelExpand" FillBehavior="Stop" Completed="LogPanelExpand_Completed" x:Key="LogPanelExpand">
+                <DoubleAnimation Storyboard.TargetName="MainControl" Storyboard.TargetProperty="Height"
+                  To="200" Duration="0:0:0.5" />
+            </Storyboard>
+            <Storyboard x:Name="LogPanelShrink" FillBehavior="Stop" Completed="LogPanelShrink_Completed" x:Key="LogPanelShrink">
+                <DoubleAnimation Storyboard.TargetName="MainControl" Storyboard.TargetProperty="Height"
+                  To="30" Duration="0:0:0.5" />
+            </Storyboard>
+            <Rectangle x:Key="arrowUp" Width="12" Height="12">
+                <Rectangle.Fill>
+                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_arrow_up}" />
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Key="arrowDown" Width="12" Height="12">
+                <Rectangle.Fill>
+                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_arrow_down}" />
+                </Rectangle.Fill>
+            </Rectangle>
+        </ResourceDictionary>
+    </DockPanel.Resources>
+    <DockPanel Name="Header" DockPanel.Dock="Top"
+                   MouseLeftButtonDown="Header_MouseLeftButtonDown"
+                   MouseMove="Header_MouseMove"
+                   MouseLeftButtonUp="Header_MouseLeftButtonUp" 
+                   Background="{DynamicResource AccentColorBrush}"
+                   Height="30">
+            <Label Name="LogRowLabel" DockPanel.Dock="Left" />
+            <Button Name="ExpandLogPanelBtn" Click="ExpandLogPanelBtn_Click" Foreground="White" ToolTipService.ShowOnDisabled="True"
+                                    ToolTip="Show log" DockPanel.Dock="Right" Width="30"
+                                        Height="30"
+                                        Margin="0, 0, 0, 0"
+                                        Style="{DynamicResource MetroCircleButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <Rectangle Width="12" Height="12">
+                    <Rectangle.Fill>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_arrow_up}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Button>
+            <CheckBox Name="AutoScrollCB" Visibility="Collapsed" Content="Autoscroll" Padding="0,0,10,0" DockPanel.Dock="Right"
+                      IsChecked="True" Foreground="White"
+                      HorizontalAlignment="Right"/>
+    </DockPanel>
+        <RichTextBox Name="LogBox" IsReadOnly="True" Padding="0" TextChanged="LogBox_TextChanged"
+                     VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+                     HorizontalAlignment="Stretch" BorderThickness="0">
+            <RichTextBox.Resources>
+                <Style TargetType="{x:Type Paragraph}">
+                    <Setter Property="Margin" Value="0"/>
+                </Style>
+            </RichTextBox.Resources>
+        </RichTextBox>
+</DockPanel>
