@@ -39,6 +39,8 @@ namespace KFly.Communication
         SetRCCalibration = 42,
         GetRCValues = 43,
         GetSensorData = 44,
+        GetSensorCalibration = 45,
+        SetSensorCalibration = 46,
 
 
         //Following is for easy access to subscribe/unsubscribe and ís not part of the communication protocol

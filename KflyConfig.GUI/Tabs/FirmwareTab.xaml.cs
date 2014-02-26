@@ -27,40 +27,7 @@ namespace KFly.GUI
             InitializeComponent();
         }
 
-        private void RefreshFirmwareBtn_Initialized(object sender, EventArgs e)
-        {
-            RefreshFirmwareBtn.IsEnabled = true;// Telemetry.IsConnected;
-            RefreshFirmwareBtn.ToolTip = "Need to be connected to refresh";
-
-            Telemetry.Subscribe(KFlyCommandType.ConnectionStatusChanged, (ConnectionStatusChanged csc) =>
-            {
-                RefreshFirmwareBtn.Dispatcher.Invoke((Action)(() =>
-                {
-                    RefreshFirmwareBtn.IsEnabled = csc.IsConnected;
-                    RefreshFirmwareBtn.ToolTip = (csc.IsConnected) ? "Refresh" : "Need to be connected to refresh";
-                }));
-            });
-        }
-
-        private void RefreshFirmwareBtn_Click(object sender, RoutedEventArgs e)
-        {
-            //this.connectionModal.ShowModalContent();
-            //this.connectionModal
-        }
-
-   
-
-        private void UpdateConnectionControls()
-        {
-            var connected = Telemetry.IsConnected;
-            RefreshFirmwareBtn.IsEnabled = connected;
-            RefreshFirmwareBtn.ToolTip = (connected) ? "Refresh" : "Need to be connected to refresh";
-            if (connected)
-                connectionModal.HideModalContent();
-            else
-                connectionModal.ShowModalContent();
-        }
-
+       
         private void UpdateFirmwareInfo()
         {
             LogManager.LogInfoLine("Requesting FirmwareInfo");
@@ -70,10 +37,9 @@ namespace KFly.GUI
 
         private void UserControl_Initialized(object sender, EventArgs e)
         {
-            UpdateConnectionControls();
             Telemetry.Subscribe(KFlyCommandType.ConnectionStatusChanged, (ConnectionStatusChanged csc) =>
             {
-                RefreshFirmwareBtn.Dispatcher.Invoke(new Action(()=> UpdateConnectionControls()));
+              //  RefreshFirmwareBtn.Dispatcher.Invoke(new Action(()=> UpdateConnectionControls()));
                 if (csc.IsConnected)
                 {
                     UpdateFirmwareInfo();

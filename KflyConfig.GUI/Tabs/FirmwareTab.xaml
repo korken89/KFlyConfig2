@@ -6,73 +6,38 @@
              xmlns:kfly="clr-namespace:KFly.GUI"       
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              Initialized="UserControl_Initialized"
-             mc:Ignorable="d" 
              Background="White"
+             mc:Ignorable="d" 
              d:DesignHeight="536" d:DesignWidth="622">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <Style x:Key="DescriptionHeaderStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="22" />
-                <Setter Property="HorizontalAlignment" Value="Center" />
-            </Style>
-        </ResourceDictionary>
-    </UserControl.Resources>
-    <DockPanel LastChildFill="True" HorizontalAlignment="Stretch">
-        <DockPanel.Background>
-            <ImageBrush Stretch="None" AlignmentX="Right" AlignmentY="Top" ImageSource="../Resources/chip_small.png">
-            </ImageBrush>
-        </DockPanel.Background>
-        <Rectangle DockPanel.Dock="Left" Fill="{DynamicResource AccentColorBrush}" Margin="0,6,0,6" Width="3" VerticalAlignment="Stretch" />
-        <DockPanel Margin="5,5,5,5" LastChildFill="True" HorizontalAlignment="Stretch">
-            <DockPanel DockPanel.Dock="Top" LastChildFill="False" VerticalAlignment="Center">
-                <Label Content="Firmware" Style="{StaticResource DescriptionHeaderStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                <Button Name="RefreshFirmwareBtn" Initialized="RefreshFirmwareBtn_Initialized" Click="RefreshFirmwareBtn_Click" ToolTipService.ShowOnDisabled="True"
-                                    ToolTip="Refresh" DockPanel.Dock="Right" Width="40"
-                                        Height="40"
-                                        Margin="0, 0, 0, 0"
-                                        Style="{DynamicResource MetroCircleButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Right">
-                    <Rectangle Width="16" Height="16">
-                        <Rectangle.Fill>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_refresh}" />
-                        </Rectangle.Fill>
-                    </Rectangle>
-                </Button>
-            </DockPanel>
-            <Separator DockPanel.Dock="Top"/>
-            <kfly:ModalContentPresenter x:Name="connectionModal">
-                <StackPanel>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" Content="Bootloader version:" />
-                        <Label Name="BootloaderVersionLabel" Grid.Row="0" Grid.Column="1" Content="-Unknown-" />
-                        <Label Grid.Row="1" Grid.Column="0" Content="Firmware version:"/>
-                        <Label Name="FirmwareVersionLabel" Grid.Row="1" Grid.Column="1" Content="-Unknown-" />
-                    </Grid>
-                    <Label Content="Update firmware" Margin="0,10,0,0" FontSize="16" />
-                    <WrapPanel>
-                        <TextBox Width="300" Grid.Row="1" Grid.Column="0"  metro:TextboxHelper.Watermark="Path to file" VerticalAlignment="Center" />
-                        <Button Margin="5" Content="Browse" />
-                    </WrapPanel>
-                    <WrapPanel>
-                        <Button Margin="5"  Content="Program" />
-                        <Button Margin="5"  Content="Verify" />
-                        <Button Margin="5"  Content="Exit Bootloader" />
-                        <Button Margin="5"  Content="Write To Flash" />
-                    </WrapPanel>
-                </StackPanel>
-                <kfly:ModalContentPresenter.ModalContent>
-                    <kfly:ModalNotConnected/>
-                </kfly:ModalContentPresenter.ModalContent>
-            </kfly:ModalContentPresenter>
-
-        </DockPanel>
-    </DockPanel>
+    <kfly:KFlyTab Title="Firmware" BackgroundImage="../Resources/chip_small.png">
+    <StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="Bootloader version:" />
+            <Label x:Name="BootloaderVersionLabel" Grid.Row="0" Grid.Column="1" Content="-Unknown-" />
+            <Label Grid.Row="1" Grid.Column="0" Content="Firmware version:"/>
+            <Label x:Name="FirmwareVersionLabel" Grid.Row="1" Grid.Column="1" Content="-Unknown-" />
+        </Grid>
+        <Label Content="Update firmware" Margin="0,10,0,0" FontSize="16" />
+        <WrapPanel>
+            <TextBox Width="300" Grid.Row="1" Grid.Column="0"  metro:TextboxHelper.Watermark="Path to file" VerticalAlignment="Center" />
+            <Button Margin="5" Content="Browse" />
+        </WrapPanel>
+        <WrapPanel>
+            <Button Margin="5"  Content="Program" />
+            <Button Margin="5"  Content="Verify" />
+            <Button Margin="5"  Content="Exit Bootloader" />
+            <Button Margin="5"  Content="Write To Flash" />
+        </WrapPanel>
+    </StackPanel>
+    </kfly:KFlyTab>
 </UserControl>
+
