@@ -44,6 +44,9 @@
     <Compile Include="Communication\ITelemetryLink.cs" />
     <Compile Include="Communication\Protocol\Commands\ConnectionStatusChanged.cs" />
     <Compile Include="Communication\Protocol\Commands\ConnectionStatistics.cs" />
+    <Compile Include="Communication\Protocol\Commands\GetSensorData.cs" />
+    <Compile Include="Communication\Protocol\Commands\SetSensorCalibration.cs" />
+    <Compile Include="Communication\Protocol\Commands\GetSensorCalibration.cs" />
     <Compile Include="Communication\Protocol\Commands\DebugMessage.cs" />
     <Compile Include="Communication\Protocol\Commands\GetBootLoaderVersion.cs" />
     <Compile Include="Communication\Protocol\Commands\GetChannelMix.cs" />
@@ -65,6 +68,9 @@
     <Compile Include="Communication\USBHandler.cs" />
     <Compile Include="DataClasses\ChannelData.cs" />
     <Compile Include="DataClasses\ControllerData.cs" />
+    <Compile Include="DataClasses\SensorData.cs" />
+    <Compile Include="DataClasses\XYZData.cs" />
+    <Compile Include="DataClasses\SensorCalibration.cs" />
     <Compile Include="DataClasses\MixerData.cs" />
     <Compile Include="DataClasses\PIData.cs" />
     <Compile Include="Logging\IKFlyLog.cs" />
