@@ -284,6 +284,8 @@ namespace KFly.Communication
             }
         }
 
+        ManualResetEventSlim _receivedAck = new ManualResetEventSlim(false);
+
         private void _senderLoop(object obj)
         {
             Clear(_sendBuffer);
@@ -294,9 +296,40 @@ namespace KFly.Communication
                 List<byte> data = message.ToTx();
                 try
                 {
-                    var count = data.Count;
-                    _totalOut += (uint)count;
-                    _serialPort.Write(data.ToArray(), 0, count);
+                    if (message.UseAck)
+                    {
+                        _receivedAck.Reset();
+                        var retries = 0;
+                        int msEachTry = Convert.ToInt32(message.TimeOut / 3);
+                        while (!_receivedAck.IsSet)
+                        {
+                            retries++;
+                            var count = data.Count;
+                            _totalOut += (uint)count;
+                            _serialPort.Write(data.ToArray(), 0, count);
+                            _receivedAck.Wait(msEachTry);
+                            if (retries > 3)
+                                break;
+                        }
+                        if (message.ActionAfterAck != null)
+                        {
+                            Task.Run(() =>
+                                {
+                                    try
+                                    {
+                                        message.ActionAfterAck((_receivedAck.IsSet) ? SendResult.OK : SendResult.TIME_OUT);
+                                    }
+                                    catch { };
+                                });
+                        }
+                    }
+                    else
+                    {
+                        var count = data.Count;
+                        _totalOut += (uint)count;
+                        _serialPort.Write(data.ToArray(), 0, count);
+                    }
+                   
                 }
                 catch (Exception e)
                 {
@@ -331,6 +364,10 @@ namespace KFly.Communication
         {
             _lastReceivedMsg = DateTime.Now;
             LogManager.LogDebugLine(cmd.ToString()+ " received");
+            if ((cmd.Type == KFlyCommandType.ACK) && (!_receivedAck.IsSet))
+            {
+                _receivedAck.Set();
+            }
             if (_status != ConnectionStatus.Connected)
             {
                 LogManager.LogInfoLine("KFly identified");

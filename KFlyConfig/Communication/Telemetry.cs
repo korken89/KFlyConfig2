@@ -61,15 +61,7 @@ namespace KFly.Communication
         #endregion
 
         #region Serial communication
-        private static ConcurrentQueue<KFlyCommand> _sendBuffer = new ConcurrentQueue<KFlyCommand>();
-        private static ConcurrentQueue<KFlyCommand> _receiveBuffer = new ConcurrentQueue<KFlyCommand>();
-
-       
-        private static Boolean _waitingForAck;
-        private static KFlyCommand _lastSentCmd;
-
-        
-
+ 
         public static SendResult SendAsync(KFlyCommand cmd)
         {
             if (_link.IsConnected)
@@ -83,23 +75,29 @@ namespace KFly.Communication
 
        
 
-        public static SendResult SendWithAck(KFlyCommand cmd, int timeout = 1000)
+        public static void SendAsyncWithAck(KFlyCommand cmd, int msTimeout, Action<SendResult> action)
         {
-            _sendBuffer.Enqueue(cmd);
-            return SendResult.OK;
-        }
-
-        private static void SendNextMessage()
-        {
-            while ((!(_waitingForAck)) && (!_sendBuffer.IsEmpty))
+            if (!_link.IsConnected)
             {
-                _sendBuffer.TryDequeue(out _lastSentCmd);
-                if (_lastSentCmd != null)
+                if (action != null)
                 {
-                  //  _link.SendData(_lastSentCmd);
+                    try
+                    {
+                        action(SendResult.NOT_CONNECTED);
+                    }
+                    catch { };
                 }
+                return;
+            }
+            else
+            {
+                cmd.UseAck = true;
+                cmd.TimeOut = msTimeout;
+                cmd.ActionAfterAck = action;
+                _link.SendMessage(cmd);
             }
         }
+
         #endregion
 
         #region subscription

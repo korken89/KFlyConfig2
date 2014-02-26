@@ -55,6 +55,10 @@ namespace KFly.Communication
 
         public KFlyCommandType Type;
 
+        public Boolean UseAck;
+        public int TimeOut;
+        public Action<SendResult> ActionAfterAck;
+
         public KFlyCommand()
         {
         }
@@ -75,7 +79,7 @@ namespace KFly.Communication
             List<byte> tx = new List<byte>()
             {
                 KFlyCommand.SYNC,
-                (byte)Type,
+                UseAck? (byte)((byte)Type | ACK_BIT): (byte)Type,
                 (byte)data.Count,
             };
             tx.Add(CRC8.GenerateCRC(tx.Take(3)));
