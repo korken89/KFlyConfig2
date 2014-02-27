@@ -5,14 +5,14 @@ using System.Text;
 
 namespace KFly.Communication
 {
-    public class SensorData
+    public class RawSensorData
     {
-        private XYZData _accelerometer = new XYZData();
-        private XYZData _gyro = new XYZData();
-        private XYZData _magnometer = new XYZData();
+        private XYZDataInt16 _accelerometer = new XYZDataInt16();
+        private XYZDataInt16 _gyro = new XYZDataInt16();
+        private XYZDataInt16 _magnometer = new XYZDataInt16();
         private Int32 _pressure = 0;
 
-        public XYZData Accelerometer
+        public XYZDataInt16 Accelerometer
         {
             get
             {
@@ -20,7 +20,7 @@ namespace KFly.Communication
             }
         }
 
-        public XYZData Gyro
+        public XYZDataInt16 Gyro
         {
             get
             {
@@ -28,7 +28,7 @@ namespace KFly.Communication
             }
         }
 
-        public XYZData Magnometer
+        public XYZDataInt16 Magnometer
         {
             get
             {
@@ -56,17 +56,17 @@ namespace KFly.Communication
 
         public void SetBytes(List<byte> bytes)
         {
-            if (bytes.Count >= 40)
+            if (bytes.Count >= 22)
             {
-                Accelerometer.SetBytes(bytes.GetRange(0, 12));
-                Gyro.SetBytes(bytes.GetRange(12, 12));
-                Magnometer.SetBytes(bytes.GetRange(24, 12));
-                _pressure = BitConverter.ToInt32(bytes.ToArray(), 36);
+                Accelerometer.SetBytes(bytes.GetRange(0, 6));
+                Gyro.SetBytes(bytes.GetRange(6, 6));
+                Magnometer.SetBytes(bytes.GetRange(12, 6));
+                _pressure = BitConverter.ToInt32(bytes.ToArray(), 18);
             }
         }
-        public static SensorData FromBytes(List<byte> bytes)
+        public static RawSensorData FromBytes(List<byte> bytes)
         {
-            var c = new SensorData();
+            var c = new RawSensorData();
             c.SetBytes(bytes);
             return c;
         }

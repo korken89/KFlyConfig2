@@ -80,8 +80,8 @@ namespace KFly.GUI
             {
                 if (connected)
                     mcp.HideModalContent();
-               // else
-                 //   mcp.ShowModalContent();
+                else
+                    mcp.ShowModalContent();
             }
         }
 

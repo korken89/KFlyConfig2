@@ -6,17 +6,17 @@ using System.Globalization;
 
 namespace KFly.Communication
 {
-    public class XYZData
+    public class XYZDataInt16
     {
-        public float X;
-        public float Y;
-        public float Z;
+        public Int16 X;
+        public Int16 Y;
+        public Int16 Z;
 
         public String XString
         {
             get
             {
-                return X.ToString("0.000",CultureInfo.InvariantCulture);
+                return X.ToString(CultureInfo.InvariantCulture);
             }
         }
 
@@ -24,7 +24,7 @@ namespace KFly.Communication
         {
             get
             {
-                return Y.ToString("0.000", CultureInfo.InvariantCulture);
+                return Y.ToString(CultureInfo.InvariantCulture);
             }
         }
 
@@ -32,7 +32,7 @@ namespace KFly.Communication
         {
             get
             {
-                return Z.ToString("0.000", CultureInfo.InvariantCulture);
+                return Z.ToString(CultureInfo.InvariantCulture);
             }
         }
 
@@ -47,19 +47,19 @@ namespace KFly.Communication
 
         public void SetBytes(List<byte> bytes)
         {
-            if (bytes.Count == 12)
+            if (bytes.Count == 6)
             {
                 byte[] data = bytes.ToArray();
-                X = BitConverter.ToSingle(data, 0);
-                Y = BitConverter.ToSingle(data, 4);
-                Z = BitConverter.ToSingle(data, 8);
+                X = BitConverter.ToInt16(data, 0);
+                Y = BitConverter.ToInt16(data, 2);
+                Z = BitConverter.ToInt16(data, 4);
             }
 
         }
 
-        public static XYZData FromBytes(List<byte> bytes)
+        public static XYZDataInt16 FromBytes(List<byte> bytes)
         {
-            var pi = new XYZData();
+            var pi = new XYZDataInt16();
             pi.SetBytes(bytes);
             return pi;
         }

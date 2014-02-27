@@ -118,6 +118,7 @@ namespace KFly.GUI
         {
             ExpandLogPanelBtn.Content = (Height == 30)? FindResource("arrowUp") : FindResource("arrowDown");
             AutoScrollCB.Visibility = (Height == 30)? Visibility.Collapsed: Visibility.Visible;
+            Debug.Visibility = (Height == 30) ? Visibility.Collapsed : Visibility.Visible;
         }
 
         private void ExpandLogPanelBtn_Click(object sender, RoutedEventArgs e)
@@ -135,6 +136,11 @@ namespace KFly.GUI
                 BeginStoryboard((Storyboard)FindResource("LogPanelShrink"));
                 ExpandLogPanelBtn.ToolTip = "Show log";
             }
+        }
+
+        private void Debug_Click(object sender, RoutedEventArgs e)
+        {
+            LogManager.Debug = Debug.IsChecked == true;
         }
     }
 }

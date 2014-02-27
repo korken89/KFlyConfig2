@@ -20,8 +20,8 @@ namespace KFly
             Console.WriteLine("Time since 1/1/1970: " + tim + " seconds");
             Console.WriteLine();
 
-            double[,] cal = SensorCalibration.Calibrate(SensorCalibration.TestData, 950);
-            LinearAlgebra.printMat(cal);
+         //   double[,] cal = SensorCalibration.Calibrate(SensorCalibration.TestData, 950);
+         //   LinearAlgebra.printMat(cal);
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

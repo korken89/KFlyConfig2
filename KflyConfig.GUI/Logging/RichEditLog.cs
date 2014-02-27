@@ -130,6 +130,10 @@ namespace KFly.Logging
                 j = 0;
             }
             DrawPart(p, toAdd, styles, colors.Peek());
+            if (_box.Document.Blocks.Count() > 30)
+            {
+                _box.Document.Blocks.Remove(_box.Document.Blocks.FirstBlock);
+            }
              _box.Document.Blocks.Add(p);
             return p;
         }

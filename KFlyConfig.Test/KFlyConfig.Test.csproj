@@ -53,6 +53,7 @@
     <Compile Include="Communication\TeleManagerTest.cs" />
     <Compile Include="Communication\KFlyCommandTest.cs" />
     <Compile Include="Communication\StateMachineTest.cs" />
+    <Compile Include="Math\SensorCalibrationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

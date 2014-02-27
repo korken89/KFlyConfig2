@@ -128,6 +128,15 @@ namespace KFly.GUI
         
         private void AutoConnect_Click(object sender, RoutedEventArgs e)
         {
+            if (AutoConnect.IsChecked == true)
+            {
+                ConnectionToggle.IsChecked = true;
+                ConnectionToggle.IsEnabled = false;
+            }
+            else
+            {
+                ConnectionToggle.IsEnabled = true;
+            }
             Properties.Settings.Default.AutoConnectOnStartup = (AutoConnect.IsChecked == true);
             Properties.Settings.Default.Save();
         }
@@ -139,12 +148,14 @@ namespace KFly.GUI
             if (port.Length <= 0)
             {
                 ConnectionToggle.IsChecked = false;
+                AutoConnect.IsChecked = false;
                 ConnectErrorLabel.Content = "You must choose a serial port";
                 return;
             }
             if (BaudrateCombo.SelectedItem == null)
             {
                 ConnectionToggle.IsChecked = false;
+                AutoConnect.IsChecked = false;
                 ConnectErrorLabel.Content = "You must choose a valid baudrate";
                 return;
             }
@@ -162,6 +173,25 @@ namespace KFly.GUI
         private void ConnectionToggle_Unchecked(object sender, RoutedEventArgs e)
         {
             Telemetry.Disconnect();
+        }
+
+        private void AutoConnect_Initialized(object sender, EventArgs e)
+        {
+            AutoConnect.IsChecked = Properties.Settings.Default.AutoConnectOnStartup;
+            Properties.Settings.Default.Save();
+        }
+
+        private void ConnectionToggle_Initialized(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.AutoConnectOnStartup)
+            {
+                ConnectionToggle.IsChecked = true;
+                ConnectionToggle.IsEnabled = false;
+            }
+            else
+            {
+                ConnectionToggle.IsEnabled = true;
+            }
         }
 
 

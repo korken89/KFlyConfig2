@@ -59,9 +59,11 @@
             <ComboBox Margin="5" Grid.Row="1" Grid.Column="1" Name="BaudrateCombo" Width="180"
                           Initialized="BaudrateCombo_Initialized"/>
         </Grid>
-        <CheckBox Name="AutoConnect" Click="AutoConnect_Click" Content="Auto connect on program start" HorizontalAlignment="Center"></CheckBox>
+        <CheckBox Name="AutoConnect" Click="AutoConnect_Click" Initialized="AutoConnect_Initialized"
+                  Content="Auto connect (even on program start)" HorizontalAlignment="Center"></CheckBox>
         <metro:ToggleSwitch Content="Connect" Width="150" Padding="5"
                             OnLabel="Connected"
+                            Initialized="ConnectionToggle_Initialized"
                             Checked="ConnectionToggle_Checked"
                             Unchecked="ConnectionToggle_Unchecked"
                             OffLabel="Disconnected"

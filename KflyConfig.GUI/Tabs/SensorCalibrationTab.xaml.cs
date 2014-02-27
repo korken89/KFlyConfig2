@@ -59,6 +59,11 @@ namespace KFly.GUI
             
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            CalibrationModal.ShowModalContent();
+        }
+
 
     }
 }

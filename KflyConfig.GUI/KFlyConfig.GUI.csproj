@@ -59,6 +59,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Components\CalibrateSensors.xaml.cs">
+      <DependentUpon>CalibrateSensors.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\ModalNotConnected.xaml.cs">
       <DependentUpon>ModalNotConnected.xaml</DependentUpon>
     </Compile>
@@ -86,6 +89,10 @@
     </Compile>
     <Compile Include="Utils\MathConverter.cs" />
     <Compile Include="Utils\ModalContentPresenter.cs" />
+    <Page Include="Components\CalibrateSensors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Components\ModalNotConnected.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

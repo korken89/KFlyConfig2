@@ -52,6 +52,9 @@
             <CheckBox Name="AutoScrollCB" Visibility="Collapsed" Content="Autoscroll" Padding="0,0,10,0" DockPanel.Dock="Right"
                       IsChecked="True" Foreground="White"
                       HorizontalAlignment="Right"/>
+            <CheckBox Name="Debug" Visibility="Collapsed" Content="Debug" Padding="0,0,10,0" DockPanel.Dock="Right"
+                      IsChecked="False" Click="Debug_Click" Foreground="White"
+                      HorizontalAlignment="Right"/>
     </DockPanel>
         <RichTextBox Name="LogBox" IsReadOnly="True" Padding="0" TextChanged="LogBox_TextChanged"
                      VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"

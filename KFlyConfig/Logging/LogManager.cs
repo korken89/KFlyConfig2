@@ -9,7 +9,7 @@ namespace KFly.Logging
 {
     public static class LogManager
     {
-        private static Boolean DEBUG = true;
+        public static Boolean Debug = false;
 
         private static ConcurrentStack<IKFlyLog> _logs = new ConcurrentStack<IKFlyLog>();
 
@@ -52,7 +52,7 @@ namespace KFly.Logging
 
         public static void LogDebugLine(String msg)
         {
-            if (DEBUG)
+            if (Debug)
             {
                 foreach (IKFlyLog log in _logs)
                 {

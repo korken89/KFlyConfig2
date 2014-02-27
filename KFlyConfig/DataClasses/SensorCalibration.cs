@@ -89,6 +89,12 @@ namespace KFly.Communication
             c.SetBytes(bytes);
             return c;
         }
+
+        public override string ToString()
+        {
+            return String.Format("AccBias: {0}\nAccGain: {1}\nMagBias: {2}\nMagGain: {3}", 
+                AccelerometerBias, AccelerometerGain, MagnometerBias, MagnometerGain);
+        }
        
     }
 }

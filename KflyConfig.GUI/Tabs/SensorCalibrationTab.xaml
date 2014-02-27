@@ -10,6 +10,7 @@
              Background="White"
              d:DesignHeight="536" d:DesignWidth="622">
     <kfly:KFlyTab Title="Sensor Calibration" BackgroundImage="../Resources/gyroscope_small.png">
+        <kfly:ModalContentPresenter x:Name="CalibrationModal">
         <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
             <GroupBox Header="Accelerometer" HorizontalAlignment="Left">
                 <Grid x:Name="AccelerometerGrid">
@@ -73,6 +74,11 @@
                     <TextBox Text="{Binding MagnometerStdDev.ZString, Mode=OneWay}" Grid.Row="3" Grid.Column="3" IsReadOnly="True" TextAlignment="Center" />
                 </Grid>
             </GroupBox>
+            <Button Content="Start calibration" Click="Button_Click" HorizontalAlignment="Center" />
         </StackPanel>
+        <kfly:ModalContentPresenter.ModalContent>
+            <kfly:CalibrateSensors></kfly:CalibrateSensors>
+        </kfly:ModalContentPresenter.ModalContent>
+        </kfly:ModalContentPresenter>
     </kfly:KFlyTab>
 </UserControl>
