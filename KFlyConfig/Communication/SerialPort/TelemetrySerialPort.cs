@@ -6,10 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO.Ports;
 using System.Threading;
-using KFly.Logging;
 using KFly.Utils;
 
-namespace KFly.Communication
+namespace KFly
 {
     public class ConnectedStateChangedEventArgs
     {

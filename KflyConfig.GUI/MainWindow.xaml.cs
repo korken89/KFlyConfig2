@@ -16,7 +16,6 @@ using System.Windows.Media.Animation;
 using System.Resources;
 using System.IO.Ports;
 using System.Windows.Interop;
-using KFly.Communication;
 using KflyConfig.GUI;
 using MahApps.Metro.Controls;
 using MahApps.Metro;

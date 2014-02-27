@@ -7,7 +7,7 @@ using System.IO;
 using Microsoft.Win32.SafeHandles;
 
 
-namespace KFly.Communication
+namespace KFly
 {
     /// <summary>
     /// Detects all changes on USB

@@ -110,11 +110,10 @@
                                             <TextBox FontSize="10" Text="{Binding MagnometerGain.YString, Mode=OneWay}" Grid.Row="2" Grid.Column="2" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
                                             <TextBox FontSize="10" Text="{Binding MagnometerGain.ZString, Mode=OneWay}" Grid.Row="2" Grid.Column="3" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
                                         </Grid>
-                                    </GroupBox>
-                                    
+                                    </GroupBox>     
                                 </StackPanel>
-
-                                <Button Name="UseDataBtn" Height="60" Width="120" Content="Use this data"
+                                <TextBlock Text="Calculation successful!" Margin="5" FontSize="16" HorizontalAlignment="Center" />
+                                <Button Name="UseDataBtn" Height="40" Margin="5" Width="120" Content="Use this data"
                                 Style="{StaticResource AccentedSquareButtonStyle}" Padding="7"
                                 Click="UseDataBtn_Click" HorizontalAlignment="Center"/>
                             </StackPanel>

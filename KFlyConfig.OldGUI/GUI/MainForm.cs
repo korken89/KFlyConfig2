@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Configuration;
-using KFly.Communication;
 using System.IO.Ports;
 
 

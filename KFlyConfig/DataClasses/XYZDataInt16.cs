@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Globalization;
 
-namespace KFly.Communication
+namespace KFly
 {
     public class XYZDataInt16
     {

@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using KFly.Communication;
 using KFly;
 
 namespace KFlyConfig.Test

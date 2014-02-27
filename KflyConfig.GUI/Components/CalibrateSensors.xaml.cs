@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using KFly.Communication;
 using System.Collections.Concurrent;
 using System.ComponentModel;
 
@@ -25,7 +24,7 @@ namespace KFly.GUI
     {
         private readonly BackgroundWorker _collectingWorker = new BackgroundWorker();
         private readonly BackgroundWorker _calculatingWorker = new BackgroundWorker();
-        private SixStepCalibrationData _data;
+        private SixPointsCalibrationData _data;
 
         public CalibrateSensors()
         {
@@ -52,16 +51,16 @@ namespace KFly.GUI
 
                 if (sc.IsValid)
                 {
-                    _data.Subs[6] = SixStepCalibrationData.SubSteps.Finished;
+                    _data.Subs[6] = SixPointsCalibrationData.SubSteps.Finished;
                 }
                 else
                 {
-                    _data.Subs[6] = SixStepCalibrationData.SubSteps.Error;
+                    _data.Subs[6] = SixPointsCalibrationData.SubSteps.Error;
                 }
             }
             else
             {
-                _data.Subs[6] = SixStepCalibrationData.SubSteps.Error;
+                _data.Subs[6] = SixPointsCalibrationData.SubSteps.Error;
             }
             UpdateControls();
         }
@@ -92,25 +91,25 @@ namespace KFly.GUI
         {
             if (e.Error != null)
             {
-                _data.CurrentSubStep = SixStepCalibrationData.SubSteps.Error;
+                _data.CurrentSubStep = SixPointsCalibrationData.SubSteps.Error;
                 ErrorLabel.Content = e.Error.Message;
             }
             else if (!e.Cancelled)
             {
-                _data.CurrentSubStep = SixStepCalibrationData.SubSteps.Finished;
+                _data.CurrentSubStep = SixPointsCalibrationData.SubSteps.Finished;
                 _data.CurrentStep++;
                 if (_data.CurrentStep == 6)
                 {
                     _toBeCalculated.Enqueue(new List<RawSensorData>(_data.RawData));
-                    _data.CurrentSubStep = SixStepCalibrationData.SubSteps.Working; 
+                    _data.CurrentSubStep = SixPointsCalibrationData.SubSteps.Working; 
                     _calculatingWorker.RunWorkerAsync();
                 }
                 UpdateControls();
             }
             else //canceled
             {
-                _data.CurrentSubStep = (_data.CurrentDataBag.Count >= 200) ? SixStepCalibrationData.SubSteps.Finished :
-                    SixStepCalibrationData.SubSteps.NotStarted;
+                _data.CurrentSubStep = (_data.CurrentDataBag.Count >= 200) ? SixPointsCalibrationData.SubSteps.Finished :
+                    SixPointsCalibrationData.SubSteps.NotStarted;
             }
         }
 
@@ -163,12 +162,12 @@ namespace KFly.GUI
 
             //Todo: Set text depending on Step here
 
-            NextBtn.Visibility = (_data.CurrentSubStep == SixStepCalibrationData.SubSteps.Finished)? Visibility.Visible
+            NextBtn.Visibility = (_data.CurrentSubStep == SixPointsCalibrationData.SubSteps.Finished)? Visibility.Visible
                 : Visibility.Hidden;
-            NextBtn.IsEnabled = (_data.CurrentSubStep != SixStepCalibrationData.SubSteps.Working);
+            NextBtn.IsEnabled = (_data.CurrentSubStep != SixPointsCalibrationData.SubSteps.Working);
            
             LastBtn.Visibility = (_data.CurrentStep > 0) ? Visibility.Visible : Visibility.Collapsed;
-            LastBtn.IsEnabled = (_data.CurrentSubStep != SixStepCalibrationData.SubSteps.Working);
+            LastBtn.IsEnabled = (_data.CurrentSubStep != SixPointsCalibrationData.SubSteps.Working);
            
             for (int i = 0; i < 4; i++)
             {
@@ -186,7 +185,7 @@ namespace KFly.GUI
       
         private void UserControl_Initialized(object sender, EventArgs e)
         {
-            _data = new SixStepCalibrationData();
+            _data = new SixPointsCalibrationData();
             this.DataContext = _data;
             UpdateControls();
         }
@@ -197,7 +196,7 @@ namespace KFly.GUI
             if (!_collectingWorker.IsBusy)
             {
                 _data.ClearCurrentDataBag();
-                _data.CurrentSubStep = SixStepCalibrationData.SubSteps.Working;
+                _data.CurrentSubStep = SixPointsCalibrationData.SubSteps.Working;
                 UpdateControls();
                 _collectingWorker.RunWorkerAsync();
             }
@@ -205,7 +204,7 @@ namespace KFly.GUI
 
         private void NextBtn_Click(object sender, RoutedEventArgs e)
         {
-            if ((_data.CurrentStep < 7) && (_data.CurrentSubStep == SixStepCalibrationData.SubSteps.Finished))
+            if ((_data.CurrentStep < 7) && (_data.CurrentSubStep == SixPointsCalibrationData.SubSteps.Finished))
             {
                 _data.CurrentStep++;
                 UpdateControls();
@@ -226,7 +225,7 @@ namespace KFly.GUI
             if (!_collectingWorker.IsBusy)
             {
                 _data.ClearCurrentDataBag();
-                _data.CurrentSubStep = SixStepCalibrationData.SubSteps.Working;
+                _data.CurrentSubStep = SixPointsCalibrationData.SubSteps.Working;
                 UpdateControls();
                 _collectingWorker.RunWorkerAsync();
             }
@@ -257,108 +256,28 @@ namespace KFly.GUI
 
         private void UseDataBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (_collectingWorker.IsBusy)
+            if (_data.CurrentSubStep == SixPointsCalibrationData.SubSteps.Finished)
             {
-                _collectingWorker.CancelAsync();
-            }
-            if (_calculatingWorker.IsBusy)
-            {
-                _calculatingWorker.CancelAsync();
-            }
-            FindParent<ModalContentPresenter>(this).HideModalContent();
-        }
-
-
-    }
-
-
-    public class SixStepCalibrationData
-    {
-        public enum SubSteps
-        {
-            NotStarted = 0,
-            Working = 1,
-            Error = 2,
-            Finished = 3
-        }
-
-        private uint _currentStep = 0;
-
-        private SubSteps[] _subSteps = new SubSteps[7];
-        private ConcurrentBag<RawSensorData>[] _data = new ConcurrentBag<RawSensorData>[7];
-
-        public IEnumerable<RawSensorData> RawData
-        {
-            get
-            {
-                for (int i = 0; i < 6; i++)
+                if (_collectingWorker.IsBusy)
                 {
-                    foreach (RawSensorData rsd in _data[i])
-                    {
-                        yield return rsd;
-                    }
+                    _collectingWorker.CancelAsync();
                 }
+                if (_calculatingWorker.IsBusy)
+                {
+                    _calculatingWorker.CancelAsync();
+                }
+                Telemetry.Handle(new GetSensorCalibration() { Data = _latestResult });
+                FindParent<ModalContentPresenter>(this).HideModalContent();
+            }
+            else if (_data.CurrentSubStep == SixPointsCalibrationData.SubSteps.Error)
+            {
+
             }
         }
 
-        public SubSteps[] Subs
-        {
-            get
-            {
-                return _subSteps;
-            }
-        }
-
-        public SixStepCalibrationData()
-        {
-            for (var i = 0; i < 7; i++)
-            {
-                _subSteps[i] = SubSteps.NotStarted;
-                _data[i] = new ConcurrentBag<RawSensorData>();
-            }
-        }
-
-        public SubSteps CurrentSubStep
-        {
-            get
-            {
-                return _subSteps[_currentStep];
-            }
-            set
-            {
-                _subSteps[_currentStep] = value;
-            }
-        }
-
-        public uint CurrentStep
-        {
-            get
-            {
-                return _currentStep;
-            }
-            set
-            {
-                _currentStep = Math.Min(6,value);
-            }
-        }
-
-        public ConcurrentBag<RawSensorData> CurrentDataBag
-        {
-            get
-            {
-                return _data[_currentStep];
-            }
-        }
-
-        public void ClearCurrentDataBag()
-        {
-            RawSensorData someItem;
-            var bag = _data[_currentStep];
-            while (!bag.IsEmpty) 
-            {
-                bag.TryTake(out someItem);
-            }
-        }
 
     }
+
+
+   
 }

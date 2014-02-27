@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using KFly.Utils;
 
-namespace KFly.Communication
+namespace KFly
 {
     public enum Baudrate
     {

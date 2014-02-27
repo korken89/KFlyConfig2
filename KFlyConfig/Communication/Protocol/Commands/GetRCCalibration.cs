@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace KFly.Communication
+namespace KFly
 {
     public class GetRCCalibration : KFlyCommand
     {

@@ -6,7 +6,7 @@ using System.Text;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace KFly.Communication
+namespace KFly
 {
     /// <summary>
     /// Handles all Telemetry 

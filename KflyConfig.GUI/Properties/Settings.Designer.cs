@@ -38,9 +38,9 @@ namespace KFly.GUI.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Baud_1000000")]
-        public global::KFly.Communication.Baudrate Baudrate {
+        public global::KFly.Baudrate Baudrate {
             get {
-                return ((global::KFly.Communication.Baudrate)(this["Baudrate"]));
+                return ((global::KFly.Baudrate)(this["Baudrate"]));
             }
             set {
                 this["Baudrate"] = value;

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KFly.Logging
+namespace KFly
 {
     public static class LogManager
     {
