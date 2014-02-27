@@ -1,3 +1,3 @@
 cd %1
-git describe --long HEAD > %2
-git describe --long HEAD > %2
+git describe HEAD > %2
+git diff --shortstat >> %2

@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using System.Reflection;
 
 namespace KFly.GUI
 {
@@ -23,6 +25,35 @@ namespace KFly.GUI
         public HomeTab()
         {
             InitializeComponent();
+        }
+
+        private void UserControl_Initialized(object sender, EventArgs e)
+        {
+            StreamReader sr = new StreamReader(
+                Assembly.GetExecutingAssembly().GetManifestResourceStream("KFly.GUI.revision.txt"));
+            try
+            {
+                String version = sr.ReadLine();
+                String isDirty = sr.ReadLine();
+                if (version == null)
+                {
+                    version = "No version information found";
+                }
+                else
+                {
+                    version = "v." + version;
+                }
+                if (isDirty != null)
+                {
+                    version += "~dirty";
+                }
+                VersionLabel.Content = version;
+            }
+            finally
+            {
+                sr.Close();
+            }
+            
         }
     }
 }

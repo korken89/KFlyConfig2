@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             Initialized="UserControl_Initialized"
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="622">
     <DockPanel LastChildFill="True" HorizontalAlignment="Stretch">
@@ -16,9 +17,9 @@
                 <Label Content="KFly" FontWeight="Bold" FontSize="80" Foreground="{DynamicResource AccentColorBrush}"
                                    HorizontalAlignment="Left" VerticalAlignment="Center" />
                 <StackPanel VerticalAlignment="Center">
-                    <Label Content="Config" Margin="0" Padding="0" FontSize="40" Foreground="{DynamicResource AccentColorBrush}"
+                    <Label Content="Config" Margin="0" Padding="0" FontSize="48" Foreground="{DynamicResource AccentColorBrush}"
                                    HorizontalAlignment="Left" VerticalAlignment="Center" />
-                    <Label Content="v.0.0.1" Margin="0" FontSize="20" Foreground="{DynamicResource AccentColorBrush}" />
+                    <Label Name="VersionLabel" Content="v.0.0.1" Margin="0" FontSize="14" Foreground="{DynamicResource AccentColorBrush}" />
                 </StackPanel>
             </DockPanel>
             <StackPanel>

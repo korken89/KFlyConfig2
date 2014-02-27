@@ -187,7 +187,7 @@
     <Resource Include="Resources\joystick_small.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="revision.txt" />
+    <EmbeddedResource Include="revision.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
