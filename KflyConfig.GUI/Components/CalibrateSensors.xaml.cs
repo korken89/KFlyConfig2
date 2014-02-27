@@ -46,9 +46,18 @@ namespace KFly.GUI
             SensorCalibration sc = e.Result as SensorCalibration;
             if (sc != null)
             {
-                ResultLabel.Text = sc.ToString();
+                AccelerometerGrid.DataContext = sc;
+                MagnometerGrid.DataContext = sc;
                 _latestResult = sc;
-                _data.Subs[6] = SixStepCalibrationData.SubSteps.Finished;
+
+                if (sc.IsValid)
+                {
+                    _data.Subs[6] = SixStepCalibrationData.SubSteps.Finished;
+                }
+                else
+                {
+                    _data.Subs[6] = SixStepCalibrationData.SubSteps.Error;
+                }
             }
             else
             {
@@ -70,7 +79,7 @@ namespace KFly.GUI
                     e.Cancel = true;
                     break;
                 }
-                e.Result = SixPositionSensorCalibration.Calibrate(data);
+                e.Result = SixPointSensorCalibration.Calibrate(data);
             }
         }
 

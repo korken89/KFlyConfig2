@@ -196,6 +196,9 @@
   <ItemGroup>
     <EmbeddedResource Include="revision.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\calculator.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>"$(ProjectDir)prebuild.cmd" "$(ProjectDir)" "$(ProjectDir)revision.txt"</PreBuildEvent>

@@ -30,13 +30,12 @@ namespace KFly.GUI
 
             // Validate values and get list of numbers in equation
             var numbers = new List<double>();
-            double tmp;
-
+           
             foreach (string s in mathEquation.Split(_allOperators))
             {
                 if (s != string.Empty)
                 {
-                    numbers.Add(System.Convert.ToDouble(s));
+                    numbers.Add(System.Convert.ToDouble(s, CultureInfo.InvariantCulture));
                 }
             }
 

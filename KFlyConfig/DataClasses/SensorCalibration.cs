@@ -83,6 +83,17 @@ namespace KFly.Communication
                 MagnometerGain.SetBytes(bytes.GetRange(36, 12));
             }
         }
+
+        public Boolean IsValid
+        {
+            get
+            {
+                return AccelerometerBias.IsValid && AccelerometerGain.IsValid &&
+                    MagnometerBias.IsValid && MagnometerGain.IsValid;
+            }
+        }
+
+
         public static SensorCalibration FromBytes(List<byte> bytes)
         {
             var c = new SensorCalibration();

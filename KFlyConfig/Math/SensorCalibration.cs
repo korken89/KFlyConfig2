@@ -6,7 +6,7 @@ using KFly.Communication;
 
 namespace KFly
 {
-    public static class SixPositionSensorCalibration
+    public static class SixPointSensorCalibration
     {
         public static SensorCalibration Calibrate(IEnumerable<RawSensorData> measurepoints)
         {

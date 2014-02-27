@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.Configuration;
 using KFly.Communication;
 using System.IO.Ports;
- 
+
 
 
 namespace KFly
@@ -193,8 +193,8 @@ namespace KFly
 
         private void connectBtn_Click(object sender, EventArgs e)
         {
-            Telemetry.Link.PortName = comportsCombo.Text;
-            Telemetry.Link.BaudRate = baudrateCombo.Text;
+            Telemetry.Port = comportsCombo.Text;
+            Telemetry.Baudrate = Baudrate.Baud_1000000;//baudrateCombo.Text;
             Properties.Settings.Default.ComPort = comportsCombo.Text;
             Properties.Settings.Default.Baudrate = baudrateCombo.Text;
             Properties.Settings.Default.Save();
@@ -202,7 +202,7 @@ namespace KFly
            // var id = Log.NewRow(Log
 
 
-            if (Telemetry.Link.OpenPort())
+            if (Telemetry.Connect())
             {
                 disconnectBtn.Enabled = true;
                 connectBtn.Enabled = false;
@@ -217,7 +217,7 @@ namespace KFly
 
         private void disconnectBtn_Click(object sender, EventArgs e)
         {
-            Telemetry.Link.ClosePort();
+            Telemetry.Disconnect();
             disconnectBtn.Enabled = false;
             connectBtn.Enabled = true;
         }

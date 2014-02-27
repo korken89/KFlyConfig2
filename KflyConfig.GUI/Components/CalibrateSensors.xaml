@@ -8,7 +8,7 @@
              Initialized="UserControl_Initialized"
              Padding="0">
     <StackPanel Background="White" VerticalAlignment="Center" HorizontalAlignment="Center">
-        <GroupBox Margin="0" Header="6-position sensor calibration" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <GroupBox Margin="0" Header="6-point sensor calibration" VerticalAlignment="Center" HorizontalAlignment="Center">
             <DockPanel  LastChildFill="True">
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                     <kfly:KFlyCircleButton IsRotating="True" x:Name="LastBtn" Click="LastBtn_Click" Width="40" Height="40" Icon="{DynamicResource ResourceKey=appbar_arrow_left}"/>
@@ -44,11 +44,82 @@
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Name="ResultPanel" Orientation="Vertical">
-                        <Label Content="Result:" FontSize="20" HorizontalAlignment="Left"/>
-                        <TextBlock Name="ResultLabel" TextWrapping="WrapWithOverflow" Text="asdfasdfasdfasdf" HorizontalAlignment="Center"/>
-                        <Button Name="UseDataBtn" Height="60" Width="120" Content="Use this data"
+                        <StackPanel.Background>
+                            <ImageBrush  Stretch="None" AlignmentX="Left" AlignmentY="Top" ImageSource="/KFlyConfig.GUI;component/Resources/calculator.png">
+                            </ImageBrush>
+                        </StackPanel.Background>
+                        <Grid>
+                            <StackPanel Name="CalculationWorking" Visibility="Hidden" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <metro:ProgressRing Width="40" Height="40" IsActive="True" />
+                                <Label Content="Doing magic calculations..." FontWeight="Bold" Margin="0,0,30,0" FontSize="18" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <StackPanel Name="CalculationResult" Visibility="Visible" Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <GroupBox metro:ControlsHelper.HeaderFontSize="11" Padding="3" Header="Accelerometer" HorizontalAlignment="Left">
+                                        <Grid Margin="-3" Background="White" x:Name="AccelerometerGrid">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="10"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto" />
+                                                <ColumnDefinition Width="60" />
+                                                <ColumnDefinition Width="60" />
+                                                <ColumnDefinition Width="60" />
+                                                <ColumnDefinition Width="10" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label FontSize="10" Grid.Row="0" Grid.Column="1" Content="X-axis" HorizontalAlignment="Center" />
+                                            <Label FontSize="10" Grid.Row="0" Grid.Column="2" Content="Y-axis" HorizontalAlignment="Center" />
+                                            <Label FontSize="10" Grid.Row="0" Grid.Column="3" Content="Z-axis" HorizontalAlignment="Center"/>
+                                            <Label FontSize="10" Grid.Row="1" Grid.Column="0" Content="Bias" VerticalAlignment="Center" />
+                                            <Label FontSize="10" Grid.Row="2" Grid.Column="0" Content="Gain" VerticalAlignment="Center" />
+                                            <TextBox FontSize="10" Text="{Binding AccelerometerBias.XString, Mode=OneWay}" Grid.Row="1" Grid.Column="1" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
+                                            <TextBox FontSize="10" Text="{Binding AccelerometerBias.YString, Mode=OneWay}" Grid.Row="1" Grid.Column="2" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
+                                            <TextBox FontSize="10" Text="{Binding AccelerometerBias.ZString, Mode=OneWay}" Grid.Row="1" Grid.Column="3" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
+                                            <TextBox FontSize="10" Text="{Binding AccelerometerGain.XString, Mode=OneWay}" Grid.Row="2" Grid.Column="1" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
+                                            <TextBox FontSize="10" Text="{Binding AccelerometerGain.YString, Mode=OneWay}" Grid.Row="2" Grid.Column="2" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
+                                            <TextBox FontSize="10" Text="{Binding AccelerometerGain.ZString, Mode=OneWay}" Grid.Row="2" Grid.Column="3" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
+                                        </Grid>
+                                    </GroupBox>
+                                    <GroupBox metro:ControlsHelper.HeaderFontSize="11" Padding="3" Header="Magnometer" HorizontalAlignment="Left">
+                                        <Grid Margin="-2" Background="White" x:Name="MagnometerGrid">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="10"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto" />
+                                                <ColumnDefinition Width="60" />
+                                                <ColumnDefinition Width="60" />
+                                                <ColumnDefinition Width="60" />
+                                                <ColumnDefinition Width="10" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label FontSize="10" Grid.Row="0" Grid.Column="1" Content="X-axis" HorizontalAlignment="Center" />
+                                            <Label FontSize="10" Grid.Row="0" Grid.Column="2" Content="Y-axis" HorizontalAlignment="Center" />
+                                            <Label FontSize="10" Grid.Row="0" Grid.Column="3" Content="Z-axis" HorizontalAlignment="Center"/>
+                                            <Label FontSize="10" Grid.Row="1" Grid.Column="0" Content="Bias" VerticalAlignment="Center" />
+                                            <Label FontSize="10" Grid.Row="2" Grid.Column="0" Content="Gain" VerticalAlignment="Center" />
+                                            <TextBox FontSize="10" Text="{Binding MagnometerBias.XString, Mode=OneWay}" Grid.Row="1" Grid.Column="1" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
+                                            <TextBox FontSize="10" Text="{Binding MagnometerBias.YString, Mode=OneWay}" Grid.Row="1" Grid.Column="2" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
+                                            <TextBox FontSize="10" Text="{Binding MagnometerBias.ZString, Mode=OneWay}" Grid.Row="1" Grid.Column="3" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
+                                            <TextBox FontSize="10" Text="{Binding MagnometerGain.XString, Mode=OneWay}" Grid.Row="2" Grid.Column="1" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
+                                            <TextBox FontSize="10" Text="{Binding MagnometerGain.YString, Mode=OneWay}" Grid.Row="2" Grid.Column="2" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
+                                            <TextBox FontSize="10" Text="{Binding MagnometerGain.ZString, Mode=OneWay}" Grid.Row="2" Grid.Column="3" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
+                                        </Grid>
+                                    </GroupBox>
+                                    
+                                </StackPanel>
+
+                                <Button Name="UseDataBtn" Height="60" Width="120" Content="Use this data"
                                 Style="{StaticResource AccentedSquareButtonStyle}" Padding="7"
                                 Click="UseDataBtn_Click" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+
                     </StackPanel>
                 </Grid>
                 <DockPanel DockPanel.Dock="Top">

@@ -50,39 +50,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Communication\Protocol\Commands\GetBootLoaderVersion.cs" />
-    <Compile Include="Communication\Protocol\Commands\GetFirmwareVersion.cs" />
-    <Compile Include="Communication\Protocol\Commands\GetChannelMix.cs" />
-    <Compile Include="Communication\Protocol\Commands\GetRCCalibration.cs" />
-    <Compile Include="Communication\Protocol\Commands\GetRCValues.cs" />
-    <Compile Include="Communication\Protocol\Commands\GetControllerData.cs" />
-    <Compile Include="Communication\Protocol\Commands\Ping.cs" />
-    <Compile Include="Communication\Protocol\Commands\SaveToFlash.cs" />
-    <Compile Include="Communication\Protocol\Commands\SetChannelMix.cs" />
-    <Compile Include="Communication\Protocol\Commands\SetRCCalibration.cs" />
-    <Compile Include="Communication\Protocol\Commands\SetControllerData.cs" />
-    <Compile Include="Communication\Protocol\Commands\DebugMessage.cs" />
-    <Compile Include="Communication\Telemetry.cs" />
-    <Compile Include="Communication\USBHandler.cs" />
-    <Compile Include="DataClasses\ChannelData.cs" />
-    <Compile Include="DataClasses\PIData.cs" />
-    <Compile Include="DataClasses\MixerData.cs" />
-    <Compile Include="DataClasses\ControllerData.cs" />
-    <Compile Include="Logging\LogManager.cs" />
-    <Compile Include="Logging\RichEditLog.cs" />
-    <Compile Include="Communication\CRC8.cs" />
-    <Compile Include="Communication\CRC_CCITT.cs" />
     <Compile Include="GUI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GUI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Communication\Protocol\KFlyCommand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Communication\StateMachine.cs" />
-    <Compile Include="Communication\TelemetryLink.cs" />
     <EmbeddedResource Include="GUI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -111,6 +86,12 @@
     <Content Include="xyz.gif" />
     <Content Include="xyz2.gif" />
     <Content Include="xyz3.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KFlyConfig\KFlyConfig.csproj">
+      <Project>{87ad72f0-de3a-4ee9-82ad-8df42193e8da}</Project>
+      <Name>KFlyConfig</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
