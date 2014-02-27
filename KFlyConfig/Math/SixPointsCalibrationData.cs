@@ -29,6 +29,7 @@ namespace KFly
                 _subSteps[i] = SubSteps.NotStarted;
                 _data[i] = new ConcurrentBag<RawSensorData>();
             }
+            _currentStep = 0;
         }
 
         public IEnumerable<RawSensorData> RawData

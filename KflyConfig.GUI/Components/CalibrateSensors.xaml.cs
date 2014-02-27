@@ -180,6 +180,26 @@ namespace KFly.GUI
             UseDataBtn.IsEnabled = (_latestResult != null);
 
             StepLabel.Content = String.Format("Step {0} of 7", _data.CurrentStep+1);
+
+            //Calculation panel
+            CalculationWorking.Visibility = 
+                ((_data.CurrentStep == 6) && (_data.CurrentSubStep == SixPointsCalibrationData.SubSteps.Working)) ?
+                Visibility.Visible : Visibility.Hidden;
+            CalculationResult.Visibility =
+               ((_data.CurrentStep == 6) && (_data.CurrentSubStep != SixPointsCalibrationData.SubSteps.Working)) ?
+               Visibility.Visible : Visibility.Hidden;
+            if ((_data.CurrentStep == 6) && (_data.CurrentSubStep != SixPointsCalibrationData.SubSteps.Finished))
+            {
+                CalculationResultLabel.Text = "Calculation failed! This might be because of you not using all 6 position correctly. You can either redo the whole process or go back and redo single positions.";
+                CalculationResultLabel.Foreground = Brushes.Red;
+                UseDataBtn.Content = "Restart calibration";
+            }
+            else if (_data.CurrentStep == 6) //ERROR
+            {
+                CalculationResultLabel.Text = "Calculation Successful!";
+                CalculationResultLabel.Foreground = Brushes.Black;
+                UseDataBtn.Content = "Use this result";
+            }
         }
 
       
@@ -271,7 +291,8 @@ namespace KFly.GUI
             }
             else if (_data.CurrentSubStep == SixPointsCalibrationData.SubSteps.Error)
             {
-
+                _data.FullReset();
+                UpdateControls();
             }
         }
 

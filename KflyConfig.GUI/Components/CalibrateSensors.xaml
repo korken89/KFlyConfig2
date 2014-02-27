@@ -112,7 +112,9 @@
                                         </Grid>
                                     </GroupBox>     
                                 </StackPanel>
-                                <TextBlock Text="Calculation successful!" Margin="5" FontSize="16" HorizontalAlignment="Center" />
+                                <TextBlock Name="CalculationResultLabel" TextWrapping="WrapWithOverflow"
+                                           Text="Calculation successful!" Margin="5" FontSize="16"
+                                           HorizontalAlignment="Center" />
                                 <Button Name="UseDataBtn" Height="40" Margin="5" Width="120" Content="Use this data"
                                 Style="{StaticResource AccentedSquareButtonStyle}" Padding="7"
                                 Click="UseDataBtn_Click" HorizontalAlignment="Center"/>
