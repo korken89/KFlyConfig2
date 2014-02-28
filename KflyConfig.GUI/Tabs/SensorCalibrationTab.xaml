@@ -9,9 +9,10 @@
              mc:Ignorable="d" 
              Background="White"
              d:DesignHeight="536" d:DesignWidth="622">
-    <kfly:KFlyTab Title="Sensor Calibration" BackgroundImage="../Resources/gyroscope_small.png">
+    <kfly:KFlyTab Title="Sensor Calibration" BackgroundImage="../Resources/gyroscope.png">
         <kfly:ModalContentPresenter x:Name="CalibrationModal">
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                 <GroupBox Header="Accelerometer" HorizontalAlignment="Left">
                     <Grid x:Name="AccelerometerGrid">
                         <Grid.RowDefinitions>
@@ -33,7 +34,7 @@
                         <Label Grid.Row="0" Grid.Column="3" Content="Z-axis" HorizontalAlignment="Center"/>
                         <Label Grid.Row="1" Grid.Column="0" Content="Bias" VerticalAlignment="Center" />
                         <Label Grid.Row="2" Grid.Column="0" Content="Gain" VerticalAlignment="Center" />
-                   <!--     <Label Grid.Row="3" Grid.Column="0" Content="Std. Dev." VerticalAlignment="Center" />-->
+                        <!--     <Label Grid.Row="3" Grid.Column="0" Content="Std. Dev." VerticalAlignment="Center" />-->
                         <TextBox Text="{Binding AccelerometerBias.XString, Mode=OneWay}" Grid.Row="1" Grid.Column="1" IsReadOnly="True" TextAlignment="Center" />
                         <TextBox Text="{Binding AccelerometerBias.YString, Mode=OneWay}" Grid.Row="1" Grid.Column="2" IsReadOnly="True" TextAlignment="Center" />
                         <TextBox Text="{Binding AccelerometerBias.ZString, Mode=OneWay}" Grid.Row="1" Grid.Column="3" IsReadOnly="True" TextAlignment="Center" />
@@ -66,7 +67,7 @@
                         <Label Grid.Row="0" Grid.Column="3" Content="Z-axis" HorizontalAlignment="Center"/>
                         <Label Grid.Row="1" Grid.Column="0" Content="Bias" VerticalAlignment="Center" />
                         <Label Grid.Row="2" Grid.Column="0" Content="Gain" VerticalAlignment="Center" />
-                   <!--     <Label Grid.Row="3" Grid.Column="0" Content="Std. Dev." VerticalAlignment="Center" />-->
+                        <!--     <Label Grid.Row="3" Grid.Column="0" Content="Std. Dev." VerticalAlignment="Center" />-->
                         <TextBox Text="{Binding MagnometerBias.XString, Mode=OneWay}" Grid.Row="1" Grid.Column="1" IsReadOnly="True" TextAlignment="Center" />
                         <TextBox Text="{Binding MagnometerBias.YString, Mode=OneWay}" Grid.Row="1" Grid.Column="2" IsReadOnly="True" TextAlignment="Center" />
                         <TextBox Text="{Binding MagnometerBias.ZString, Mode=OneWay}" Grid.Row="1" Grid.Column="3" IsReadOnly="True" TextAlignment="Center" />
@@ -78,7 +79,8 @@
                     <TextBox Text="{Binding MagnometerStdDev.ZString, Mode=OneWay}" Grid.Row="3" Grid.Column="3" IsReadOnly="True" TextAlignment="Center" />-->
                     </Grid>
                 </GroupBox>
-                <Button Content="Start calibration" Click="Button_Click" HorizontalAlignment="Center" />
+            </WrapPanel>
+            <Button Content="Start calibration" Click="Button_Click" HorizontalAlignment="Center" />
             </StackPanel>
             <kfly:ModalContentPresenter.ModalContent>
                 <kfly:CalibrateSensors></kfly:CalibrateSensors>

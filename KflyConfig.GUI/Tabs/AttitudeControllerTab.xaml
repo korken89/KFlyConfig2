@@ -1,0 +1,124 @@
+﻿<UserControl x:Class="KFly.GUI.AttitudeControllerTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:kfly="clr-namespace:KFly.GUI"       
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             Initialized="UserControl_Initialized"
+             Background="White"
+             mc:Ignorable="d" 
+             d:DesignHeight="536" d:DesignWidth="722">
+    <kfly:KFlyTab Title="Attitude Controller" BackgroundImage="../Resources/control.png">
+        <kfly:KFlyTab.Toolbar>
+            <StackPanel>
+                <kfly:KFlyCircleButton x:Name="DownloadBtn"
+                                   IsRotating="True"
+                                   Icon="{StaticResource appbar_arrow_down}"
+                                   ToolTip="Refresh" 
+                                   Width="40" Height="40" />
+            </StackPanel>
+        </kfly:KFlyTab.Toolbar>
+    <WrapPanel>
+            <GroupBox Header="Attitude Controller Gains" HorizontalAlignment="Left">
+                <Grid x:Name="AttitudeGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="10"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="1" Content="Proportional" HorizontalAlignment="Center"/>
+                    <Label Grid.Row="0" Grid.Column="2" Content="Integral" HorizontalAlignment="Center"/>
+                    <Label Grid.Row="0" Grid.Column="3" Content="Integral limit" HorizontalAlignment="Center"/>
+                    <Label Grid.Row="1" Grid.Column="0" Content="Pitch" VerticalAlignment="Center" />
+                    <Label Grid.Row="2" Grid.Column="0" Content="Roll" VerticalAlignment="Center" />
+                    <Label Grid.Row="3" Grid.Column="0" Content="Yaw" VerticalAlignment="Center" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="1" Grid.Column="1" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="1" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="1" Grid.Column="3" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="2" Grid.Column="1" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="2" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="2" Grid.Column="3" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="3" Grid.Column="1" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="3" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="3" Grid.Column="3" Margin="3" />
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Rate Controller Gains" HorizontalAlignment="Left">
+                <Grid x:Name="RateGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="10"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="1" Content="Proportional" HorizontalAlignment="Center"/>
+                    <Label Grid.Row="0" Grid.Column="2" Content="Integral" HorizontalAlignment="Center"/>
+                    <Label Grid.Row="0" Grid.Column="3" Content="Integral limit" HorizontalAlignment="Center"/>
+                    <Label Grid.Row="1" Grid.Column="0" Content="Pitch" VerticalAlignment="Center" />
+                    <Label Grid.Row="2" Grid.Column="0" Content="Roll" VerticalAlignment="Center" />
+                    <Label Grid.Row="3" Grid.Column="0" Content="Yaw" VerticalAlignment="Center" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="1" Grid.Column="1" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="1" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="1" Grid.Column="3" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="2" Grid.Column="1" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="2" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="2" Grid.Column="3" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="3" Grid.Column="1" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="3" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="3" Grid.Column="3" Margin="3" />
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Attitude and Rate Constraints" HorizontalAlignment="Left">
+                <Grid x:Name="ConstraintsGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="10"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="1" Content="Pitch" HorizontalAlignment="Center"/>
+                    <Label Grid.Row="0" Grid.Column="2" Content="Roll" HorizontalAlignment="Center"/>
+                    <Label Grid.Row="0" Grid.Column="3" Content="Yaw" HorizontalAlignment="Center"/>
+                    <Label Grid.Row="1" Grid.Column="0" Content="Maximum rate (deg/s)" VerticalAlignment="Center" />
+                    <Label Grid.Row="2" Grid.Column="0" Content="Maximum angle (deg)" VerticalAlignment="Center" />
+                    <Label Grid.Row="3" Grid.Column="0" Content="Maximum rate (attitude mode)" VerticalAlignment="Center" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="0.00" StringFormat="0." Grid.Row="1" Grid.Column="1" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="0.00" StringFormat="0." Grid.Row="1" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="0.00" StringFormat="0." Grid.Row="1" Grid.Column="3" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="0.00" StringFormat="0." Grid.Row="2" Grid.Column="1" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="0.00" StringFormat="0." Grid.Row="2" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="0.00" StringFormat="0." Grid.Row="3" Grid.Column="1" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="0.00" StringFormat="0." Grid.Row="3" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="0.00" StringFormat="0." Grid.Row="3" Grid.Column="3" Margin="3" />
+                </Grid>
+            </GroupBox>
+        </WrapPanel>
+    </kfly:KFlyTab>
+</UserControl>
+

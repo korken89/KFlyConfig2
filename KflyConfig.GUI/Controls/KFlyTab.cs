@@ -18,7 +18,6 @@ namespace KFly.GUI
 {
 
     [TemplatePart(Name = "PART_NotConnectedModal", Type = typeof(ModalContentPresenter))]
-    [TemplatePart(Name = "PART_RefreshBtn", Type = typeof(Button))]
     public class KFlyTab : ContentControl
     {
         public KFlyTab()
@@ -63,17 +62,20 @@ namespace KFly.GUI
             var kflyTab = (KFlyTab)dependencyObject;
             var connected = (bool)e.NewValue;
             kflyTab.UpdateComponentsOnConnectedChange(connected);
-            
         }
+
+        public static readonly DependencyProperty ToolbarProperty = 
+            DependencyProperty.Register("Toolbar", typeof(object), typeof(KFlyTab));
+
+        public object Toolbar
+        {
+            get { return GetValue(ToolbarProperty); }
+            set { SetValue(ToolbarProperty, value); }
+        }
+
 
         private void UpdateComponentsOnConnectedChange(bool connected)
         {
-            var btn = this.Template.FindName("PART_RefreshBtn", this) as Button;
-            if (btn != null)
-            {
-                btn.IsEnabled = connected;
-                btn.ToolTip = (connected) ? "Refresh" : "Need to be connected to refresh";
-            }
             var mcp = this.Template.FindName("PART_NotConnectedModal", this) as ModalContentPresenter;
             if (mcp != null)
             {
@@ -109,31 +111,6 @@ namespace KFly.GUI
             DependencyProperty.Register("Title", typeof(String), typeof(KFlyTab),
               new PropertyMetadata(null));
 
-
-        // Create a custom routed event by first registering a RoutedEventID 
-        // This event uses the bubbling routing strategy 
-        public static readonly RoutedEvent RequestRefreshEvent = EventManager.RegisterRoutedEvent(
-            "RequestRefresh", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(KFlyTab));
-
-        // Provide CLR accessors for the event 
-        public event RoutedEventHandler RequestRefresh
-        {
-            add { AddHandler(RequestRefreshEvent, value); }
-            remove { RemoveHandler(RequestRefreshEvent, value); }
-        }
-
-        // This method raises the Tap event 
-        void RaiseRequestRefreshEvent()
-        {
-            RoutedEventArgs newEventArgs = new RoutedEventArgs(KFlyTab.RequestRefreshEvent);
-            RaiseEvent(newEventArgs);
-        }
-
-
-        private void RefreshBtn_Click(object sender, RoutedEventArgs e)
-        {
-            RaiseRequestRefreshEvent();
-        }
 
     }
 }

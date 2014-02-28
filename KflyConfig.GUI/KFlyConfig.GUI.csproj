@@ -81,6 +81,9 @@
     <Compile Include="Tabs\Connection.xaml.cs">
       <DependentUpon>Connection.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Tabs\AttitudeControllerTab.xaml.cs">
+      <DependentUpon>AttitudeControllerTab.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\InputsTab.xaml.cs">
       <DependentUpon>InputsTab.xaml</DependentUpon>
     </Compile>
@@ -130,6 +133,10 @@
     <Page Include="Tabs\Connection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tabs\AttitudeControllerTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Tabs\InputsTab.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -195,15 +202,22 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\airplane_small.png" />
-    <Resource Include="Resources\chip_small.png" />
-    <Resource Include="Resources\gyroscope_small.png" />
-    <Resource Include="Resources\joystick_small.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="revision.txt" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\calculator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\control.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\joystick.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\chip.png" />
+    <Resource Include="Resources\gyroscope.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

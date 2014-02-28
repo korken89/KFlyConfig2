@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              Background="White"
              d:DesignHeight="536" d:DesignWidth="622">
-    <kfly:KFlyTab Title="Inputs" BackgroundImage="../Resources/joystick_small.png">
+    <kfly:KFlyTab Title="Inputs" BackgroundImage="../Resources/joystick.png">
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
                         <Grid>
                             <Grid.RowDefinitions>

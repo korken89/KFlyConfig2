@@ -9,7 +9,7 @@
              Background="White"
              mc:Ignorable="d" 
              d:DesignHeight="536" d:DesignWidth="622">
-    <kfly:KFlyTab Title="Firmware" BackgroundImage="../Resources/chip_small.png">
+    <kfly:KFlyTab Title="Firmware" BackgroundImage="../Resources/chip.png">
     <StackPanel>
         <Grid>
             <Grid.RowDefinitions>
