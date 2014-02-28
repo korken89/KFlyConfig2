@@ -143,7 +143,7 @@
                         <DockPanel Margin="5,5,5,5" LastChildFill="True" HorizontalAlignment="Stretch">
                             <DockPanel DockPanel.Dock="Top" LastChildFill="False" VerticalAlignment="Center">
                                 <Label Content="{TemplateBinding Title}" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                                <ContentPresenter Content="{TemplateBinding Toolbar}" DockPanel.Dock="Right"></ContentPresenter>
+                                <ContentPresenter Name="PART_Toolbar" Content="{TemplateBinding Toolbar}" DockPanel.Dock="Right"></ContentPresenter>
                             </DockPanel>
                             <Separator DockPanel.Dock="Top"/>
                             <kfly:ModalContentPresenter Name="PART_NotConnectedModal">
@@ -158,7 +158,9 @@
                                             </LinearGradientBrush>
                                         </Image.OpacityMask>
                                     </Image>
-                                    <ContentPresenter Content="{TemplateBinding Content}"></ContentPresenter>
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                                        <ContentPresenter Content="{TemplateBinding Content}"></ContentPresenter>
+                                    </ScrollViewer>
                                 </Grid>
                                 <kfly:ModalContentPresenter.ModalContent>
                                     <kfly:ModalNotConnected/>

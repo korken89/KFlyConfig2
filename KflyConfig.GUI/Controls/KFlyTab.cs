@@ -17,6 +17,7 @@ using System.ComponentModel;
 namespace KFly.GUI
 {
 
+    [TemplatePart(Name = "PART_Toolbar", Type = typeof(FrameworkElement))]
     [TemplatePart(Name = "PART_NotConnectedModal", Type = typeof(ModalContentPresenter))]
     public class KFlyTab : ContentControl
     {
@@ -76,6 +77,11 @@ namespace KFly.GUI
 
         private void UpdateComponentsOnConnectedChange(bool connected)
         {
+            var toolbar = this.Template.FindName("PART_Toolbar", this) as FrameworkElement;
+            if (toolbar != null)
+            {
+                toolbar.IsEnabled = connected;
+            }
             var mcp = this.Template.FindName("PART_NotConnectedModal", this) as ModalContentPresenter;
             if (mcp != null)
             {
@@ -84,6 +90,25 @@ namespace KFly.GUI
                 else
                     mcp.ShowModalContent();
             }
+        }
+
+        // Create a custom routed event by first registering a RoutedEventID 
+        // This event uses the bubbling routing strategy 
+        public static readonly RoutedEvent ConnectionEvent = EventManager.RegisterRoutedEvent(
+            "ConnectionChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(KFlyTab));
+
+        // Provide CLR accessors for the event 
+        public event RoutedEventHandler ConnectionChanged
+        {
+            add { AddHandler(ConnectionEvent, value); }
+            remove { RemoveHandler(ConnectionEvent, value); }
+        }
+
+        // This method raises the Tap event 
+        void RaiseConnectionEvent()
+        {
+            RoutedEventArgs newEventArgs = new RoutedEventArgs(KFlyTab.ConnectionEvent);
+            RaiseEvent(newEventArgs);
         }
 
         /// <summary>

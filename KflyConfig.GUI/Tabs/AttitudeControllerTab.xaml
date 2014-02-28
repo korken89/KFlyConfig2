@@ -13,7 +13,6 @@
         <kfly:KFlyTab.Toolbar>
             <StackPanel>
                 <kfly:KFlyCircleButton x:Name="DownloadBtn"
-                                   IsRotating="True"
                                    Icon="{StaticResource appbar_arrow_down}"
                                    ToolTip="Refresh" 
                                    Width="40" Height="40" />
