@@ -223,6 +223,9 @@
     <Resource Include="Resources\chip.png" />
     <Resource Include="Resources\gyroscope.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\kfly_illustration.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>"$(ProjectDir)prebuild.cmd" "$(ProjectDir)" "$(ProjectDir)revision.txt"</PreBuildEvent>
