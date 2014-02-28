@@ -10,6 +10,8 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Animation;
+using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.Concurrent;
@@ -156,9 +158,38 @@ namespace KFly.GUI
             }
         }
 
+        private uint _lastStep = 0;
+
         private void UpdateControls()
         {
             //Todo: Set picture depending on Step here
+            if ((_lastStep != _data.CurrentStep) && (_data.CurrentStep < 6))
+            {
+                AxisAngleRotation3D rotateAxis;
+                switch (_data.CurrentStep)
+                {
+                    case 0:
+                        rotateAxis = new AxisAngleRotation3D(new Vector3D(0, 1, 0), 0);
+                        break;
+                    case 1:
+                        rotateAxis = new AxisAngleRotation3D(new Vector3D(0, 1, 0), 90);
+                        break;
+                    case 2:
+                        rotateAxis = new AxisAngleRotation3D(new Vector3D(0, 1, 0), 180);
+                        break;
+                    case 3:
+                        rotateAxis = new AxisAngleRotation3D(new Vector3D(0, 1, 0), 270);
+                        break;
+                    case 4:
+                        rotateAxis = new AxisAngleRotation3D(new Vector3D(1, 0, 0), 90);
+                        break;
+                    default:
+                        rotateAxis = new AxisAngleRotation3D(new Vector3D(1, 0, 0), -90);
+                        break;
+                }
+                var ranim = new Rotation3DAnimation(rotateAxis, TimeSpan.FromSeconds(1.5));
+                KFlyRotation.BeginAnimation(RotateTransform3D.RotationProperty, ranim);
+            }
 
             //Todo: Set text depending on Step here
 
@@ -200,6 +231,8 @@ namespace KFly.GUI
                 CalculationResultLabel.Foreground = Brushes.Black;
                 UseDataBtn.Content = "Use this result";
             }
+
+            _lastStep = _data.CurrentStep;
         }
 
       
