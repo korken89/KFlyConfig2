@@ -16,6 +16,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.Concurrent;
 using System.ComponentModel;
+using System.Threading;
+using System.IO;
 
 namespace KFly.GUI
 {
@@ -169,22 +171,22 @@ namespace KFly.GUI
                 switch (_data.CurrentStep)
                 {
                     case 0:
-                        rotateAxis = new AxisAngleRotation3D(new Vector3D(0, 1, 0), 0);
+                        rotateAxis = new AxisAngleRotation3D(new Vector3D(-1, 0, 0), 0);
                         break;
                     case 1:
-                        rotateAxis = new AxisAngleRotation3D(new Vector3D(0, 1, 0), 90);
+                        rotateAxis = new AxisAngleRotation3D(new Vector3D(-1, 0, 0), 90);
                         break;
                     case 2:
-                        rotateAxis = new AxisAngleRotation3D(new Vector3D(0, 1, 0), 180);
+                        rotateAxis = new AxisAngleRotation3D(new Vector3D(-1, 0, 0), 180);
                         break;
                     case 3:
-                        rotateAxis = new AxisAngleRotation3D(new Vector3D(0, 1, 0), 270);
+                        rotateAxis = new AxisAngleRotation3D(new Vector3D(-1, 0, 0), 270);
                         break;
                     case 4:
-                        rotateAxis = new AxisAngleRotation3D(new Vector3D(1, 0, 0), 90);
+                        rotateAxis = new AxisAngleRotation3D(new Vector3D(0, 1, 0), 90);
                         break;
                     default:
-                        rotateAxis = new AxisAngleRotation3D(new Vector3D(1, 0, 0), -90);
+                        rotateAxis = new AxisAngleRotation3D(new Vector3D(0, 1, 0), -90);
                         break;
                 }
                 var ranim = new Rotation3DAnimation(rotateAxis, TimeSpan.FromSeconds(1.5));
@@ -221,7 +223,7 @@ namespace KFly.GUI
                Visibility.Visible : Visibility.Hidden;
             if ((_data.CurrentStep == 6) && (_data.CurrentSubStep != SixPointsCalibrationData.SubSteps.Finished))
             {
-                CalculationResultLabel.Text = "Calculation failed! This might be because of you not using all 6 position correctly. You can either redo the whole process or go back and redo single positions.";
+                CalculationResultLabel.Text = "Calculation failed! This might be because of you not using all 6 position correctly.\nYou can either redo the whole process or go back and redo single positions.";
                 CalculationResultLabel.Foreground = Brushes.Red;
                 UseDataBtn.Content = "Restart calibration";
             }
@@ -329,6 +331,30 @@ namespace KFly.GUI
             }
         }
 
+        private void view1_Initialized(object sender, EventArgs e)
+        {
+            Load3DModel();
+        }
+
+        private async void Load3DModel()
+        {
+            var streamResourceInfo = Application.GetResourceStream(new Uri("../Resources/kfly.stl", UriKind.Relative));
+
+              Model3D test =  await this.aLoadAsync(streamResourceInfo.Stream);
+              await view1.Dispatcher.BeginInvoke(new Action(() =>
+                  {
+                      MyModel.Content = test;
+                  }));
+        }
+
+        private async Task<Model3DGroup> aLoadAsync(Stream stream)
+        {
+            return await Task.Factory.StartNew(() =>
+            {
+                var mi = new StLFromInventorReader(this.Dispatcher);
+                return mi.Read(stream);
+            });
+        }
 
     }
 

@@ -98,6 +98,7 @@
     </Compile>
     <Compile Include="Utils\MathConverter.cs" />
     <Compile Include="Utils\ModalContentPresenter.cs" />
+    <Compile Include="Utils\StlFromInventorReader.cs" />
     <Page Include="Components\CalibrateSensors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -183,6 +184,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\kfly.stl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>

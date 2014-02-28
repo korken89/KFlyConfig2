@@ -22,20 +22,20 @@
                                            CameraRotationMode="Turntable"
                                            ModelUpDirection="0,0,1"
                                            IsPanEnabled="False"
+                                           Initialized="view1_Initialized"
                                            ShowCoordinateSystem="True"
                                            ShowViewCube="False">
                             <h:HelixViewport3D.Camera>
-                                <PerspectiveCamera Position="-20, -20, 20"  LookDirection="20, 20, -20" FieldOfView="45" UpDirection="0,0,1"/>
+                                <PerspectiveCamera Position="50, -50, 50"  LookDirection="-50, 50, -50" FieldOfView="45" UpDirection="0,0,1"/>
                             </h:HelixViewport3D.Camera>
                             <h:DefaultLights/>
-                            <h:CubeVisual3D Fill="Yellow" Center="0,20,3" SideLength="2" />
-                            <h:BoxVisual3D Center="0,0,3" Height="2" Width="10" Length="10">
-                                <h:ArrowVisual3D Point1="0,2,4" Point2="0,10,4" Fill="Red" Diameter="0.8" />
-                                <h:BoxVisual3D.Transform>
-                                    <RotateTransform3D x:Name="KFlyRotation" CenterZ="3"/>
-                                </h:BoxVisual3D.Transform>
-                            </h:BoxVisual3D>
-                            <h:GridLinesVisual3D Normal="0,0,1" LengthDirection="1,0,0"/>
+                            <ModelVisual3D x:Name="MyModel">
+                                <ModelVisual3D.Transform>
+                                    <RotateTransform3D x:Name="KFlyRotation" CenterZ="0"/>
+                                </ModelVisual3D.Transform>
+                            </ModelVisual3D>
+                            <h:CubeVisual3D Fill="Yellow" Center="-60,0,3" SideLength="8" />
+                            <h:GridLinesVisual3D Thickness="0.25" MinorDistance="10" MajorDistance="40" Normal="0,0,1" LengthDirection="1,0,0"/>
                         </h:HelixViewport3D>
                         <!--<Image Source="../Resources/gyroscope_small.png" Width="250" Height="250"/>-->
                         <StackPanel Orientation="Vertical" Width="300">
