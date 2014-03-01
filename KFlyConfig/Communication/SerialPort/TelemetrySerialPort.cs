@@ -286,7 +286,8 @@ namespace KFly
             }
         }
 
-        ManualResetEventSlim _receivedAck = new ManualResetEventSlim(false);
+        ManualResetEventSlim _receivedAck = new ManualResetEventSlim(true);
+        private KFlyCommandType _ackToReceive = KFlyCommandType.ACK;
 
         private void _senderLoop(object obj)
         {
@@ -299,6 +300,8 @@ namespace KFly
                 {
                     if (message.UseAck)
                     {
+                        var selfAck = SelfAck.AppliesTo(message.Type);
+                        _ackToReceive = selfAck? message.Type : KFlyCommandType.ACK;
                         _receivedAck.Reset();
                         var retries = 0;
                         int msEachTry = Convert.ToInt32(message.TimeOut / 3);
@@ -307,7 +310,8 @@ namespace KFly
                             retries++;
                             var count = data.Count;
                             _totalOut += (uint)count;
-                            LogManager.LogDebugLine("Sending " + message.ToString() + " with ack!");
+                            LogManager.LogDebugLine("Sending " + message.ToString() +
+                                ((selfAck)? " with self acking" : " with ack"));
                             _serialPort.Write(data.ToArray(), 0, count);
                             _receivedAck.Wait(msEachTry);
                             if (retries > 3)
@@ -324,6 +328,7 @@ namespace KFly
                                     catch { };
                                 });
                         }
+                        _receivedAck.Set(); //Always set it back
                     }
                     else
                     {
@@ -367,9 +372,10 @@ namespace KFly
         {
             _lastReceivedMsg = DateTime.Now;
             LogManager.LogDebugLine(cmd.ToString()+ " received");
-            if ((cmd.Type == KFlyCommandType.ACK) && (!_receivedAck.IsSet))
+            if ((!_receivedAck.IsSet))
             {
-                _receivedAck.Set();
+                if (cmd.Type == _ackToReceive) 
+                    _receivedAck.Set();
             }
             if (_status != ConnectionStatus.Connected)
             {

@@ -84,6 +84,7 @@
     <Compile Include="Math\SensorCalibration.cs" />
     <Compile Include="Math\SixPointsCalibrationData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Communication\Protocol\SelfAck.cs" />
     <Compile Include="Utils\DisplayValue.cs" />
   </ItemGroup>
   <ItemGroup />

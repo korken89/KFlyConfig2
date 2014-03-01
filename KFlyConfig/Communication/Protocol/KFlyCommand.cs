@@ -9,6 +9,7 @@ namespace KFly
     {
         None = 0,
         ACK = 1,
+        [SelfAck]
         Ping = 2,
         DebugMessage = 3,
         GetRunningMode = 4,
@@ -20,26 +21,37 @@ namespace KFly
         ReadLastFirmwarePackage = 14,   /* Bootloader specific, shall always require ACK */
         NextPackage = 15,   /* Bootloader specific, shall always require ACK */
         ExitBootloader = 16,   /* Bootloader specific, shall always require ACK */
+        [SelfAck]
         GetBootloaderVersion = 17,
+        [SelfAck]
         GetFirmwareVersion = 18,
         SaveToFlash = 19,
-
+        
+        [SelfAck]
         GetRateControllerData = 30,
         SetRateControllerData = 31,
+        [SelfAck]
         GetAttitudeControllerData = 32,
   	    SetAttitudeControllerData = 33,
-  	    GetVelocityControllerData = 34,
+        [SelfAck]
+        GetVelocityControllerData = 34,
 	    SetVelocityControllerData = 35,
+        [SelfAck]
         GetPositionControllerData = 36,
         SetPositionControllerData = 37,
         // 38 Excluded, will be sync when combined with ACK which is forbidden
+        [SelfAck]
         GetChannelMix = 39,
         SetChannelMix = 40,
+        [SelfAck]
         GetRCCalibration = 41,
         SetRCCalibration = 42,
+        [SelfAck]
         GetRCValues = 43,
+        [SelfAck]
         GetSensorData = 44,
         GetRawSensorData = 45,
+        [SelfAck]
         GetSensorCalibration = 46,
         SetSensorCalibration = 47,
 
@@ -79,10 +91,11 @@ namespace KFly
         protected List<byte> CreateTxWithHeader(List<byte> data)
         {
             data = (data != null) ? data : new List<byte>();
+            var useAck = (UseAck && !SelfAck.AppliesTo(Type)); //Dont use ack on SelfAcking messages
             List<byte> tx = new List<byte>()
             {
                 KFlyCommand.SYNC,
-                UseAck? (byte)((byte)Type | ACK_BIT): (byte)Type,
+                useAck? (byte)((byte)Type | ACK_BIT): (byte)Type,
                 (byte)data.Count,
             };
             tx.Add(CRC8.GenerateCRC(tx.Take(3)));

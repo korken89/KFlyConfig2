@@ -57,7 +57,6 @@ namespace KFly.GUI
             if (!DownloadBtn.IsRotating) //Use button to know if we already refreshing
             {
                 DownloadBtn.IsRotating = true;
-              //  Telemetry.SendAsync(new GetControllerData(KFlyCommandType.GetAttitudeControllerData));
                 Telemetry.SendAsyncWithAck(new GetControllerData(KFlyCommandType.GetAttitudeControllerData),
                     1000, (SendResult result) =>
                     {

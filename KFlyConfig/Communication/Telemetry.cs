@@ -74,7 +74,13 @@ namespace KFly
         }
 
        
-
+        /// <summary>
+        /// This will send an ack request with the message
+        /// (Unless the message type is of SelfAcking, then the response of the same type will be the ack)
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <param name="msTimeout"></param>
+        /// <param name="action"></param>
         public static void SendAsyncWithAck(KFlyCommand cmd, int msTimeout, Action<SendResult> action)
         {
             if (!_link.IsConnected)
