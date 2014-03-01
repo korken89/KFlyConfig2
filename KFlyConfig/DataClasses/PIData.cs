@@ -7,9 +7,21 @@ namespace KFly
 {
     public class PIData
     {
-        public float PGain;
-        public float IGain;
-        public float ILimit;
+        public float PGain
+        {
+            get;
+            set;
+        }
+        public float IGain
+        {
+            get;
+            set;
+        }
+        public float ILimit
+        {
+            get;
+            set;
+        }
 
         public List<byte> GetBytes()
         {

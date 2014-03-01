@@ -22,6 +22,13 @@ namespace KFly
         private SubSteps[] _subSteps = new SubSteps[7];
         private ConcurrentBag<RawSensorData>[] _data = new ConcurrentBag<RawSensorData>[7];
 
+
+        public SensorCalibration CurrentResult
+        {
+            get;
+            set;
+        }
+
         public void FullReset()
         {
             for (int i = 0; i < 7; i++)
@@ -56,6 +63,7 @@ namespace KFly
 
         public SixPointsCalibrationData()
         {
+            CurrentResult = new SensorCalibration();
             for (var i = 0; i < 7; i++)
             {
                 _subSteps[i] = SubSteps.NotStarted;

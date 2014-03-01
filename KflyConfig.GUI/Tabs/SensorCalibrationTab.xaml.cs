@@ -21,8 +21,9 @@ namespace KFly.GUI
     public partial class SensorCalibrationTab : UserControl
     {
         public SensorCalibrationTab()
-        {
+        {   
             InitializeComponent();
+            this.DataContext = new SensorCalibration();
         }
 
         private void UpdateSensorCalibrationData()
@@ -33,9 +34,7 @@ namespace KFly.GUI
       
         private void UserControl_Initialized(object sender, EventArgs e)
         {
-            SensorCalibration sd = new SensorCalibration();
-            this.AccelerometerGrid.DataContext = sd;
-            this.MagnometerGrid.DataContext = sd;
+           
 
             Telemetry.Subscribe(KFlyCommandType.ConnectionStatusChanged, (ConnectionStatusChanged csc) =>
             {
@@ -48,8 +47,7 @@ namespace KFly.GUI
             {
                 AccelerometerGrid.Dispatcher.Invoke(new Action(() =>
                 {
-                    AccelerometerGrid.DataContext = msg.Data;
-                    MagnometerGrid.DataContext = msg.Data;
+                    this.DataContext = msg.Data;
                 }));
                 LogManager.LogInfoLine("Sensor calibration recevied!");
             });

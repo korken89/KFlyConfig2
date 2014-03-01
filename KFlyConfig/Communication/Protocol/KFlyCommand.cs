@@ -137,6 +137,12 @@ namespace KFly
                     case KFlyCommandType.GetRawSensorData:
                         cmd = new GetRawSensorData();
                         break;
+                    case KFlyCommandType.GetRateControllerData:
+                        cmd = new GetControllerData(KFlyCommandType.GetRateControllerData);
+                        break;
+                    case KFlyCommandType.GetAttitudeControllerData:
+                        cmd = new GetControllerData(KFlyCommandType.GetAttitudeControllerData);
+                        break;
                     case KFlyCommandType.GetSensorCalibration:
                         cmd = new GetSensorCalibration();
                         break;
@@ -144,7 +150,7 @@ namespace KFly
                         cmd = new Ack();
                         break;
                     default:
-                        cmd = null;
+                        cmd = new Dummy((KFlyCommandType)(bytes[1]));
                         break;
                 }
                 if (cmd != null)

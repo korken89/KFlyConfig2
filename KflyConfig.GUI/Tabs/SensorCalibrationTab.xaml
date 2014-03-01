@@ -11,7 +11,7 @@
              d:DesignHeight="536" d:DesignWidth="622">
     <kfly:KFlyTab Title="Sensor Calibration" BackgroundImage="../Resources/gyroscope.png">
         <kfly:ModalContentPresenter x:Name="CalibrationModal">
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
             <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                 <GroupBox Header="Accelerometer" HorizontalAlignment="Left">
                     <Grid x:Name="AccelerometerGrid">

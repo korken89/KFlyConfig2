@@ -32,7 +32,10 @@ namespace KFly.GUI
 
         public CalibrateSensors()
         {
+            _data = new SixPointsCalibrationData();
+            this.DataContext = _data;
             InitializeComponent();
+ 
             _collectingWorker.WorkerReportsProgress = true;
             _collectingWorker.WorkerSupportsCancellation = true;
             _collectingWorker.DoWork += _collectingWorker_DoWork;
@@ -43,16 +46,12 @@ namespace KFly.GUI
             _calculatingWorker.RunWorkerCompleted += _calculatingWorker_RunWorkerCompleted;    
         }
 
-        private SensorCalibration _latestResult;
         void _calculatingWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             SensorCalibration sc = e.Result as SensorCalibration;
             if (sc != null)
             {
-                AccelerometerGrid.DataContext = sc;
-                MagnometerGrid.DataContext = sc;
-                _latestResult = sc;
-
+                _data.CurrentResult = sc;
                 if (sc.IsValid)
                 {
                     _data.Subs[6] = SixPointsCalibrationData.SubSteps.Finished;
@@ -210,7 +209,7 @@ namespace KFly.GUI
             CollectingPanel.Visibility = (_data.CurrentStep < 6) ? Visibility.Visible : Visibility.Hidden;
             ResultPanel.Visibility = (_data.CurrentStep == 6) ? Visibility.Visible : Visibility.Hidden;
 
-            UseDataBtn.IsEnabled = (_latestResult != null);
+            UseDataBtn.IsEnabled = (_data.CurrentResult.IsValid);
 
             StepLabel.Content = String.Format("Step {0} of 7", _data.CurrentStep+1);
 
@@ -240,9 +239,7 @@ namespace KFly.GUI
       
         private void UserControl_Initialized(object sender, EventArgs e)
         {
-            _data = new SixPointsCalibrationData();
-            this.DataContext = _data;
-            UpdateControls();
+           UpdateControls();
         }
 
       
@@ -321,7 +318,7 @@ namespace KFly.GUI
                 {
                     _calculatingWorker.CancelAsync();
                 }
-                Telemetry.Handle(new GetSensorCalibration() { Data = _latestResult });
+                Telemetry.Handle(new GetSensorCalibration() { Data = _data.CurrentResult });
                 FindParent<ModalContentPresenter>(this).HideModalContent();
             }
             else if (_data.CurrentSubStep == SixPointsCalibrationData.SubSteps.Error)

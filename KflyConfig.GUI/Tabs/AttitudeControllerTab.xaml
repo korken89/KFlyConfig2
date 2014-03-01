@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:kfly="clr-namespace:KFly.GUI"       
+             xmlns:kfly2="clr-namespace:KFly;assembly=KFlyConfig"       
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              Initialized="UserControl_Initialized"
              Background="White"
@@ -13,6 +14,7 @@
         <kfly:KFlyTab.Toolbar>
             <StackPanel>
                 <kfly:KFlyCircleButton x:Name="DownloadBtn"
+                                   Click="DownloadBtn_Click"
                                    Icon="{StaticResource appbar_arrow_down}"
                                    ToolTip="Refresh" 
                                    Width="40" Height="40" />
@@ -20,7 +22,7 @@
         </kfly:KFlyTab.Toolbar>
     <WrapPanel>
             <GroupBox Header="Attitude Controller Gains" HorizontalAlignment="Left">
-                <Grid x:Name="AttitudeGrid">
+                <Grid DataContext="{Binding AttitudeCData}" x:Name="AttitudeGrid">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -41,19 +43,19 @@
                     <Label Grid.Row="1" Grid.Column="0" Content="Pitch" VerticalAlignment="Center" />
                     <Label Grid.Row="2" Grid.Column="0" Content="Roll" VerticalAlignment="Center" />
                     <Label Grid.Row="3" Grid.Column="0" Content="Yaw" VerticalAlignment="Center" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="1" Grid.Column="1" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="1" Grid.Column="2" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="1" Grid.Column="3" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="2" Grid.Column="1" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="2" Grid.Column="2" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="2" Grid.Column="3" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="3" Grid.Column="1" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="3" Grid.Column="2" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="3" Grid.Column="3" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Pitch.PGain}" StringFormat="0.00" Grid.Row="1" Grid.Column="1" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Pitch.IGain}"  StringFormat="0.00" Grid.Row="1" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Pitch.ILimit}" StringFormat="0.00" Grid.Row="1" Grid.Column="3" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Roll.PGain}" StringFormat="0.00" Grid.Row="2" Grid.Column="1" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Roll.IGain}" StringFormat="0.00" Grid.Row="2" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Roll.ILimit}" StringFormat="0.00" Grid.Row="2" Grid.Column="3" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Yaw.PGain}" StringFormat="0.00" Grid.Row="3" Grid.Column="1" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Yaw.IGain}" StringFormat="0.00" Grid.Row="3" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Yaw.ILimit}" StringFormat="0.00" Grid.Row="3" Grid.Column="3" Margin="3" />
                 </Grid>
             </GroupBox>
             <GroupBox Header="Rate Controller Gains" HorizontalAlignment="Left">
-                <Grid x:Name="RateGrid">
+                <Grid DataContext="{Binding RateCData}" d:DataContext="{d:DesignInstance kfly2:ControllerData}"  x:Name="RateGrid">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -74,15 +76,15 @@
                     <Label Grid.Row="1" Grid.Column="0" Content="Pitch" VerticalAlignment="Center" />
                     <Label Grid.Row="2" Grid.Column="0" Content="Roll" VerticalAlignment="Center" />
                     <Label Grid.Row="3" Grid.Column="0" Content="Yaw" VerticalAlignment="Center" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="1" Grid.Column="1" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="1" Grid.Column="2" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="1" Grid.Column="3" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="2" Grid.Column="1" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="2" Grid.Column="2" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="2" Grid.Column="3" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="3" Grid.Column="1" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="3" Grid.Column="2" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="100" Value="0.00" StringFormat="0.00" Grid.Row="3" Grid.Column="3" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Pitch.PGain}" StringFormat="0.00" Grid.Row="1" Grid.Column="1" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Pitch.IGain}"  StringFormat="0.00" Grid.Row="1" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Pitch.ILimit}" StringFormat="0.00" Grid.Row="1" Grid.Column="3" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Roll.PGain}" StringFormat="0.00" Grid.Row="2" Grid.Column="1" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Roll.IGain}" StringFormat="0.00" Grid.Row="2" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Roll.ILimit}" StringFormat="0.00" Grid.Row="2" Grid.Column="3" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Yaw.PGain}" StringFormat="0.00" Grid.Row="3" Grid.Column="1" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Yaw.IGain}" StringFormat="0.00" Grid.Row="3" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Yaw.ILimit}" StringFormat="0.00" Grid.Row="3" Grid.Column="3" Margin="3" />
                 </Grid>
             </GroupBox>
             <GroupBox Header="Attitude and Rate Constraints" HorizontalAlignment="Left">

@@ -106,12 +106,12 @@
                                             <Label FontSize="10" Grid.Row="0" Grid.Column="3" Content="Z-axis" HorizontalAlignment="Center"/>
                                             <Label FontSize="10" Grid.Row="1" Grid.Column="0" Content="Bias" VerticalAlignment="Center" />
                                             <Label FontSize="10" Grid.Row="2" Grid.Column="0" Content="Gain" VerticalAlignment="Center" />
-                                            <TextBox FontSize="10" Text="{Binding AccelerometerBias.XString, Mode=OneWay}" Grid.Row="1" Grid.Column="1" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
-                                            <TextBox FontSize="10" Text="{Binding AccelerometerBias.YString, Mode=OneWay}" Grid.Row="1" Grid.Column="2" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
-                                            <TextBox FontSize="10" Text="{Binding AccelerometerBias.ZString, Mode=OneWay}" Grid.Row="1" Grid.Column="3" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
-                                            <TextBox FontSize="10" Text="{Binding AccelerometerGain.XString, Mode=OneWay}" Grid.Row="2" Grid.Column="1" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
-                                            <TextBox FontSize="10" Text="{Binding AccelerometerGain.YString, Mode=OneWay}" Grid.Row="2" Grid.Column="2" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
-                                            <TextBox FontSize="10" Text="{Binding AccelerometerGain.ZString, Mode=OneWay}" Grid.Row="2" Grid.Column="3" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
+                                            <TextBox FontSize="10" Text="{Binding CurrentResult.AccelerometerBias.XString, Mode=OneWay}" Grid.Row="1" Grid.Column="1" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
+                                            <TextBox FontSize="10" Text="{Binding CurrentResult.AccelerometerBias.YString, Mode=OneWay}" Grid.Row="1" Grid.Column="2" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
+                                            <TextBox FontSize="10" Text="{Binding CurrentResult.AccelerometerBias.ZString, Mode=OneWay}" Grid.Row="1" Grid.Column="3" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
+                                            <TextBox FontSize="10" Text="{Binding CurrentResult.AccelerometerGain.XString, Mode=OneWay}" Grid.Row="2" Grid.Column="1" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
+                                            <TextBox FontSize="10" Text="{Binding CurrentResult.AccelerometerGain.YString, Mode=OneWay}" Grid.Row="2" Grid.Column="2" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
+                                            <TextBox FontSize="10" Text="{Binding CurrentResult.AccelerometerGain.ZString, Mode=OneWay}" Grid.Row="2" Grid.Column="3" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
                                         </Grid>
                                     </GroupBox>
                                     <GroupBox metro:ControlsHelper.HeaderFontSize="11" Padding="3" Header="Magnometer" HorizontalAlignment="Left">
@@ -134,12 +134,12 @@
                                             <Label FontSize="10" Grid.Row="0" Grid.Column="3" Content="Z-axis" HorizontalAlignment="Center"/>
                                             <Label FontSize="10" Grid.Row="1" Grid.Column="0" Content="Bias" VerticalAlignment="Center" />
                                             <Label FontSize="10" Grid.Row="2" Grid.Column="0" Content="Gain" VerticalAlignment="Center" />
-                                            <TextBox FontSize="10" Text="{Binding MagnometerBias.XString, Mode=OneWay}" Grid.Row="1" Grid.Column="1" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
-                                            <TextBox FontSize="10" Text="{Binding MagnometerBias.YString, Mode=OneWay}" Grid.Row="1" Grid.Column="2" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
-                                            <TextBox FontSize="10" Text="{Binding MagnometerBias.ZString, Mode=OneWay}" Grid.Row="1" Grid.Column="3" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
-                                            <TextBox FontSize="10" Text="{Binding MagnometerGain.XString, Mode=OneWay}" Grid.Row="2" Grid.Column="1" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
-                                            <TextBox FontSize="10" Text="{Binding MagnometerGain.YString, Mode=OneWay}" Grid.Row="2" Grid.Column="2" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
-                                            <TextBox FontSize="10" Text="{Binding MagnometerGain.ZString, Mode=OneWay}" Grid.Row="2" Grid.Column="3" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
+                                            <TextBox FontSize="10" Text="{Binding CurrentResult.MagnometerBias.XString, Mode=OneWay}" Grid.Row="1" Grid.Column="1" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
+                                            <TextBox FontSize="10" Text="{Binding CurrentResult.MagnometerBias.YString, Mode=OneWay}" Grid.Row="1" Grid.Column="2" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
+                                            <TextBox FontSize="10" Text="{Binding CurrentResult.MagnometerBias.ZString, Mode=OneWay}" Grid.Row="1" Grid.Column="3" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
+                                            <TextBox FontSize="10" Text="{Binding CurrentResult.MagnometerGain.XString, Mode=OneWay}" Grid.Row="2" Grid.Column="1" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
+                                            <TextBox FontSize="10" Text="{Binding CurrentResult.MagnometerGain.YString, Mode=OneWay}" Grid.Row="2" Grid.Column="2" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
+                                            <TextBox FontSize="10" Text="{Binding CurrentResult.MagnometerGain.ZString, Mode=OneWay}" Grid.Row="2" Grid.Column="3" IsReadOnly="True" TextAlignment="Center" BorderThickness="0.5" />
                                         </Grid>
                                     </GroupBox>
                                 </StackPanel>

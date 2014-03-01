@@ -27,15 +27,8 @@ namespace KFly.GUI
 
         private void openConnectionSettings_Click(object sender, RoutedEventArgs e)
         {
-            var parent = this.Parent;
-            while (!(parent is MainWindow) && (parent is FrameworkElement))
-            {
-                parent = (parent as FrameworkElement).Parent;
-            }
-            if (parent is MainWindow)
-            {
-                (parent as MainWindow).ConnectionFlyout.IsOpen = true;
-            }
+            XAMLHelper.GetParent<MainWindow>(this).ConnectionFlyout.IsOpen = true;
+            
         }
     }
 }

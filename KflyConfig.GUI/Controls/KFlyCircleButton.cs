@@ -62,17 +62,13 @@ namespace KFly.GUI
 
         private static void IsRotatingChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
-           
-        }
-
-        private static void IsActiveChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
-        {
             var button = dependencyObject as KFlyCircleButton;
             if (button == null)
                 return;
 
             button.UpdateRotateState();
         }
+
 
         private void UpdateRotateState()
         {

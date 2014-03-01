@@ -78,6 +78,7 @@
     </Compile>
     <Compile Include="Logging\LabelLog.cs" />
     <Compile Include="Logging\RichEditLog.cs" />
+    <Compile Include="Tabs\AttitudeControllerTabData.cs" />
     <Compile Include="Tabs\Connection.xaml.cs">
       <DependentUpon>Connection.xaml</DependentUpon>
     </Compile>
@@ -96,9 +97,11 @@
     <Compile Include="Tabs\HomeTab.xaml.cs">
       <DependentUpon>HomeTab.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\IBound.cs" />
     <Compile Include="Utils\MathConverter.cs" />
     <Compile Include="Utils\ModalContentPresenter.cs" />
     <Compile Include="Utils\StlFromInventorReader.cs" />
+    <Compile Include="Utils\XAMLHelper.cs" />
     <Page Include="Components\CalibrateSensors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

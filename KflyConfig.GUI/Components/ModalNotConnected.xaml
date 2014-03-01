@@ -7,7 +7,7 @@
              d:DesignHeight="400" d:DesignWidth="600">
     <StackPanel Background="{DynamicResource AccentColorBrush}" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
         <Label Foreground="White" Margin="10,20,10,10" FontSize="14"
-               Content="You must be connected to the kfly controller to use this tab"></Label>
+               Content="You must be connected to the KFly controller to use this tab"></Label>
         <Button Name="openConnectionSettings" Margin="10,0,30,20" Content="Open connection settings"
                  Style="{StaticResource AccentedSquareButtonStyle}" Padding="7"
                                 Click="openConnectionSettings_Click" HorizontalAlignment="Center"/>

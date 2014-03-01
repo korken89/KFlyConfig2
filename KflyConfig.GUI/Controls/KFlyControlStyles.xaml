@@ -111,7 +111,7 @@
                         <Trigger Property="IsPressed"
                                  Value="true">
                             <Setter TargetName="ellipsebg" Property="Fill"
-                                    Value="{DynamicResource  Black}" />
+                                    Value="Black" />
                             <Setter TargetName="icon" Property="Fill"
                                     Value="Black" />
                         </Trigger>

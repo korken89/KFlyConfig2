@@ -261,9 +261,12 @@ namespace KFly
                 //Going into checkforerror mode
                 while (!_gotReadWriteError)
                 {
-                    if (!_sendBuffer.TryAdd(new Ping()))
+                    if ((_lastReceivedMsg + KFLY_TIME_BETWEEN_PING) < DateTime.Now)
                     {
-                        LogManager.LogDebugLine("Could not add ping to send buffer");
+                        if (!_sendBuffer.TryAdd(new Ping()))
+                        {
+                            LogManager.LogDebugLine("Could not add ping to send buffer");
+                        }
                     }
                     Thread.Sleep(KFLY_TIME_BETWEEN_PING);
                     _receiveBuffer.TryAdd(new ConnectionStatistics(_totalIn, _totalOut));
@@ -291,7 +294,6 @@ namespace KFly
             while (!_sendBuffer.IsCompleted)
             {
                 KFlyCommand message = _sendBuffer.Take();
-                LogManager.LogDebugLine("Sending " + message.ToString()); 
                 List<byte> data = message.ToTx();
                 try
                 {
@@ -305,6 +307,7 @@ namespace KFly
                             retries++;
                             var count = data.Count;
                             _totalOut += (uint)count;
+                            LogManager.LogDebugLine("Sending " + message.ToString() + " with ack!");
                             _serialPort.Write(data.ToArray(), 0, count);
                             _receivedAck.Wait(msEachTry);
                             if (retries > 3)
@@ -324,6 +327,7 @@ namespace KFly
                     }
                     else
                     {
+                        LogManager.LogDebugLine("Sending " + message.ToString());
                         var count = data.Count;
                         _totalOut += (uint)count;
                         _serialPort.Write(data.ToArray(), 0, count);
