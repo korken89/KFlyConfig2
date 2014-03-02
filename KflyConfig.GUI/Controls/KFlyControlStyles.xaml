@@ -6,6 +6,7 @@
                     >
     <!-- style for WP7/Circle button -->
     <kfly:MathConverter x:Key="MathConverter"/>
+    
     <Style x:Key="KFlyCircleButtonStyle"
            TargetType="{x:Type kfly:KFlyCircleButton}">
         <Setter Property="FocusVisualStyle"
@@ -47,7 +48,7 @@
                                 <Rectangle.RenderTransform>
                                     <TransformGroup>
                                         <ScaleTransform ScaleX="0.4" ScaleY="0.4"/>
-                                        <RotateTransform x:Name="iconRotate" />
+                                        <RotateTransform x:Name="iconRotate" Angle="360" />
                                     </TransformGroup>
                                 </Rectangle.RenderTransform>
                                 <Rectangle.OpacityMask>
@@ -133,6 +134,129 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="KFlyCircleToggleButtonStyle"
+           TargetType="{x:Type kfly:KFlyCircleToggleButton}">
+        <Setter Property="FocusVisualStyle"
+                Value="{StaticResource MetroCircleButtonFocusVisual}" />
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="BorderThickness"
+                Value="2" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+        <Setter Property="Padding"
+                Value="1" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type kfly:KFlyCircleToggleButton}">
+
+                    <Grid>
+                        <Ellipse Fill="{TemplateBinding Background}"
+                                 Margin="4"
+                                 StrokeThickness="0" />
+                        <Ellipse x:Name="ellipse"
+                                 Margin="4"
+                                 Stroke="{DynamicResource GrayBrush2}"
+                                 StrokeThickness="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}, Path=BorderThickness.Left}" />
+                        <Ellipse x:Name="ellipsebg"
+                                 RenderTransformOrigin="0.5,0.5"
+                                 Fill="{DynamicResource AccentColorBrush}"
+                                 Margin="4"
+                                 StrokeThickness="0">
+                            <Ellipse.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform x:Name="ellipsebgscale" ScaleX="0" ScaleY="0"/>
+                                </TransformGroup>
+                            </Ellipse.RenderTransform>
+                        </Ellipse>
+                        <Rectangle x:Name="icon" RenderTransformOrigin="0.5,0.5" Fill="{DynamicResource  GrayBrush2}">
+                            <Rectangle.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="0.4" ScaleY="0.4"/>
+                                </TransformGroup>
+                            </Rectangle.RenderTransform>
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill"  Visual="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}, Path=CheckedIcon}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="ToggleButton.IsChecked"
+                                 Value="True">
+                            <Setter TargetName="icon" Property="OpacityMask">
+                                <Setter.Value>
+                                    <VisualBrush Stretch="Fill"  Visual="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}, Path=CheckedIcon}" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="ToggleButton.IsChecked"
+                                 Value="False">
+                            <Setter TargetName="icon" Property="OpacityMask">
+                                <Setter.Value>
+                                    <VisualBrush Stretch="Fill"  Visual="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}, Path=UncheckedIcon}" />
+                                </Setter.Value>                  
+                            </Setter>
+                       </Trigger>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Setter TargetName="icon" Property="Fill"
+                                    Value="White" />
+
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="ellipsebgscale"
+                                                         Storyboard.TargetProperty="ScaleX"
+                                                         From="0"
+                                                         To="1"
+                                                         Duration="0:0:0.1" />
+                                        <DoubleAnimation Storyboard.TargetName="ellipsebgscale"
+                                                         Storyboard.TargetProperty="ScaleY"
+                                                         From="0"
+                                                         To="1"
+                                                         Duration="0:0:0.1" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <!-- some out fading -->
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="ellipsebgscale"
+                                                         Storyboard.TargetProperty="ScaleX"
+                                                         To="0"
+                                                         Duration="0:0:0.1" />
+                                        <DoubleAnimation Storyboard.TargetName="ellipsebgscale"
+                                                         Storyboard.TargetProperty="ScaleY"
+                                                         To="0"
+                                                         Duration="0:0:0.1" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                        <Trigger Property="IsPressed"
+                                 Value="true">
+                            <Setter TargetName="ellipsebg" Property="Fill"
+                                    Value="{StaticResource HighlightBrush}" />
+                            <Setter TargetName="icon" Property="Fill"
+                                    Value="White" />
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled"
+                                 Value="false">
+                            <Setter Property="Opacity"
+                                    Value="0.3" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <Style x:Key="KFlyTabStyle" TargetType="{x:Type kfly:KFlyTab}">
         <Setter Property="Background"
                 Value="White" />
@@ -524,6 +648,7 @@
 
     <!-- Default styles -->
     <Style TargetType="kfly:KFlyCircleButton" BasedOn="{StaticResource KFlyCircleButtonStyle}" />
+    <Style TargetType="kfly:KFlyCircleToggleButton" BasedOn="{StaticResource KFlyCircleToggleButtonStyle}" />
     <Style TargetType="kfly:KFlyTab" BasedOn="{StaticResource KFlyTabStyle}" />
     <Style TargetType="GroupBox" BasedOn="{StaticResource MetroGroupBox}" />
 

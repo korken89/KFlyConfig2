@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls.Dialogs;
+using MahApps.Metro.Controls;
 
 namespace KFly.GUI
 {
@@ -38,12 +40,22 @@ namespace KFly.GUI
                 _data.AttitudeCData = gcd.Data;
                 _data.LimitCollection.AttitudeRateLimit = gcd.RateLimit;
                 _data.LimitCollection.AngleLimit = gcd.AngleLimit;
+                AttitudeLockBtn.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        AttitudeLockBtn.IsChecked = gcd.Data.LockPitchRoll;
+                        AttitudeLockBtn.ToolTip = (gcd.Data.LockPitchRoll) ? "Unlink Pitch/Roll" : "Link Pitch/Roll";
+                    }));
                 _data.NotifyPropertyChanged("LimitCollection"); //Need to trigger manually since we don't change the actual collection
             });
             Telemetry.Subscribe(KFlyCommandType.GetRateControllerData, (GetRateControllerData gcd) =>
             {
                 _data.RateCData = gcd.Data;
                 _data.LimitCollection.RateLimit = gcd.RateLimit;
+                RateLockBtn.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        RateLockBtn.IsChecked = gcd.Data.LockPitchRoll;
+                        RateLockBtn.ToolTip = (gcd.Data.LockPitchRoll) ? "Unlink Pitch/Roll" : "Link Pitch/Roll";
+                    }));
                 _data.NotifyPropertyChanged("LimitCollection"); //Need to trigger manually since we don't change the actual collection
             });
 
@@ -106,7 +118,7 @@ namespace KFly.GUI
                 };
                 var srcd = new SetRateControllerData()
                 {
-                    Data = _data.AttitudeCData,
+                    Data = _data.RateCData,
                     RateLimit = _data.LimitCollection.RateLimit,
                 };
                 Telemetry.SendAsyncWithAck(new CmdCollection(sacd, srcd),
@@ -128,6 +140,98 @@ namespace KFly.GUI
                     });
                
             }
+        }
+
+        private void Upload()
+        {
+            var sacd = new SetAttitudeControllerData()
+            {
+                Data = _data.AttitudeCData,
+                RateLimit = _data.LimitCollection.AttitudeRateLimit,
+                AngleLimit = _data.LimitCollection.AngleLimit
+            };
+            var srcd = new SetRateControllerData()
+            {
+                Data = _data.AttitudeCData,
+                RateLimit = _data.LimitCollection.RateLimit,
+            };
+            Telemetry.SendAsync(sacd);
+            Telemetry.SendAsync(srcd);
+        }
+
+        private Boolean _sendingOnFly = false;
+
+        private async void SendOnFlyCB_Checked(object sender, RoutedEventArgs e)
+        {
+            if (!_sendingOnFly && TheTab.IsActive)
+            {
+                var mySettings = new MetroDialogSettings()
+                {
+                    AffirmativeButtonText = "I know what I'm doing",
+                    NegativeButtonText = "Cancel",
+                };
+                MessageDialogResult res = await XAMLHelper.GetParent<MainWindow>(this).ShowMessageAsync("Warning!", "This will directly send changes to the KFly when you make them. This can be"+
+                    " dangerous if the kfly is sitting on a flying machine and should only be done very carefully",MessageDialogStyle.AffirmativeAndNegative,
+                    mySettings);
+                if (res == MessageDialogResult.Affirmative)
+                {
+                    UploadBtn.IsEnabled = false;
+                    DownloadBtn.IsEnabled = false;
+                    _sendingOnFly = true;
+                    Upload();
+                }
+                else
+                {
+                    SendOnFlyCB.IsChecked = false;
+                }
+            }
+        }
+
+        private void SendOnFlyCB_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (_sendingOnFly)
+            {
+                UploadBtn.IsEnabled = true;
+                DownloadBtn.IsEnabled = true;
+                _sendingOnFly = false;
+            }
+        }
+
+        private void ConstraintsGrid_SourceUpdated(object sender, DataTransferEventArgs e)
+        {
+            if (_sendingOnFly)
+            {
+                Upload();
+            }
+        }
+
+        private void AttitudeLockBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RateLockBtn_Checked(object sender, RoutedEventArgs e)
+        {
+            _data.RateCData.LockPitchRoll = true;
+            RateLockBtn.ToolTip = "Unlink Pitch/Roll";
+        }
+
+        private void RateLockBtn_Unchecked(object sender, RoutedEventArgs e)
+        {
+            _data.RateCData.LockPitchRoll = false;
+             RateLockBtn.ToolTip = "Link Pitch/Roll";
+        }
+
+        private void AttitudeLockBtn_Checked(object sender, RoutedEventArgs e)
+        {
+            _data.AttitudeCData.LockPitchRoll = true;
+            AttitudeLockBtn.ToolTip = "Unlink Pitch/Roll";
+        }
+
+        private void AttitudeLockBtn_Unchecked(object sender, RoutedEventArgs e)
+        {
+            _data.AttitudeCData.LockPitchRoll = false;
+            AttitudeLockBtn.ToolTip = "Link Pitch/Roll";
         }
     }
 }

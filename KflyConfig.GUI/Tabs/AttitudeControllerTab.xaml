@@ -10,9 +10,12 @@
              Background="White"
              mc:Ignorable="d" 
              d:DesignHeight="536" d:DesignWidth="722">
-    <kfly:KFlyTab TabStateChanged="KFlyTab_TabStateChanged"  Title="Attitude Controller" BackgroundImage="../Resources/control.png">
+    <kfly:KFlyTab x:Name="TheTab" TabStateChanged="KFlyTab_TabStateChanged"
+                  Title="Attitude Controller" BackgroundImage="../Resources/control.png">
         <kfly:KFlyTab.Toolbar>
             <StackPanel Orientation="Horizontal">
+                <CheckBox Name="SendOnFlyCB" Content="Send new parameters on fly" Checked="SendOnFlyCB_Checked"
+                          Unchecked="SendOnFlyCB_Unchecked" />
                 <kfly:KFlyCircleButton x:Name="UploadBtn"
                                    Click="UploadBtn_Click"
                                    Margin="15,0,15,0"
@@ -29,7 +32,7 @@
     <WrapPanel>
             <GroupBox Style="{StaticResource GlowingGroupBox}" DataContext="{Binding AttitudeCData, NotifyOnTargetUpdated=True}"
                       Header="Attitude Controller Gains" HorizontalAlignment="Left">
-                <Grid x:Name="AttitudeGrid">
+                <Grid SourceUpdated="ConstraintsGrid_SourceUpdated" x:Name="AttitudeGrid">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -42,7 +45,7 @@
                         <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="1" Content="Proportional" HorizontalAlignment="Center"/>
                     <Label Grid.Row="0" Grid.Column="2" Content="Integral" HorizontalAlignment="Center"/>
@@ -50,20 +53,42 @@
                     <Label Grid.Row="1" Grid.Column="0" Content="Pitch" VerticalAlignment="Center" />
                     <Label Grid.Row="2" Grid.Column="0" Content="Roll" VerticalAlignment="Center" />
                     <Label Grid.Row="3" Grid.Column="0" Content="Yaw" VerticalAlignment="Center" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Pitch.PGain}" StringFormat="0.00" Grid.Row="1" Grid.Column="1" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Pitch.IGain}"  StringFormat="0.00" Grid.Row="1" Grid.Column="2" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Pitch.ILimit}" StringFormat="0.00" Grid.Row="1" Grid.Column="3" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Roll.PGain}" StringFormat="0.00" Grid.Row="2" Grid.Column="1" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Roll.IGain}" StringFormat="0.00" Grid.Row="2" Grid.Column="2" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Roll.ILimit}" StringFormat="0.00" Grid.Row="2" Grid.Column="3" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Yaw.PGain}" StringFormat="0.00" Grid.Row="3" Grid.Column="1" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Yaw.IGain}" StringFormat="0.00" Grid.Row="3" Grid.Column="2" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Yaw.ILimit}" StringFormat="0.00" Grid.Row="3" Grid.Column="3" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Pitch.PGain, NotifyOnSourceUpdated=True}" StringFormat="0.00" Grid.Row="1" Grid.Column="1" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Pitch.IGain, NotifyOnSourceUpdated=True}"  StringFormat="0.00" Grid.Row="1" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Pitch.ILimit, NotifyOnSourceUpdated=True}" StringFormat="0.00" Grid.Row="1" Grid.Column="3" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Roll.PGain, NotifyOnSourceUpdated=True}" StringFormat="0.00" Grid.Row="2" Grid.Column="1" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Roll.IGain, NotifyOnSourceUpdated=True}" StringFormat="0.00" Grid.Row="2" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Roll.ILimit, NotifyOnSourceUpdated=True}" StringFormat="0.00" Grid.Row="2" Grid.Column="3" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Yaw.PGain, NotifyOnSourceUpdated=True}" StringFormat="0.00" Grid.Row="3" Grid.Column="1" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Yaw.IGain, NotifyOnSourceUpdated=True}" StringFormat="0.00" Grid.Row="3" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Yaw.ILimit, NotifyOnSourceUpdated=True}" StringFormat="0.00" Grid.Row="3" Grid.Column="3" Margin="3" />
+                    <StackPanel Orientation="Horizontal" Grid.Column="4" Grid.Row="1" Grid.RowSpan="2">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Rectangle Width="15" Height="5" Fill="{DynamicResource  GrayBrush2}" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource line_left_down}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                            <kfly:KFlyCircleToggleButton x:Name="AttitudeLockBtn"
+                                   Checked="AttitudeLockBtn_Checked"
+                                   Unchecked="AttitudeLockBtn_Unchecked"
+                                   CheckedIcon="{StaticResource appbar_lock}"
+                                   UncheckedIcon="{StaticResource appbar_unlock_keyhole}"
+                                   ToolTip="Link Pitch/Roll" 
+                                   Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <Rectangle Width="15" Height="5" Fill="{DynamicResource  GrayBrush2}" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource line_left_up}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+
+                        </StackPanel>
+                    </StackPanel>
                 </Grid>
             </GroupBox>
-            <GroupBox  Style="{StaticResource GlowingGroupBox}"  DataContext="{Binding RateCData, NotifyOnTargetUpdated=True}"
+            <GroupBox Style="{StaticResource GlowingGroupBox}"  DataContext="{Binding RateCData, NotifyOnTargetUpdated=True}"
                        Header="Rate Controller Gains" HorizontalAlignment="Left">
-                <Grid d:DataContext="{d:DesignInstance kfly2:ControllerData}"  x:Name="RateGrid">
+                <Grid SourceUpdated="ConstraintsGrid_SourceUpdated" x:Name="RateGrid">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -76,7 +101,7 @@
                         <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="1" Content="Proportional" HorizontalAlignment="Center"/>
                     <Label Grid.Row="0" Grid.Column="2" Content="Integral" HorizontalAlignment="Center"/>
@@ -84,20 +109,42 @@
                     <Label Grid.Row="1" Grid.Column="0" Content="Pitch" VerticalAlignment="Center" />
                     <Label Grid.Row="2" Grid.Column="0" Content="Roll" VerticalAlignment="Center" />
                     <Label Grid.Row="3" Grid.Column="0" Content="Yaw" VerticalAlignment="Center" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Pitch.PGain}" StringFormat="0.00" Grid.Row="1" Grid.Column="1" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Pitch.IGain}"  StringFormat="0.00" Grid.Row="1" Grid.Column="2" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Pitch.ILimit}" StringFormat="0.00" Grid.Row="1" Grid.Column="3" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Roll.PGain}" StringFormat="0.00" Grid.Row="2" Grid.Column="1" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Roll.IGain}" StringFormat="0.00" Grid.Row="2" Grid.Column="2" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Roll.ILimit}" StringFormat="0.00" Grid.Row="2" Grid.Column="3" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Yaw.PGain}" StringFormat="0.00" Grid.Row="3" Grid.Column="1" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Yaw.IGain}" StringFormat="0.00" Grid.Row="3" Grid.Column="2" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Yaw.ILimit}" StringFormat="0.00" Grid.Row="3" Grid.Column="3" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Pitch.PGain, NotifyOnSourceUpdated=True}" StringFormat="0.00" Grid.Row="1" Grid.Column="1" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Pitch.IGain, NotifyOnSourceUpdated=True}"  StringFormat="0.00" Grid.Row="1" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Pitch.ILimit, NotifyOnSourceUpdated=True}" StringFormat="0.00" Grid.Row="1" Grid.Column="3" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Roll.PGain, NotifyOnSourceUpdated=True}" StringFormat="0.00" Grid.Row="2" Grid.Column="1" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Roll.IGain, NotifyOnSourceUpdated=True}" StringFormat="0.00" Grid.Row="2" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Roll.ILimit, NotifyOnSourceUpdated=True}" StringFormat="0.00" Grid.Row="2" Grid.Column="3" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Yaw.PGain, NotifyOnSourceUpdated=True}" StringFormat="0.00" Grid.Row="3" Grid.Column="1" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Yaw.IGain, NotifyOnSourceUpdated=True}" StringFormat="0.00" Grid.Row="3" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Yaw.ILimit, NotifyOnSourceUpdated=True}" StringFormat="0.00" Grid.Row="3" Grid.Column="3" Margin="3" />
+                    <StackPanel Orientation="Horizontal" Grid.Column="4" Grid.Row="1" Grid.RowSpan="2">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Rectangle Width="15" Height="5" Fill="{DynamicResource  GrayBrush2}" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource line_left_down}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                            <kfly:KFlyCircleToggleButton x:Name="RateLockBtn"
+                                   Checked="RateLockBtn_Checked"
+                                   Unchecked="RateLockBtn_Unchecked"
+                                   CheckedIcon="{StaticResource appbar_lock}"
+                                   UncheckedIcon="{StaticResource appbar_unlock_keyhole}"
+                                   ToolTip="Link Pitch/Roll" 
+                                   Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <Rectangle Width="15" Height="5" Fill="{DynamicResource  GrayBrush2}" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource line_left_up}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+
+                        </StackPanel>
+                    </StackPanel>
                 </Grid>
             </GroupBox>
-            <GroupBox   Style="{StaticResource GlowingGroupBox}"  DataContext="{Binding LimitCollection, NotifyOnTargetUpdated=True}"
+            <GroupBox Style="{StaticResource GlowingGroupBox}"  DataContext="{Binding LimitCollection, NotifyOnTargetUpdated=True}"
                         Header="Attitude and Rate Constraints" HorizontalAlignment="Left">
-                <Grid x:Name="ConstraintsGrid">
+                <Grid x:Name="ConstraintsGrid" SourceUpdated="ConstraintsGrid_SourceUpdated">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -118,14 +165,14 @@
                     <Label Grid.Row="1" Grid.Column="0" Content="Maximum rate (deg/s)" VerticalAlignment="Center" />
                     <Label Grid.Row="2" Grid.Column="0" Content="Maximum angle (deg)" VerticalAlignment="Center" />
                     <Label Grid.Row="3" Grid.Column="0" Content="Maximum rate (attitude mode)" VerticalAlignment="Center" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="{Binding RateLimit.Pitch}" StringFormat="0." Grid.Row="1" Grid.Column="1" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="{Binding RateLimit.Roll}" StringFormat="0." Grid.Row="1" Grid.Column="2" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="{Binding RateLimit.Yaw}" StringFormat="0." Grid.Row="1" Grid.Column="3" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="0.00" StringFormat="0." Grid.Row="2" Grid.Column="1" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="0.00" StringFormat="0." Grid.Row="2" Grid.Column="2" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="0.00" StringFormat="0." Grid.Row="3" Grid.Column="1" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="0.00" StringFormat="0." Grid.Row="3" Grid.Column="2" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="0.00" StringFormat="0." Grid.Row="3" Grid.Column="3" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="{Binding RateLimit.Pitch, NotifyOnSourceUpdated=True}" StringFormat="0." Grid.Row="1" Grid.Column="1" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="{Binding RateLimit.Roll, NotifyOnSourceUpdated=True}" StringFormat="0." Grid.Row="1" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="{Binding RateLimit.Yaw, NotifyOnSourceUpdated=True}" StringFormat="0." Grid.Row="1" Grid.Column="3" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="{Binding AngleLimit.Pitch, NotifyOnSourceUpdated=True}" StringFormat="0." Grid.Row="2" Grid.Column="1" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="{Binding AngleLimit.Roll, NotifyOnSourceUpdated=True}" StringFormat="0." Grid.Row="2" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="{Binding AttitudeRateLimit.Pitch, NotifyOnSourceUpdated=True}" StringFormat="0." Grid.Row="3" Grid.Column="1" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="{Binding AttitudeRateLimit.Pitch, NotifyOnSourceUpdated=True}" StringFormat="0." Grid.Row="3" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="{Binding AttitudeRateLimit.Pitch, NotifyOnSourceUpdated=True}" StringFormat="0." Grid.Row="3" Grid.Column="3" Margin="3" />
                 </Grid>
             </GroupBox>
         </WrapPanel>

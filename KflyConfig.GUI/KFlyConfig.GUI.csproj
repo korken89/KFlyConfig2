@@ -71,6 +71,7 @@
     <Compile Include="Components\ModalNotConnected.xaml.cs">
       <DependentUpon>ModalNotConnected.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\KFlyCircleToggleButton.cs" />
     <Compile Include="Controls\KFlyCircleButton.cs" />
     <Compile Include="Controls\KFlyTab.cs" />
     <Compile Include="LogPanel.xaml.cs">
@@ -133,6 +134,10 @@
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\KFly_icons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Tabs\Connection.xaml">
       <SubType>Designer</SubType>

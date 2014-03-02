@@ -47,6 +47,17 @@ namespace KFly.GUI
         }
 
         /// <summary>
+        /// True if connected and tab selected/visible
+        /// </summary>
+        public bool IsActive
+        {
+            get
+            {
+                return (IsConnected && IsSelected);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets additional content for the UserControl
         /// </summary>
         public bool IsSelected
