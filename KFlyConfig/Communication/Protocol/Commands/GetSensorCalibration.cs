@@ -28,10 +28,7 @@ namespace KFly
 
         public override List<Byte> ToTx()
         {
-            if (Data == null)
-                return CreateTxWithHeader(new List<byte>());
-            else
-                return CreateTxWithHeader(Data.GetBytes());
+            return CreateTxWithHeader(new List<byte>());
         }
     }
 }

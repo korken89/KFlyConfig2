@@ -33,13 +33,18 @@ namespace KFly.GUI
 
         private void UserControl_Initialized(object sender, EventArgs e)
         {
-            Telemetry.Subscribe(KFlyCommandType.GetAttitudeControllerData, (GetControllerData gcd) =>
+            Telemetry.Subscribe(KFlyCommandType.GetAttitudeControllerData, (GetAttitudeControllerData gcd) =>
             {
                 _data.AttitudeCData = gcd.Data;
+                _data.LimitCollection.AttitudeRateLimit = gcd.RateLimit;
+                _data.LimitCollection.AngleLimit = gcd.AngleLimit;
+                _data.NotifyPropertyChanged("LimitCollection"); //Need to trigger manually since we don't change the actual collection
             });
-            Telemetry.Subscribe(KFlyCommandType.GetRateControllerData, (GetControllerData gcd) =>
+            Telemetry.Subscribe(KFlyCommandType.GetRateControllerData, (GetRateControllerData gcd) =>
             {
                 _data.RateCData = gcd.Data;
+                _data.LimitCollection.RateLimit = gcd.RateLimit;
+                _data.NotifyPropertyChanged("LimitCollection"); //Need to trigger manually since we don't change the actual collection
             });
 
         }
@@ -57,17 +62,18 @@ namespace KFly.GUI
             if (!DownloadBtn.IsRotating) //Use button to know if we already refreshing
             {
                 DownloadBtn.IsRotating = true;
-                Telemetry.SendAsyncWithAck(new GetControllerData(KFlyCommandType.GetAttitudeControllerData),
+                Telemetry.SendAsyncWithAck(new GetAttitudeControllerData(),
                     1000, (SendResult result) =>
                     {
                     });
-                Telemetry.SendAsyncWithAck(new GetControllerData(KFlyCommandType.GetRateControllerData),
+                Telemetry.SendAsyncWithAck(new GetRateControllerData(),
                     1000, (SendResult result2) =>
                      {
                          if (result2 == SendResult.OK)
                          {
                              StopDownloadButtonRotation();
                          }
+                         LogManager.LogInfoLine("Attitude controller data loaded from KFly");
                      });
             }
         }

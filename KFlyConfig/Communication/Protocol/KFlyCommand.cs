@@ -151,10 +151,10 @@ namespace KFly
                         cmd = new GetRawSensorData();
                         break;
                     case KFlyCommandType.GetRateControllerData:
-                        cmd = new GetControllerData(KFlyCommandType.GetRateControllerData);
+                        cmd = new GetRateControllerData();
                         break;
                     case KFlyCommandType.GetAttitudeControllerData:
-                        cmd = new GetControllerData(KFlyCommandType.GetAttitudeControllerData);
+                        cmd = new GetAttitudeControllerData();
                         break;
                     case KFlyCommandType.GetSensorCalibration:
                         cmd = new GetSensorCalibration();

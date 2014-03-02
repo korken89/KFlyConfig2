@@ -118,9 +118,9 @@
                         <Trigger Property="IsPressed"
                                  Value="true">
                             <Setter TargetName="ellipsebg" Property="Fill"
-                                    Value="Black" />
+                                    Value="{StaticResource HighlightBrush}" />
                             <Setter TargetName="icon" Property="Fill"
-                                    Value="Black" />
+                                    Value="White" />
                         </Trigger>
                        
                         <Trigger Property="IsEnabled"

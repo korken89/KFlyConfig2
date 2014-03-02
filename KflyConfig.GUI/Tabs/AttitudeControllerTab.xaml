@@ -89,7 +89,8 @@
                     <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Yaw.ILimit}" StringFormat="0.00" Grid.Row="3" Grid.Column="3" Margin="3" />
                 </Grid>
             </GroupBox>
-            <GroupBox Header="Attitude and Rate Constraints" HorizontalAlignment="Left">
+            <GroupBox   Style="{StaticResource GlowingGroupBox}"  DataContext="{Binding LimitCollection, NotifyOnTargetUpdated=True}"
+                        Header="Attitude and Rate Constraints" HorizontalAlignment="Left">
                 <Grid x:Name="ConstraintsGrid">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -111,9 +112,9 @@
                     <Label Grid.Row="1" Grid.Column="0" Content="Maximum rate (deg/s)" VerticalAlignment="Center" />
                     <Label Grid.Row="2" Grid.Column="0" Content="Maximum angle (deg)" VerticalAlignment="Center" />
                     <Label Grid.Row="3" Grid.Column="0" Content="Maximum rate (attitude mode)" VerticalAlignment="Center" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="0.00" StringFormat="0." Grid.Row="1" Grid.Column="1" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="0.00" StringFormat="0." Grid.Row="1" Grid.Column="2" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="0.00" StringFormat="0." Grid.Row="1" Grid.Column="3" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="{Binding RateLimit.Pitch}" StringFormat="0." Grid.Row="1" Grid.Column="1" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="{Binding RateLimit.Roll}" StringFormat="0." Grid.Row="1" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="{Binding RateLimit.Yaw}" StringFormat="0." Grid.Row="1" Grid.Column="3" Margin="3" />
                     <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="0.00" StringFormat="0." Grid.Row="2" Grid.Column="1" Margin="3" />
                     <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="0.00" StringFormat="0." Grid.Row="2" Grid.Column="2" Margin="3" />
                     <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="0.00" StringFormat="0." Grid.Row="3" Grid.Column="1" Margin="3" />

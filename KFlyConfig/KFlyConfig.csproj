@@ -45,6 +45,8 @@
     <Compile Include="Communication\Protocol\Commands\ConnectionStatusChanged.cs" />
     <Compile Include="Communication\Protocol\Commands\ConnectionStatistics.cs" />
     <Compile Include="Communication\Protocol\Commands\ACK.cs" />
+    <Compile Include="Communication\Protocol\Commands\GetRateControllerData.cs" />
+    <Compile Include="Communication\Protocol\Commands\GetAttitudeControllerData.cs" />
     <Compile Include="Communication\Protocol\Commands\Dummy.cs" />
     <Compile Include="Communication\Protocol\Commands\GetRawSensorData.cs" />
     <Compile Include="Communication\Protocol\Commands\GetSensorData.cs" />
@@ -71,6 +73,8 @@
     <Compile Include="Communication\USBHandler.cs" />
     <Compile Include="DataClasses\ChannelData.cs" />
     <Compile Include="DataClasses\ControllerData.cs" />
+    <Compile Include="DataClasses\PRData.cs" />
+    <Compile Include="DataClasses\PRYData.cs" />
     <Compile Include="DataClasses\XYZDataInt16.cs" />
     <Compile Include="DataClasses\RawSensorData.cs" />
     <Compile Include="DataClasses\SensorData.cs" />
