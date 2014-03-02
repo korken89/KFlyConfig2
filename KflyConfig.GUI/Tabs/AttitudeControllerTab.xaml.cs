@@ -49,35 +49,85 @@ namespace KFly.GUI
 
         }
 
-        private void StopDownloadButtonRotation()
-        {
-            DownloadBtn.Dispatcher.BeginInvoke(new Action(() =>
-            {
-                DownloadBtn.IsRotating = false;
-            }));
-        }
 
-        private void DownloadBtn_Click(object sender, RoutedEventArgs e)
+        private void Reload()
         {
             if (!DownloadBtn.IsRotating) //Use button to know if we already refreshing
             {
                 DownloadBtn.IsRotating = true;
-                Telemetry.SendAsyncWithAck(new GetAttitudeControllerData(),
-                    1000, (SendResult result) =>
-                    {
-                    });
-                Telemetry.SendAsyncWithAck(new GetRateControllerData(),
+                Telemetry.SendAsyncWithAck(new CmdCollection(new GetAttitudeControllerData(), new GetRateControllerData()),
                     1000, (SendResult result2) =>
                      {
                          if (result2 == SendResult.OK)
                          {
-                             StopDownloadButtonRotation();
+                             _upToDate = true;
+                             LogManager.LogInfoLine("Attitude controller data downloaded from KFly");
                          }
-                         LogManager.LogInfoLine("Attitude controller data loaded from KFly");
+                         else
+                         {
+                             LogManager.LogErrorLine("Failed downloading attitude controller data");
+                         }
+                         DownloadBtn.Dispatcher.BeginInvoke(new Action(() =>
+                         {
+                             DownloadBtn.IsRotating = false;
+                         }));
                      });
             }
         }
 
+        private void DownloadBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Reload();
+        }
 
+        private Boolean _upToDate = false;
+
+        private void KFlyTab_TabStateChanged(object sender, TabStateChangedEventArgs e)
+        {
+            if (!e.IsConnected)
+                _upToDate = false;
+
+            if ((e.IsSelected && e.IsConnected) && !_upToDate) //Time to reload
+            {
+                Reload();
+            }
+        }
+
+        private void UploadBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (!UploadBtn.IsRotating) //Use button to know if we already refreshing
+            {
+                UploadBtn.IsRotating = true;
+                var sacd = new SetAttitudeControllerData()
+                {
+                    Data = _data.AttitudeCData,
+                    RateLimit = _data.LimitCollection.AttitudeRateLimit,
+                    AngleLimit = _data.LimitCollection.AngleLimit
+                };
+                var srcd = new SetRateControllerData()
+                {
+                    Data = _data.AttitudeCData,
+                    RateLimit = _data.LimitCollection.RateLimit,
+                };
+                Telemetry.SendAsyncWithAck(new CmdCollection(sacd, srcd),
+                    1000, (SendResult result) =>
+                    {
+                        if (result == SendResult.OK)
+                        {
+                            _upToDate = true;
+                            LogManager.LogInfoLine("Attitude controller data uploaded to KFly");
+                        }
+                        else
+                        {
+                            LogManager.LogErrorLine("Failed Uploading attitude controller data");
+                        }
+                        DownloadBtn.Dispatcher.BeginInvoke(new Action(() =>
+                        {
+                            UploadBtn.IsRotating = false;
+                        }));
+                    });
+               
+            }
+        }
     }
 }

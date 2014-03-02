@@ -440,7 +440,7 @@
                 <DropShadowEffect ShadowDepth="0"
                                       Color="Black"
                                       Opacity="0"
-                                      BlurRadius="8"/>
+                                      BlurRadius="2"/>
             </Setter.Value>
         </Setter>
         <Style.Triggers>

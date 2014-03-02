@@ -49,6 +49,24 @@ namespace KFly.GUI
         /// <summary>
         /// Gets or sets additional content for the UserControl
         /// </summary>
+        public bool IsSelected
+        {
+            get { return (bool)GetValue(IsSelectedProperty); }
+            set { SetValue(IsSelectedProperty, value); }
+        }
+        public static readonly DependencyProperty IsSelectedProperty =
+            DependencyProperty.Register("IsSelected", typeof(bool), typeof(KFlyTab),
+              new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, IsSelectedChanged));
+
+        private static void IsSelectedChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
+        {
+            var kflyTab = (KFlyTab)dependencyObject;
+            kflyTab.RaiseTabStateChangedEvent();
+        }
+
+        /// <summary>
+        /// Gets or sets additional content for the UserControl
+        /// </summary>
         public bool IsConnected
         {
             get { return (bool)GetValue(IsConnectedProperty); }
@@ -63,7 +81,21 @@ namespace KFly.GUI
             var kflyTab = (KFlyTab)dependencyObject;
             var connected = (bool)e.NewValue;
             kflyTab.UpdateComponentsOnConnectedChange(connected);
+            kflyTab.RaiseTabStateChangedEvent();
         }
+
+        /// <summary>
+        /// Has 
+        /// </summary>
+       public bool IsUpToDate
+        {
+            get { return (bool)GetValue(IsUpToDateProperty); }
+            set { SetValue(IsUpToDateProperty, value); }
+        }
+       public static readonly DependencyProperty IsUpToDateProperty =
+            DependencyProperty.Register("IsUpToDate", typeof(bool), typeof(KFlyTab));
+          
+
 
         public static readonly DependencyProperty ToolbarProperty = 
             DependencyProperty.Register("Toolbar", typeof(object), typeof(KFlyTab));
@@ -94,22 +126,28 @@ namespace KFly.GUI
 
         // Create a custom routed event by first registering a RoutedEventID 
         // This event uses the bubbling routing strategy 
-        public static readonly RoutedEvent ConnectionEvent = EventManager.RegisterRoutedEvent(
-            "ConnectionChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(KFlyTab));
+        public static readonly RoutedEvent TabStateChangedEvent = EventManager.RegisterRoutedEvent(
+            "TabStateChangedChanged", RoutingStrategy.Bubble, typeof(TabStateChangedEventHandler), typeof(KFlyTab));
 
         // Provide CLR accessors for the event 
-        public event RoutedEventHandler ConnectionChanged
+        public event TabStateChangedEventHandler TabStateChanged
         {
-            add { AddHandler(ConnectionEvent, value); }
-            remove { RemoveHandler(ConnectionEvent, value); }
+            add { AddHandler(TabStateChangedEvent, value); }
+            remove { RemoveHandler(TabStateChangedEvent, value); }
         }
 
-        // This method raises the Tap event 
-        void RaiseConnectionEvent()
+        // This method raises the Connection Event, but only if this is the selected tab
+        private void RaiseTabStateChangedEvent()
         {
-            RoutedEventArgs newEventArgs = new RoutedEventArgs(KFlyTab.ConnectionEvent);
+            TabStateChangedEventArgs newEventArgs = new TabStateChangedEventArgs(KFlyTab.TabStateChangedEvent)
+                {
+                    IsConnected = this.IsConnected,
+                    IsSelected = this.IsSelected
+                };
             RaiseEvent(newEventArgs);
         }
+
+
 
         /// <summary>
         /// THe background of the tab
@@ -138,4 +176,24 @@ namespace KFly.GUI
 
 
     }
+
+    public delegate void TabStateChangedEventHandler(object sender, TabStateChangedEventArgs e);
+
+    public class TabStateChangedEventArgs: RoutedEventArgs
+    {
+        public TabStateChangedEventArgs():base()
+        { }
+        public TabStateChangedEventArgs(RoutedEvent routedEvent): base(routedEvent)
+        { }
+
+        public Boolean IsConnected = false;
+        public Boolean IsSelected = false;
+
+        /// <summary>
+        /// True if tab already has been in a IsConnected & IsSelected state before
+        /// AND connection never been lost.
+        /// </summary>
+        public Boolean IsUpToDate = true;
+    }
+
 }

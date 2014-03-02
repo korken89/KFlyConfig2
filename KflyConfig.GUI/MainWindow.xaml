@@ -65,7 +65,7 @@
 
     <DockPanel LastChildFill="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <kfly:LogPanel DockPanel.Dock="Bottom" Height="30" />
-        <TabControl Name="TabControl" Margin="0,0,0,0" TabStripPlacement="Left">
+        <TabControl Name="TabControl" SelectionChanged="TabControl_SelectionChanged" Margin="0,0,0,0" TabStripPlacement="Left">
             <TabControl.Resources>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedSingleRowTabControl.xaml" />
             </TabControl.Resources>

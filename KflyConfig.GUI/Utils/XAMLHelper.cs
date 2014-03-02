@@ -14,7 +14,7 @@ namespace KFly.GUI
         public static T GetParent<T>(FrameworkElement child) where T : DependencyObject
         {
             var parent = child.Parent;
-            while (!(parent is MainWindow) && (parent is FrameworkElement))
+            while (!(parent is T) && (parent is FrameworkElement))
             {
                 if ((parent as FrameworkElement).Parent == null)
                 {
@@ -26,6 +26,23 @@ namespace KFly.GUI
                 }
             }
             return parent as T;
+        }
+
+        /// <summary>
+        /// THis CAN be expensive if panel wiht many children is used
+        /// using BFS
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="child"></param>
+        /// <returns></returns>
+        public static T GetChild<T>(ContentControl parent) where T : DependencyObject
+        {
+            var child = parent.Content;
+            while (!(child is T) && (child is ContentControl))
+            {
+                child = (child as ContentControl).Content;
+            }
+            return child as T;
         }
     }   
 }

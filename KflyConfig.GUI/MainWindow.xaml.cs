@@ -91,6 +91,27 @@ namespace KFly.GUI
             Telemetry.Disconnect();
         }
 
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TabItem ti = e.AddedItems[0] as TabItem;
+            foreach (object item in TabControl.Items)
+            {
+                SetSelected(item as TabItem, (item == e.AddedItems[0]));
+            }
+        }
+
+        private void SetSelected(TabItem tab, Boolean value)
+        {
+            if (tab != null)
+            {
+                KFlyTab kfly = XAMLHelper.GetChild<KFlyTab>(tab);
+                if (kfly != null)
+                {
+                    kfly.IsSelected = value;
+                }
+            }
+        }
+
        
         
        

@@ -104,6 +104,18 @@ namespace KFly
             }
         }
 
+
+        /// <summary>
+        /// This will send an collection of commands with ack
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <param name="msTimeout"></param>
+        /// <param name="action"></param>
+        public static void SendAsyncWithAck(IEnumerable<KFlyCommand> cmds, int msTimeout, Action<SendResult> action)
+        {
+            var cmd = new CmdCollection(cmds);
+            SendAsyncWithAck(cmd, msTimeout, action);
+        }
         #endregion
 
         #region subscription

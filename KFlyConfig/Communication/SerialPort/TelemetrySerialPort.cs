@@ -289,50 +289,76 @@ namespace KFly
         ManualResetEventSlim _receivedAck = new ManualResetEventSlim(true);
         private KFlyCommandType _ackToReceive = KFlyCommandType.ACK;
 
+        private SendResult _sendSingleCmdWithAck(KFlyCommand cmd)
+        {
+            var selfAck = SelfAck.AppliesTo(cmd.Type);
+            _ackToReceive = selfAck ? cmd.Type : KFlyCommandType.ACK;
+            _receivedAck.Reset();
+            var retries = 0;
+            List<byte> data = cmd.ToTx();     
+            int msEachTry = Convert.ToInt32(cmd.TimeOut / 3);
+            while (!_receivedAck.IsSet)
+            {
+                retries++;
+                var count = data.Count;
+                _totalOut += (uint)count;
+                LogManager.LogDebugLine("Sending " + cmd.ToString() +
+                    ((selfAck) ? " with self acking" : " with ack"));
+                _serialPort.Write(data.ToArray(), 0, count);
+                _receivedAck.Wait(msEachTry);
+                if (retries > 3)
+                    break;
+            }
+            SendResult res = (_receivedAck.IsSet) ? SendResult.OK : SendResult.TIME_OUT;
+            _receivedAck.Set(); //Always set it back
+            return res;
+        }
+
+        private SendResult _sendMultiCmdWithAck(CmdCollection cmds)
+        {
+            SendResult res = SendResult.OK;
+            foreach (KFlyCommand cmd in cmds.Cmds)
+            {
+                cmd.UseAck = true;
+                cmd.TimeOut = cmds.TimeOut;
+                res = _sendSingleCmdWithAck(cmd);
+                if (res != SendResult.OK)
+                    return res;
+            }
+            return res;
+        }
+
         private void _senderLoop(object obj)
         {
             Clear(_sendBuffer);
             while (!_sendBuffer.IsCompleted)
             {
-                KFlyCommand message = _sendBuffer.Take();
-                List<byte> data = message.ToTx();
+                KFlyCommand cmd = _sendBuffer.Take();
                 try
                 {
-                    if (message.UseAck)
+                    if (cmd.UseAck)
                     {
-                        var selfAck = SelfAck.AppliesTo(message.Type);
-                        _ackToReceive = selfAck? message.Type : KFlyCommandType.ACK;
-                        _receivedAck.Reset();
-                        var retries = 0;
-                        int msEachTry = Convert.ToInt32(message.TimeOut / 3);
-                        while (!_receivedAck.IsSet)
-                        {
-                            retries++;
-                            var count = data.Count;
-                            _totalOut += (uint)count;
-                            LogManager.LogDebugLine("Sending " + message.ToString() +
-                                ((selfAck)? " with self acking" : " with ack"));
-                            _serialPort.Write(data.ToArray(), 0, count);
-                            _receivedAck.Wait(msEachTry);
-                            if (retries > 3)
-                                break;
-                        }
-                        if (message.ActionAfterAck != null)
+                        SendResult res;
+                        if (cmd is CmdCollection)
+                            res = _sendMultiCmdWithAck((cmd as CmdCollection));
+                       else
+                            res = _sendSingleCmdWithAck(cmd);
+                        if (cmd.ActionAfterAck != null)
                         {
                             Task.Run(() =>
+                            {
+                                try
                                 {
-                                    try
-                                    {
-                                        message.ActionAfterAck((_receivedAck.IsSet) ? SendResult.OK : SendResult.TIME_OUT);
-                                    }
-                                    catch { };
-                                });
+                                    cmd.ActionAfterAck(res);
+                                }
+                                catch { };
+                            });
                         }
-                        _receivedAck.Set(); //Always set it back
                     }
                     else
                     {
-                        LogManager.LogDebugLine("Sending " + message.ToString());
+                        LogManager.LogDebugLine("Sending " + cmd.ToString());
+                        List<byte> data = cmd.ToTx();
                         var count = data.Count;
                         _totalOut += (uint)count;
                         _serialPort.Write(data.ToArray(), 0, count);

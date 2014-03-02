@@ -8,9 +8,10 @@ namespace KFly
     /// <summary>
     /// Dummy class for not implemented messages
     /// </summary>
-    public class Dummy : KFlyCommand
+    public class NotImplemented : KFlyCommand
     {
-        public Dummy(KFlyCommandType type) : base(type)
+        public NotImplemented(KFlyCommandType type)
+            : base(type)
         {
         }
 

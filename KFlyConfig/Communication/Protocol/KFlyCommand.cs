@@ -163,7 +163,7 @@ namespace KFly
                         cmd = new Ack();
                         break;
                     default:
-                        cmd = new Dummy((KFlyCommandType)(bytes[1]));
+                        cmd = new NotImplemented((KFlyCommandType)(bytes[1]));
                         break;
                 }
                 if (cmd != null)

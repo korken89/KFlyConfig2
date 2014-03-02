@@ -10,9 +10,15 @@
              Background="White"
              mc:Ignorable="d" 
              d:DesignHeight="536" d:DesignWidth="722">
-    <kfly:KFlyTab Title="Attitude Controller" BackgroundImage="../Resources/control.png">
+    <kfly:KFlyTab TabStateChanged="KFlyTab_TabStateChanged"  Title="Attitude Controller" BackgroundImage="../Resources/control.png">
         <kfly:KFlyTab.Toolbar>
-            <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <kfly:KFlyCircleButton x:Name="UploadBtn"
+                                   Click="UploadBtn_Click"
+                                   Margin="15,0,15,0"
+                                   Icon="{StaticResource appbar_arrow_up}"
+                                   ToolTip="Upload settings to controller" 
+                                   Width="40" Height="40" />
                 <kfly:KFlyCircleButton x:Name="DownloadBtn"
                                    Click="DownloadBtn_Click"
                                    Icon="{StaticResource appbar_arrow_down}"
