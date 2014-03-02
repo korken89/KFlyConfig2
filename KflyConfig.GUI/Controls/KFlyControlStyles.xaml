@@ -65,7 +65,14 @@
                                                          Duration="0:0:3"/>
                                     </Storyboard>
                                 </VisualState>
-                                <VisualState x:Name="Still" />
+                                <VisualState x:Name="Still">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="iconRotate"
+                                                         Storyboard.TargetProperty="Angle"
+                                                         To="360" 
+                                                         Duration="0:0:0.5"/>
+                                    </Storyboard>
+                                </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                     </Grid>
@@ -426,7 +433,29 @@
             </Setter.Value>
         </Setter>
     </Style>
-
+    <Style x:Key="GlowingGroupBox" BasedOn="{StaticResource MetroGroupBox}"   
+           TargetType="{x:Type GroupBox}">
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect ShadowDepth="0"
+                                      Color="Black"
+                                      Opacity="0"
+                                      BlurRadius="8"/>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                <BeginStoryboard>
+                    <Storyboard AutoReverse="True">
+                        <DoubleAnimation From="0" To="1.0"
+                            Storyboard.TargetProperty="(Effect).Opacity"
+                            Duration="00:00:0.3"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+    
     <Style x:Key="MetroGroupBox"
            TargetType="{x:Type GroupBox}">
         <Setter Property="Margin"

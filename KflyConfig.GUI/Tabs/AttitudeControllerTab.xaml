@@ -21,8 +21,9 @@
             </StackPanel>
         </kfly:KFlyTab.Toolbar>
     <WrapPanel>
-            <GroupBox Header="Attitude Controller Gains" HorizontalAlignment="Left">
-                <Grid DataContext="{Binding AttitudeCData}" x:Name="AttitudeGrid">
+            <GroupBox Style="{StaticResource GlowingGroupBox}" DataContext="{Binding AttitudeCData, NotifyOnTargetUpdated=True}"
+                      Header="Attitude Controller Gains" HorizontalAlignment="Left">
+                <Grid x:Name="AttitudeGrid">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -54,8 +55,9 @@
                     <metro:NumericUpDown Width="88" Minimum="0" Interval="0.1" Maximum="100" Value="{Binding Yaw.ILimit}" StringFormat="0.00" Grid.Row="3" Grid.Column="3" Margin="3" />
                 </Grid>
             </GroupBox>
-            <GroupBox Header="Rate Controller Gains" HorizontalAlignment="Left">
-                <Grid DataContext="{Binding RateCData}" d:DataContext="{d:DesignInstance kfly2:ControllerData}"  x:Name="RateGrid">
+            <GroupBox  Style="{StaticResource GlowingGroupBox}"  DataContext="{Binding RateCData, NotifyOnTargetUpdated=True}"
+                       Header="Rate Controller Gains" HorizontalAlignment="Left">
+                <Grid d:DataContext="{d:DesignInstance kfly2:ControllerData}"  x:Name="RateGrid">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>

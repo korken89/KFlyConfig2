@@ -29,8 +29,8 @@ namespace KFly.GUI
             this.DataContext = _data;
         }
 
-       
-       
+
+
         private void UserControl_Initialized(object sender, EventArgs e)
         {
             Telemetry.Subscribe(KFlyCommandType.GetAttitudeControllerData, (GetControllerData gcd) =>
@@ -60,18 +60,15 @@ namespace KFly.GUI
                 Telemetry.SendAsyncWithAck(new GetControllerData(KFlyCommandType.GetAttitudeControllerData),
                     1000, (SendResult result) =>
                     {
-                        if (result == SendResult.OK)
-                        {
-                            Telemetry.SendAsyncWithAck(new GetControllerData(KFlyCommandType.GetRateControllerData),
-                                1000, (SendResult result2) =>
-                                {
-                                    if (result2 == SendResult.OK)
-                                    {
-                                        StopDownloadButtonRotation();
-                                    }
-                                });
-                        }
                     });
+                Telemetry.SendAsyncWithAck(new GetControllerData(KFlyCommandType.GetRateControllerData),
+                    1000, (SendResult result2) =>
+                     {
+                         if (result2 == SendResult.OK)
+                         {
+                             StopDownloadButtonRotation();
+                         }
+                     });
             }
         }
 
