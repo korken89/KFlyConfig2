@@ -6,13 +6,8 @@ using System.Text;
 namespace KFly
 {
     /// <summary>
-    /// Same for 
-    /// SetRateControllerData
-    /// SetAttitudeControllerData
-    /// SetPositionControllerData
-    ///SetVelocityControllerData
     /// </summary>
-    class SetSensorCalibration : KFlyCommand
+    public class SetSensorCalibration : KFlyCommand
     {
         public SensorCalibration Data;
 

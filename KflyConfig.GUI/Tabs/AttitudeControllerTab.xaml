@@ -171,8 +171,8 @@
                     <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="{Binding AngleLimit.Pitch, NotifyOnSourceUpdated=True}" StringFormat="0." Grid.Row="2" Grid.Column="1" Margin="3" />
                     <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="{Binding AngleLimit.Roll, NotifyOnSourceUpdated=True}" StringFormat="0." Grid.Row="2" Grid.Column="2" Margin="3" />
                     <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="{Binding AttitudeRateLimit.Pitch, NotifyOnSourceUpdated=True}" StringFormat="0." Grid.Row="3" Grid.Column="1" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="{Binding AttitudeRateLimit.Pitch, NotifyOnSourceUpdated=True}" StringFormat="0." Grid.Row="3" Grid.Column="2" Margin="3" />
-                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="{Binding AttitudeRateLimit.Pitch, NotifyOnSourceUpdated=True}" StringFormat="0." Grid.Row="3" Grid.Column="3" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="{Binding AttitudeRateLimit.Roll, NotifyOnSourceUpdated=True}" StringFormat="0." Grid.Row="3" Grid.Column="2" Margin="3" />
+                    <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="{Binding AttitudeRateLimit.Yaw, NotifyOnSourceUpdated=True}" StringFormat="0." Grid.Row="3" Grid.Column="3" Margin="3" />
                 </Grid>
             </GroupBox>
         </WrapPanel>

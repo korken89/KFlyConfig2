@@ -55,6 +55,10 @@ namespace KFly
         GetSensorCalibration = 46,
         SetSensorCalibration = 47,
 
+        [SelfAck]
+        GetAttitude = 48,
+
+
 
         //Following is for easy access to subscribe/unsubscribe and ís not part of the communication protocol
         All = 120, //To subscribe everything

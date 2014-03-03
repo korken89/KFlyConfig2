@@ -335,13 +335,18 @@ namespace KFly.GUI
 
         private async void Load3DModel()
         {
-            var streamResourceInfo = Application.GetResourceStream(new Uri("../Resources/kfly.stl", UriKind.Relative));
+            try
+            {
+                var streamResourceInfo = Application.GetResourceStream(new Uri("../Resources/kfly.stl", UriKind.Relative));
 
-              Model3D test =  await this.aLoadAsync(streamResourceInfo.Stream);
-              await view1.Dispatcher.BeginInvoke(new Action(() =>
-                  {
-                      MyModel.Content = test;
-                  }));
+                Model3D test = await this.aLoadAsync(streamResourceInfo.Stream);
+                await view1.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        MyModel.Content = test;
+                    }));
+            }
+            catch
+            { };
         }
 
         private async Task<Model3DGroup> aLoadAsync(Stream stream)

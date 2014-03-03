@@ -103,6 +103,9 @@
     <Compile Include="Utils\ModalContentPresenter.cs" />
     <Compile Include="Utils\StlFromInventorReader.cs" />
     <Compile Include="Utils\XAMLHelper.cs" />
+    <Compile Include="Windows\TestCalibrationWindow.xaml.cs">
+      <DependentUpon>TestCalibrationWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Components\CalibrateSensors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -164,6 +167,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\TestCalibrationWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

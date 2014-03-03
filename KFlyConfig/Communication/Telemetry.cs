@@ -144,7 +144,7 @@ namespace KFly
         /// <returns>True if successful, false if already subscriber</returns>
         public static TeleSubscription Subscribe<T>(KFlyCommandType command,  Action<T> action) where T:KFlyCommand
         {
-            var ts = new TeleSubscription();
+            var ts = new TeleSubscription() { Type = command };
             _subscribers[command].TryAdd(ts, action);
             return ts;
         }
@@ -236,6 +236,7 @@ namespace KFly
 
     public class TeleSubscription
     {
+        public KFlyCommandType Type;
     }
 
     public enum SendResult

@@ -46,6 +46,7 @@
     <Compile Include="Communication\Protocol\Commands\ConnectionStatistics.cs" />
     <Compile Include="Communication\Protocol\Commands\ACK.cs" />
     <Compile Include="Communication\Protocol\Commands\CmdCollection.cs" />
+    <Compile Include="Communication\Protocol\Commands\GetAttitude.cs" />
     <Compile Include="Communication\Protocol\Commands\SetRateControllerData.cs" />
     <Compile Include="Communication\Protocol\Commands\SetAttitudeControllerData.cs" />
     <Compile Include="Communication\Protocol\Commands\GetRateControllerData.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Communication\USBHandler.cs" />
     <Compile Include="DataClasses\ChannelData.cs" />
     <Compile Include="DataClasses\ControllerData.cs" />
+    <Compile Include="DataClasses\Quaternion.cs" />
     <Compile Include="DataClasses\PRData.cs" />
     <Compile Include="DataClasses\PRYData.cs" />
     <Compile Include="DataClasses\XYZDataInt16.cs" />
