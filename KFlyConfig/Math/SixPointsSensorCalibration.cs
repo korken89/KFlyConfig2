@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel;
 
 namespace KFly
 {
     public static class SixPointSensorCalibration
     {
-        public static SensorCalibration Calibrate(IEnumerable<RawSensorData> measurepoints)
+        public static SensorCalibrationData Calibrate(IEnumerable<RawSensorData> measurepoints)
         {
             try
             {
@@ -27,7 +28,7 @@ namespace KFly
                 }
                 var accres = Calibrate(accdata, 0);
                 var magres = Calibrate(magdata, 0);
-                SensorCalibration sc = new SensorCalibration();
+                SensorCalibrationData sc = new SensorCalibrationData();
                 sc.AccelerometerBias.X = Convert.ToSingle(accres[0, 0]);
                 sc.AccelerometerBias.Y = Convert.ToSingle(accres[1, 0]);
                 sc.AccelerometerBias.Z = Convert.ToSingle(accres[2, 0]);

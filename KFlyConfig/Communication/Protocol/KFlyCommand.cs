@@ -151,6 +151,9 @@ namespace KFly
                     case KFlyCommandType.GetSensorData:
                         cmd = new GetSensorData();
                         break;
+                    case KFlyCommandType.GetAttitude:
+                        cmd = new GetAttitude();
+                        break;
                     case KFlyCommandType.GetRawSensorData:
                         cmd = new GetRawSensorData();
                         break;

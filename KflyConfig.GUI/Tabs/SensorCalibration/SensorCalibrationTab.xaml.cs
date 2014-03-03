@@ -24,24 +24,11 @@ namespace KFly.GUI
         public SensorCalibrationTab()
         {   
             InitializeComponent();
-            this.DataContext = new SensorCalibration();
+            this.DataContext = new SensorCalibrationData();
         }
 
-        private void UpdateSensorCalibrationData()
-        {
-        }
-      
         private void UserControl_Initialized(object sender, EventArgs e)
         {
-           
-
-            Telemetry.Subscribe(KFlyCommandType.ConnectionStatusChanged, (ConnectionStatusChanged csc) =>
-            {
-                if (csc.IsConnected)
-                {
-                    UpdateSensorCalibrationData();
-                }
-            });
             Telemetry.Subscribe(KFlyCommandType.GetSensorCalibration, (GetSensorCalibration msg) =>
             {
                 AccelerometerGrid.Dispatcher.Invoke(new Action(() =>
@@ -73,7 +60,7 @@ namespace KFly.GUI
             if (!UploadBtn.IsRotating)
             {
                 UploadBtn.IsRotating = true;
-                var cmd = new SetSensorCalibration(this.DataContext as SensorCalibration);
+                var cmd = new SetSensorCalibration(this.DataContext as SensorCalibrationData);
                 Telemetry.SendAsyncWithAck(cmd, 1000, (SendResult sr) =>
                 {
                     if (sr == SendResult.OK)
@@ -101,6 +88,7 @@ namespace KFly.GUI
                     {
                         if (sr == SendResult.OK)
                         {
+                            _isUpToDate = true;
                             LogManager.LogInfoLine("Sensor calibration data recevied!");
                         }
                         else
@@ -115,9 +103,13 @@ namespace KFly.GUI
             }
         }
 
+        private Boolean _isUpToDate = false;
         private void KFlyTab_TabStateChanged(object sender, TabStateChangedEventArgs e)
         {
-            if (!e.IsUpToDate && e.IsConnected && e.IsSelected)
+            if (!e.IsConnected)
+                _isUpToDate = false;
+
+            if (!_isUpToDate && e.IsConnected && e.IsSelected)
             {
                 Download();
             }

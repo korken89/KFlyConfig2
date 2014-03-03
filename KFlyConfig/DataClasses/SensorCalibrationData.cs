@@ -5,7 +5,7 @@ using System.Text;
 
 namespace KFly
 {
-    public class SensorCalibration
+    public class SensorCalibrationData: IKFlyConfigurationData
     {
         private XYZData _accelerometer_bias = new XYZData();
         private XYZData _accelerometer_gain = new XYZData();
@@ -106,9 +106,9 @@ namespace KFly
         }
 
 
-        public static SensorCalibration FromBytes(List<byte> bytes)
+        public static SensorCalibrationData FromBytes(List<byte> bytes)
         {
-            var c = new SensorCalibration();
+            var c = new SensorCalibrationData();
             c.SetBytes(bytes);
             return c;
         }

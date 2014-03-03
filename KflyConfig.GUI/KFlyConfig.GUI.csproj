@@ -65,7 +65,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Components\CalibrateSensors.xaml.cs">
+    <Compile Include="Tabs\SensorCalibration\CalibrateSensors.xaml.cs">
       <DependentUpon>CalibrateSensors.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\ModalNotConnected.xaml.cs">
@@ -89,7 +89,7 @@
     <Compile Include="Tabs\InputsTab.xaml.cs">
       <DependentUpon>InputsTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tabs\SensorCalibrationTab.xaml.cs">
+    <Compile Include="Tabs\SensorCalibration\SensorCalibrationTab.xaml.cs">
       <DependentUpon>SensorCalibrationTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tabs\FirmwareTab.xaml.cs">
@@ -106,7 +106,7 @@
     <Compile Include="Windows\TestCalibrationWindow.xaml.cs">
       <DependentUpon>TestCalibrationWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Components\CalibrateSensors.xaml">
+    <Page Include="Tabs\SensorCalibration\CalibrateSensors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -154,7 +154,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Tabs\SensorCalibrationTab.xaml">
+    <Page Include="Tabs\SensorCalibration\SensorCalibrationTab.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

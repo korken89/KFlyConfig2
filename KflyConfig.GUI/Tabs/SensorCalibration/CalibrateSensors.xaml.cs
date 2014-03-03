@@ -48,7 +48,7 @@ namespace KFly.GUI
 
         void _calculatingWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            SensorCalibration sc = e.Result as SensorCalibration;
+            SensorCalibrationData sc = e.Result as SensorCalibrationData;
             if (sc != null)
             {
                 _data.CurrentResult = sc;
@@ -209,7 +209,7 @@ namespace KFly.GUI
             CollectingPanel.Visibility = (_data.CurrentStep < 6) ? Visibility.Visible : Visibility.Hidden;
             ResultPanel.Visibility = (_data.CurrentStep == 6) ? Visibility.Visible : Visibility.Hidden;
 
-            UseDataBtn.IsEnabled = (_data.CurrentResult.IsValid);
+            UseDataBtn.IsEnabled = true; //we only change click behaviour on error
 
             StepLabel.Content = String.Format("Step {0} of 7", _data.CurrentStep+1);
 
@@ -226,7 +226,7 @@ namespace KFly.GUI
                 CalculationResultLabel.Foreground = Brushes.Red;
                 UseDataBtn.Content = "Restart calibration";
             }
-            else if (_data.CurrentStep == 6) //ERROR
+            else if (_data.CurrentStep == 6) 
             {
                 CalculationResultLabel.Text = "Calculation Successful!";
                 CalculationResultLabel.Foreground = Brushes.Black;

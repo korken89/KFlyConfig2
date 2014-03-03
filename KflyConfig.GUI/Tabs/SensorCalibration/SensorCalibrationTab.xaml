@@ -10,7 +10,7 @@
              Background="White"
              d:DesignHeight="536" d:DesignWidth="622">
     <kfly:KFlyTab Title="Sensor Calibration" TabStateChanged="KFlyTab_TabStateChanged"
-                  BackgroundImage="../Resources/gyroscope.png">
+                  BackgroundImage="../../Resources/gyroscope.png">
         <kfly:KFlyTab.Toolbar>
             <StackPanel Orientation="Horizontal">
                 <kfly:KFlyCircleButton x:Name="UploadBtn"

@@ -4,10 +4,11 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace KFly
 {
-    public class SixPointsCalibrationData
+    public class SixPointsCalibrationData: INotifyPropertyChanged
     {
         public enum SubSteps
         {
@@ -23,10 +24,16 @@ namespace KFly
         private ConcurrentBag<RawSensorData>[] _data = new ConcurrentBag<RawSensorData>[7];
 
 
-        public SensorCalibration CurrentResult
+        private SensorCalibrationData _currentResult = new SensorCalibrationData();
+
+        public SensorCalibrationData CurrentResult
         {
-            get;
-            set;
+            get { return _currentResult; }
+            set 
+            { 
+                _currentResult = value;
+                NotifyPropertyChanged("CurrentResult");
+            }
         }
 
         public void FullReset()
@@ -63,7 +70,7 @@ namespace KFly
 
         public SixPointsCalibrationData()
         {
-            CurrentResult = new SensorCalibration();
+            CurrentResult = new SensorCalibrationData();
             for (var i = 0; i < 7; i++)
             {
                 _subSteps[i] = SubSteps.NotStarted;
@@ -116,6 +123,14 @@ namespace KFly
         public void ClearCurrentDataBag()
         {
             ClearDataBag(_data[_currentStep]);
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void NotifyPropertyChanged(string propName)
+        {
+            if (this.PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
         }
 
     }

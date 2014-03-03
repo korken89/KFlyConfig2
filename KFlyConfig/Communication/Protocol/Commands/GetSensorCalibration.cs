@@ -15,7 +15,7 @@ namespace KFly
     public class GetSensorCalibration: KFlyCommand
     {
 
-        public SensorCalibration Data;
+        public SensorCalibrationData Data;
 
         public GetSensorCalibration() :
             base(KFlyCommandType.GetSensorCalibration)
@@ -23,7 +23,7 @@ namespace KFly
 
         public override void ParseData(List<byte> data)
         {
-            Data = SensorCalibration.FromBytes(data);
+            Data = SensorCalibrationData.FromBytes(data);
         }
 
         public override List<Byte> ToTx()

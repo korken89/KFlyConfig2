@@ -200,11 +200,7 @@ namespace KFly.GUI
         public Boolean IsConnected = false;
         public Boolean IsSelected = false;
 
-        /// <summary>
-        /// True if tab already has been in a IsConnected & IsSelected state before
-        /// AND connection never been lost.
-        /// </summary>
-        public Boolean IsUpToDate = true;
+     
     }
 
 }
