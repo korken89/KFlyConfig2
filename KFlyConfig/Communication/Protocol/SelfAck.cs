@@ -14,15 +14,12 @@ namespace KFly
     {
         public static Boolean AppliesTo(KFlyCommandType type)
         {
-            if (type != null)
+            FieldInfo fi = type.GetType().GetField(type.ToString());
+            if (fi != null)
             {
-                FieldInfo fi = type.GetType().GetField(type.ToString());
-                if (fi != null)
-                {
-                    return (fi.GetCustomAttributes(typeof(SelfAck), false).Length > 0);
-                }
+                return (fi.GetCustomAttributes(typeof(SelfAck), false).Length > 0);
             }
-            return false;
+			return false;
         }
     }
 }

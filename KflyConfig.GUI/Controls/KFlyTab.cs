@@ -120,18 +120,21 @@ namespace KFly.GUI
 
         private void UpdateComponentsOnConnectedChange(bool connected)
         {
-            var toolbar = this.Template.FindName("PART_Toolbar", this) as FrameworkElement;
-            if (toolbar != null)
+            if (IsDependentOnConnection)
             {
-                toolbar.IsEnabled = connected;
-            }
-            var mcp = this.Template.FindName("PART_NotConnectedModal", this) as ModalContentPresenter;
-            if (mcp != null)
-            {
-                if (connected)
-                    mcp.HideModalContent();
-                else
-                    mcp.ShowModalContent();
+                var toolbar = this.Template.FindName("PART_Toolbar", this) as FrameworkElement;
+                if (toolbar != null)
+                {
+                    toolbar.IsEnabled = connected;
+                }
+                var mcp = this.Template.FindName("PART_NotConnectedModal", this) as ModalContentPresenter;
+                if (mcp != null)
+                {
+                    if (connected)
+                        mcp.HideModalContent();
+                    else
+                        mcp.ShowModalContent();
+                }
             }
         }
 
@@ -159,6 +162,17 @@ namespace KFly.GUI
         }
 
 
+        /// <summary>
+        /// THe background of the tab
+        /// </summary>
+        public Boolean IsDependentOnConnection
+        {
+            get { return (Boolean)GetValue(IsDependentOnConnectionProperty); }
+            set { SetValue(IsDependentOnConnectionProperty, value); }
+        }
+        public static readonly DependencyProperty IsDependentOnConnectionProperty =
+            DependencyProperty.Register("IsDependentOnConnection", typeof(Boolean), typeof(KFlyTab),
+              new PropertyMetadata(true));
 
         /// <summary>
         /// THe background of the tab

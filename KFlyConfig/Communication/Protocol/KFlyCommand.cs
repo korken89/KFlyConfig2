@@ -56,8 +56,16 @@ namespace KFly
         SetSensorCalibration = 47,
 
         [SelfAck]
-        GetAttitude = 48,
-
+        GetEstimationRate    = 48,
+        [SelfAck]
+        GetEstimationAttitude = 49,
+        [SelfAck]
+        GetEstimationVelocity = 50,
+        [SelfAck]
+        GetEstimationPosition = 51,
+        [SelfAck]
+        GetEstimationAllStates = 52,
+        ResetEstimation = 53,
 
 
         //Following is for easy access to subscribe/unsubscribe and ís not part of the communication protocol
@@ -151,8 +159,8 @@ namespace KFly
                     case KFlyCommandType.GetSensorData:
                         cmd = new GetSensorData();
                         break;
-                    case KFlyCommandType.GetAttitude:
-                        cmd = new GetAttitude();
+                    case KFlyCommandType.GetEstimationAttitude:
+                        cmd = new GetEstimationAttitude();
                         break;
                     case KFlyCommandType.GetRawSensorData:
                         cmd = new GetRawSensorData();

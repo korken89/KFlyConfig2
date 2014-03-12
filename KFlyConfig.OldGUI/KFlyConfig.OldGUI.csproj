@@ -89,7 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KFlyConfig\KFlyConfig.csproj">
-      <Project>{87ad72f0-de3a-4ee9-82ad-8df42193e8da}</Project>
+      <Project>{87AD72F0-DE3A-4EE9-82AD-8DF42193E8DA}</Project>
       <Name>KFlyConfig</Name>
     </ProjectReference>
   </ItemGroup>

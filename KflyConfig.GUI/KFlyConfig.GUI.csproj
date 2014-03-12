@@ -40,8 +40,14 @@
     <Reference Include="HelixToolkit.Wpf.SharpDX">
       <HintPath>..\packages\HelixToolkit.Wpf.2014.2.11.1\lib\NET45\HelixToolkit.Wpf.SharpDX.dll</HintPath>
     </Reference>
+    <Reference Include="ImageFileCache">
+      <HintPath>..\packages\XAML.MapControl.1.11.3\lib\net45\ImageFileCache.dll</HintPath>
+    </Reference>
     <Reference Include="MahApps.Metro">
       <HintPath>..\packages\MahApps.Metro.0.12.1.0\lib\net45\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="MapControl.WPF">
+      <HintPath>..\packages\XAML.MapControl.1.11.3\lib\net45\MapControl.WPF.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -65,6 +71,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Tabs\Navigation\NavigationTab.xaml.cs">
+      <DependentUpon>NavigationTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tabs\Navigation\NavigationViewModel.cs" />
     <Compile Include="Tabs\SensorCalibration\CalibrateSensors.xaml.cs">
       <DependentUpon>CalibrateSensors.xaml</DependentUpon>
     </Compile>
@@ -79,11 +89,11 @@
     </Compile>
     <Compile Include="Logging\LabelLog.cs" />
     <Compile Include="Logging\RichEditLog.cs" />
-    <Compile Include="Tabs\AttitudeControllerTabData.cs" />
+    <Compile Include="Tabs\AttitudeController\AttitudeControllerTabData.cs" />
     <Compile Include="Tabs\Connection.xaml.cs">
       <DependentUpon>Connection.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tabs\AttitudeControllerTab.xaml.cs">
+    <Compile Include="Tabs\AttitudeController\AttitudeControllerTab.xaml.cs">
       <DependentUpon>AttitudeControllerTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tabs\InputsTab.xaml.cs">
@@ -102,10 +112,16 @@
     <Compile Include="Utils\MathConverter.cs" />
     <Compile Include="Utils\ModalContentPresenter.cs" />
     <Compile Include="Utils\StlFromInventorReader.cs" />
+    <Compile Include="Utils\StringConverter.cs" />
+    <Compile Include="Utils\VMBase.cs" />
     <Compile Include="Utils\XAMLHelper.cs" />
     <Compile Include="Windows\TestCalibrationWindow.xaml.cs">
       <DependentUpon>TestCalibrationWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Tabs\Navigation\NavigationTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Tabs\SensorCalibration\CalibrateSensors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -146,7 +162,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Tabs\AttitudeControllerTab.xaml">
+    <Page Include="Tabs\AttitudeController\AttitudeControllerTab.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -240,6 +256,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\kfly_illustration.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MapQuest_Icon.png" />
+    <Resource Include="Resources\OpenCycleMap_Icon.png" />
+    <Resource Include="Resources\OpenStreetMap-logo.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

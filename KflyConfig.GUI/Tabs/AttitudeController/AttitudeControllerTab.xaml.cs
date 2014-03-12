@@ -233,5 +233,6 @@ namespace KFly.GUI
             _data.AttitudeCData.LockPitchRoll = false;
             AttitudeLockBtn.ToolTip = "Link Pitch/Roll";
         }
+
     }
 }

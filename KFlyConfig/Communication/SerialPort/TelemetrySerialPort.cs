@@ -127,7 +127,7 @@ namespace KFly
             _isOpen = false;
             _gotReadWriteError = false;
             SetStatus(ConnectionStatus.Disconnected);
-            LogManager.LogInfoLine("Closing connection to Serialport " + _portname);
+            LogManager.LogInfoLine("Closing connection to serial port " + _portname);
                
             //
             try { _senderthread.Abort(); }
@@ -236,7 +236,7 @@ namespace KFly
             _gotReadWriteError = false;
             while (true)
             {
-                LogManager.LogInfoLine("Connecting to Serialport " + _portname);      
+                LogManager.LogInfoLine("Connecting to serial port " + _portname);      
                 //Ok, port not open, lets try connect until successful
                 bool firstFailure = true;
                 while (!_isOpen)
@@ -244,7 +244,7 @@ namespace KFly
                     _isOpen = OpenPort();
                     if ((!_isOpen) && (firstFailure))
                     {
-                        LogManager.LogErrorLine("First connection to Serialport " + _portname + " failed. Going into polling mode...");
+                        LogManager.LogErrorLine("First connection to serial port " + _portname + " failed. Going into polling mode...");
                         SetStatus(ConnectionStatus.Polling);
                         firstFailure = false;
                     }
@@ -255,7 +255,7 @@ namespace KFly
                 }
 
                 //Ok, now open, lets ping and check that we have a Kfly
-                LogManager.LogInfoLine("Serialport " + _portname + " connected");
+                LogManager.LogInfoLine("Serial port " + _portname + " connected");
                 _lastReceivedMsg = DateTime.Now; //Set so timeout for first ping is right
 
                 //Going into checkforerror mode
@@ -278,7 +278,7 @@ namespace KFly
                 }
 
                 //Error, lets close the port
-                LogManager.LogInfoLine("Closing connection to Serialport " + _portname);
+                LogManager.LogInfoLine("Closing connection to serial port " + _portname);
                 _isOpen = false;
                 _gotReadWriteError = false;
                

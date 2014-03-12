@@ -67,7 +67,7 @@ namespace KFly.GUI
         private TimeSpan _updateInterval = new TimeSpan(0, 0, 0, 0, 500); //500 ms
         private void TestCalibration_Loaded(object sender, RoutedEventArgs e)
         {
-            _ts = Telemetry.Subscribe(KFlyCommandType.GetAttitude, (GetAttitude cmd) =>
+            _ts = Telemetry.Subscribe(KFlyCommandType.GetEstimationAttitude, (GetEstimationAttitude cmd) =>
             {
                 QuaternionRotation3D rot = new QuaternionRotation3D(
                     new System.Windows.Media.Media3D.Quaternion(
@@ -85,7 +85,7 @@ namespace KFly.GUI
         {
             if (Telemetry.IsConnected)
             {
-                Telemetry.SendAsync(new GetAttitude());
+                Telemetry.SendAsync(new GetEstimationAttitude());
             }
         }
 

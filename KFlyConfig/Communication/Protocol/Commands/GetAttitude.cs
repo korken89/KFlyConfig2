@@ -8,7 +8,7 @@ namespace KFly
     /// <summary>
    
     /// </summary>
-    public class GetAttitude: KFlyCommand
+    public class GetEstimationAttitude: KFlyCommand
     {
 
         private Quaternion _data = new Quaternion();
@@ -20,8 +20,8 @@ namespace KFly
         }
        
 
-        public GetAttitude() : 
-            base(KFlyCommandType.GetAttitude)
+        public GetEstimationAttitude() : 
+            base(KFlyCommandType.GetEstimationAttitude)
         {}
 
         public override void ParseData(List<byte> bytes)

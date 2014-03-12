@@ -52,7 +52,7 @@
                                     </TransformGroup>
                                 </Rectangle.RenderTransform>
                                 <Rectangle.OpacityMask>
-                                    <VisualBrush Stretch="Fill" Visual="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}, Path=Icon}" />
+                                    <VisualBrush Stretch="Uniform"  Visual="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}, Path=Icon}" />
                                 </Rectangle.OpacityMask>
                         </Rectangle>
                         <VisualStateManager.VisualStateGroups>

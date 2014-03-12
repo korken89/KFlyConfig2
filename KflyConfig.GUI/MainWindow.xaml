@@ -84,6 +84,9 @@
             <Controls:MetroTabItem Header="Attitude Controller" Controls:ControlsHelper.HeaderFontSize="18">
                 <kfly:AttitudeControllerTab />
             </Controls:MetroTabItem>
+            <Controls:MetroTabItem Header="Navigation" Controls:ControlsHelper.HeaderFontSize="18">
+                <kfly:NavigationTab />
+            </Controls:MetroTabItem>
         </TabControl>
     </DockPanel>
 </Controls:MetroWindow>

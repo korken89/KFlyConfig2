@@ -1,11 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="KFly Config 2.0\Form1.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="KFlyConfig\Communication\Protocol\KFlyCommand.cs">
     <Files>
-      <File FileName="KFly Config 2.0\Form1.cs" Line="12" Column="10" />
-      <File FileName="KFly Config 2.0\Form1.Designer.cs" Line="1" Column="1" />
-      <File FileName="KFly Config 2.0\Form1.resx" Line="1" Column="1" />
-      <File FileName="KFly Config 2.0\Program.cs" Line="5" Column="1" />
+      <File FileName="c:\Projects\Github\KFlyConfig2\KFlyConfig.GTKGUI\MainWindow.cs" Line="1" Column="1" />
+      <File FileName="KFlyConfig\Communication\Protocol\SelfAck.cs" Line="1" Column="1" />
+      <File FileName="KFlyConfig\Communication\Protocol\KFlyCommand.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

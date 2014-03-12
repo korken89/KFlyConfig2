@@ -164,7 +164,6 @@ namespace KFly.GUI
             Properties.Settings.Default.Baudrate = (Baudrate)BaudrateCombo.SelectedItem;
             Properties.Settings.Default.Save();
 
-            LogManager.LogInfoLine("Connecting to serial port " + port + "...");
             Telemetry.Connect();
          
         }

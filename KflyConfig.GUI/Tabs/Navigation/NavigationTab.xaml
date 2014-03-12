@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="KFly.GUI.NavigationTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:map="clr-namespace:MapControl;assembly=MapControl.WPF" 
+             xmlns:kfly="clr-namespace:KFly.GUI"       
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             Initialized="UserControl_Initialized"
+             Background="White"
+             mc:Ignorable="d" 
+             d:DesignHeight="536" d:DesignWidth="622">
+    <UserControl.Resources>
+        <kfly:StringConverter x:Key="stringConverter" />
+        <map:TileLayer x:Key="SeamarksTileLayer" SourceName="Seamarks" Description="© {y} OpenSeaMap Contributors, CC-BY-SA"
+                       TileSource="http://tiles.openseamap.org/seamark/{z}/{x}/{y}.png" MinZoomLevel="10" MaxZoomLevel="18"/>
+        <Style TargetType="MenuItem">
+            <Setter Property="Header" Value="{Binding SourceName}"/>
+            <Setter Property="IsChecked" Value="{Binding IsChecked}" />
+        </Style>
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <kfly:NavigationViewModel/>
+    </UserControl.DataContext>
+    <kfly:KFlyTab IsDependentOnConnection="False" Title="Navigation">
+        <kfly:KFlyTab.Toolbar>
+            <StackPanel Orientation="Horizontal">
+              <!--  <TextBlock Text="{Binding Center.Latitude, Converter={StaticResource stringConverter}}"></TextBlock>
+                <TextBlock Text="{Binding Center.Longitude, Converter={StaticResource stringConverter}}"></TextBlock>-->
+                <ComboBox ToolTip="Tile Layer" Margin="5" SourceUpdated="ComboBox_SourceUpdated"
+                           SelectedValue="{Binding CurrentTileLayer}"
+                          VerticalAlignment="Bottom" 
+                          SelectedIndex="0" ItemsSource="{Binding CurrentTileLayers.View}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="16" Height="16" Margin="3" Source="{Binding Icon}"/>
+                                <TextBlock Text="{Binding SourceName}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+       <!--         <kfly:KFlyCircleButton x:Name="LayerBtn"
+                                   MouseLeftButtonDown="LayerBtn_MouseLeftButtonDown"
+                                   Icon="{StaticResource appbar_layer}"
+                                   ToolTip="Layer" 
+                                   Width="40" Height="40">
+                    <kfly:KFlyCircleButton.ContextMenu>
+                        <ContextMenu x:Name="LayerMenu" ItemsSource="{Binding CurrentTileLayers.View}">
+                        </ContextMenu>
+                   </kfly:KFlyCircleButton.ContextMenu>
+                </kfly:KFlyCircleButton>-->
+            </StackPanel>
+        </kfly:KFlyTab.Toolbar>
+        <Grid>
+            <Grid.OpacityMask>
+                <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.6" RadiusY="0.6">
+                    <RadialGradientBrush.GradientStops>
+                        <GradientStop Offset="0" Color="Black"/>
+                        <GradientStop Offset="0.8" Color="Black"/>
+                        <GradientStop Offset="1" Color="Transparent"/>
+                    </RadialGradientBrush.GradientStops>
+                </RadialGradientBrush>
+
+            </Grid.OpacityMask>
+            <map:Map Name="Map" Center="{Binding Center}" ZoomLevel="16"
+                       TileLayer="{Binding CurrentTileLayer}"
+                >
+            
+                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="4" FontSize="10"
+                       Text="{Binding TileLayer.Description, ElementName=Map}"/>
+
+
+            </map:Map>
+        </Grid>
+    </kfly:KFlyTab>
+</UserControl>
+

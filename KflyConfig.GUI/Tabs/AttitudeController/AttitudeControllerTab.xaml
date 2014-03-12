@@ -11,7 +11,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="536" d:DesignWidth="722">
     <kfly:KFlyTab x:Name="TheTab" TabStateChanged="KFlyTab_TabStateChanged"
-                  Title="Attitude Controller" BackgroundImage="../Resources/control.png">
+                  Title="Attitude Controller" BackgroundImage="../../Resources/control.png">
         <kfly:KFlyTab.Toolbar>
             <StackPanel Orientation="Horizontal">
                 <CheckBox Name="SendOnFlyCB" Content="Send new parameters on fly" Checked="SendOnFlyCB_Checked"
@@ -84,6 +84,19 @@
 
                         </StackPanel>
                     </StackPanel>
+                    <kfly:KFlyCircleButton Grid.Column="4" Grid.Row="3" x:Name="YawInfoBtn"
+                                           ToolTipService.InitialShowDelay="0"
+                                           Width="30" Height="30" Icon="{StaticResource appbar_information}">
+                        <kfly:KFlyCircleButton.ToolTip>
+                            <ToolTip>
+                                <StackPanel>
+                                    <TextBlock FontWeight="Bold">Attitude yaw values</TextBlock>
+                                    <TextBlock>Those values are not used in normal attitude mode, only on position hold</TextBlock>
+                                    <TextBlock>and other navigation modes. (Not implemented yet)</TextBlock>
+                                </StackPanel>
+                            </ToolTip>
+                        </kfly:KFlyCircleButton.ToolTip>
+                    </kfly:KFlyCircleButton>
                 </Grid>
             </GroupBox>
             <GroupBox Style="{StaticResource GlowingGroupBox}"  DataContext="{Binding RateCData, NotifyOnTargetUpdated=True}"
