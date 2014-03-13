@@ -64,16 +64,16 @@ namespace KFly.GUI
 
         private DispatcherTimer _timer;
         private TeleSubscription _ts;
-        private TimeSpan _updateInterval = new TimeSpan(0, 0, 0, 0, 500); //500 ms
+        private TimeSpan _updateInterval = new TimeSpan(0, 0, 0, 0, 20); //500 ms
         private void TestCalibration_Loaded(object sender, RoutedEventArgs e)
         {
             _ts = Telemetry.Subscribe(KFlyCommandType.GetEstimationAttitude, (GetEstimationAttitude cmd) =>
             {
-                QuaternionRotation3D rot = new QuaternionRotation3D(
-                    new System.Windows.Media.Media3D.Quaternion(
-                        cmd.Data.X, cmd.Data.Y, cmd.Data.Z, cmd.Data.W));
                 view1.Dispatcher.BeginInvoke(new Action(()=>
                     {
+                        QuaternionRotation3D rot = new QuaternionRotation3D(
+                            new System.Windows.Media.Media3D.Quaternion(
+                                cmd.Data.X, cmd.Data.Y, cmd.Data.Z, cmd.Data.W));
                         KFlyRotation.Rotation = rot;
                     }));
             });
