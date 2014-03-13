@@ -44,6 +44,7 @@ namespace KFly.GUI
                     {
                         AttitudeLockBtn.IsChecked = gcd.Data.LockPitchRoll;
                         AttitudeLockBtn.ToolTip = (gcd.Data.LockPitchRoll) ? "Unlink Pitch/Roll" : "Link Pitch/Roll";
+                        AttitudeGB.IsInSyncWithController = true;
                     }));
                 _data.NotifyPropertyChanged("LimitCollection"); //Need to trigger manually since we don't change the actual collection
             });
@@ -55,6 +56,8 @@ namespace KFly.GUI
                     {
                         RateLockBtn.IsChecked = gcd.Data.LockPitchRoll;
                         RateLockBtn.ToolTip = (gcd.Data.LockPitchRoll) ? "Unlink Pitch/Roll" : "Link Pitch/Roll";
+                        RateGB.IsInSyncWithController = true;
+                        ConstraintsGB.IsInSyncWithController = true;
                     }));
                 _data.NotifyPropertyChanged("LimitCollection"); //Need to trigger manually since we don't change the actual collection
             });
@@ -136,6 +139,9 @@ namespace KFly.GUI
                         DownloadBtn.Dispatcher.BeginInvoke(new Action(() =>
                         {
                             UploadBtn.IsRotating = false;
+                            RateGB.IsInSyncWithController = true;
+                            ConstraintsGB.IsInSyncWithController = true;
+                            AttitudeGB.IsInSyncWithController = true; 
                         }));
                     });
                
@@ -152,7 +158,7 @@ namespace KFly.GUI
             };
             var srcd = new SetRateControllerData()
             {
-                Data = _data.AttitudeCData,
+                Data = _data.RateCData,
                 RateLimit = _data.LimitCollection.RateLimit,
             };
             Telemetry.SendAsync(sacd);
@@ -203,11 +209,13 @@ namespace KFly.GUI
             {
                 Upload();
             }
-        }
-
-        private void AttitudeLockBtn_Click(object sender, RoutedEventArgs e)
-        {
-
+            else
+            {
+                if (sender is KFlyGroupBox)
+                {
+                    (sender as KFlyGroupBox).IsInSyncWithController = false;
+                }
+            }
         }
 
         private void RateLockBtn_Checked(object sender, RoutedEventArgs e)

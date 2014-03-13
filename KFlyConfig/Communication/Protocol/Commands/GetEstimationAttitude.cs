@@ -28,7 +28,7 @@ namespace KFly
         {
             if (bytes.Count >= 16)
             {
-                _data.SetBytes(bytes.GetRange(0, 36));
+                _data.SetBytes(bytes.GetRange(0, 16));
             }
         }
 

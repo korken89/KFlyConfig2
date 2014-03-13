@@ -72,7 +72,10 @@ namespace KFly.GUI
                 QuaternionRotation3D rot = new QuaternionRotation3D(
                     new System.Windows.Media.Media3D.Quaternion(
                         cmd.Data.X, cmd.Data.Y, cmd.Data.Z, cmd.Data.W));
-                KFlyRotation.Rotation = rot;
+                view1.Dispatcher.BeginInvoke(new Action(()=>
+                    {
+                        KFlyRotation.Rotation = rot;
+                    }));
             });
             _timer = new DispatcherTimer();
             _timer.Tick += new EventHandler(DispatcherTimer_Tick);

@@ -30,9 +30,10 @@
             </StackPanel>
         </kfly:KFlyTab.Toolbar>
     <WrapPanel>
-            <GroupBox Style="{StaticResource GlowingGroupBox}" DataContext="{Binding AttitudeCData, NotifyOnTargetUpdated=True}"
-                      Header="Attitude Controller Gains" HorizontalAlignment="Left">
-                <Grid SourceUpdated="ConstraintsGrid_SourceUpdated" x:Name="AttitudeGrid">
+            <kfly:KFlyGroupBox x:Name="AttitudeGB" DataContext="{Binding AttitudeCData, NotifyOnTargetUpdated=True}"
+                               Header="Attitude Controller Gains" HorizontalAlignment="Left"
+                               SourceUpdated="ConstraintsGrid_SourceUpdated">
+                <Grid x:Name="AttitudeGrid">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -98,10 +99,11 @@
                         </kfly:KFlyCircleButton.ToolTip>
                     </kfly:KFlyCircleButton>
                 </Grid>
-            </GroupBox>
-            <GroupBox Style="{StaticResource GlowingGroupBox}"  DataContext="{Binding RateCData, NotifyOnTargetUpdated=True}"
-                       Header="Rate Controller Gains" HorizontalAlignment="Left">
-                <Grid SourceUpdated="ConstraintsGrid_SourceUpdated" x:Name="RateGrid">
+            </kfly:KFlyGroupBox>
+            <kfly:KFlyGroupBox x:Name="RateGB"  DataContext="{Binding RateCData, NotifyOnTargetUpdated=True}"
+                               Header="Rate Controller Gains" HorizontalAlignment="Left"
+                               SourceUpdated="ConstraintsGrid_SourceUpdated">
+                <Grid x:Name="RateGrid">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -154,10 +156,11 @@
                         </StackPanel>
                     </StackPanel>
                 </Grid>
-            </GroupBox>
-            <GroupBox Style="{StaticResource GlowingGroupBox}"  DataContext="{Binding LimitCollection, NotifyOnTargetUpdated=True}"
-                        Header="Attitude and Rate Constraints" HorizontalAlignment="Left">
-                <Grid x:Name="ConstraintsGrid" SourceUpdated="ConstraintsGrid_SourceUpdated">
+            </kfly:KFlyGroupBox>
+            <kfly:KFlyGroupBox x:Name="ConstraintsGB"  DataContext="{Binding LimitCollection, NotifyOnTargetUpdated=True}"
+                        Header="Attitude and Rate Constraints" HorizontalAlignment="Left"
+                                SourceUpdated="ConstraintsGrid_SourceUpdated">
+                <Grid x:Name="ConstraintsGrid">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -187,7 +190,7 @@
                     <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="{Binding AttitudeRateLimit.Roll, NotifyOnSourceUpdated=True}" StringFormat="0." Grid.Row="3" Grid.Column="2" Margin="3" />
                     <metro:NumericUpDown Width="88" Minimum="0" Maximum="1000" Value="{Binding AttitudeRateLimit.Yaw, NotifyOnSourceUpdated=True}" StringFormat="0." Grid.Row="3" Grid.Column="3" Margin="3" />
                 </Grid>
-            </GroupBox>
+            </kfly:KFlyGroupBox>
         </WrapPanel>
     </kfly:KFlyTab>
 </UserControl>

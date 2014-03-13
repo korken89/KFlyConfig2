@@ -557,8 +557,8 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="GlowingGroupBox" BasedOn="{StaticResource MetroGroupBox}"   
-           TargetType="{x:Type GroupBox}">
+    <Style x:Key="KFlyGroupBoxStyle" BasedOn="{StaticResource MetroGroupBox}"   
+           TargetType="{x:Type kfly:KFlyGroupBox}">
         <Setter Property="Effect">
             <Setter.Value>
                 <DropShadowEffect ShadowDepth="0"
@@ -577,6 +577,13 @@
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
+            <Trigger Property="IsInSyncWithController" Value="false">
+                <Setter Property="Background"
+                        Value="Orange" />
+                <Setter Property="BorderBrush"
+                    Value="Orange" />
+               
+            </Trigger>
         </Style.Triggers>
     </Style>
     
@@ -648,6 +655,7 @@
 
     <!-- Default styles -->
     <Style TargetType="kfly:KFlyCircleButton" BasedOn="{StaticResource KFlyCircleButtonStyle}" />
+    <Style TargetType="kfly:KFlyGroupBox" BasedOn="{StaticResource KFlyGroupBoxStyle}" />
     <Style TargetType="kfly:KFlyCircleToggleButton" BasedOn="{StaticResource KFlyCircleToggleButtonStyle}" />
     <Style TargetType="kfly:KFlyTab" BasedOn="{StaticResource KFlyTabStyle}" />
     <Style TargetType="GroupBox" BasedOn="{StaticResource MetroGroupBox}" />

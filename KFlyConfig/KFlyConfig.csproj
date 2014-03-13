@@ -48,7 +48,7 @@
     <Compile Include="Communication\Protocol\Commands\ConnectionStatistics.cs" />
     <Compile Include="Communication\Protocol\Commands\ACK.cs" />
     <Compile Include="Communication\Protocol\Commands\CmdCollection.cs" />
-    <Compile Include="Communication\Protocol\Commands\GetAttitude.cs" />
+    <Compile Include="Communication\Protocol\Commands\GetEstimationAttitude.cs" />
     <Compile Include="Communication\Protocol\Commands\SetRateControllerData.cs" />
     <Compile Include="Communication\Protocol\Commands\SetAttitudeControllerData.cs" />
     <Compile Include="Communication\Protocol\Commands\GetRateControllerData.cs" />

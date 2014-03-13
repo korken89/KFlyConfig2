@@ -29,7 +29,7 @@
         <kfly:ModalContentPresenter x:Name="CalibrationModal">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
                 <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                    <GroupBox Style="{StaticResource GlowingGroupBox}" DataContext="{Binding NotifyOnTargetUpdated=True}" Header="Accelerometer" HorizontalAlignment="Left">
+                    <kfly:KFlyGroupBox DataContext="{Binding NotifyOnTargetUpdated=True}" Header="Accelerometer" HorizontalAlignment="Left">
                         <Grid x:Name="AccelerometerGrid">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -57,8 +57,8 @@
                             <TextBox Text="{Binding AccelerometerGain.YString, Mode=OneWay}" Margin="3" Grid.Row="2" Grid.Column="2" IsReadOnly="True" TextAlignment="Center" />
                             <TextBox Text="{Binding AccelerometerGain.ZString, Mode=OneWay}" Margin="3" Grid.Row="2" Grid.Column="3" IsReadOnly="True" TextAlignment="Center" />
                         </Grid>
-                    </GroupBox>
-                    <GroupBox Style="{StaticResource GlowingGroupBox}" DataContext="{Binding NotifyOnTargetUpdated=True}" Header="Magnometer" HorizontalAlignment="Left">
+                    </kfly:KFlyGroupBox>
+                    <kfly:KFlyGroupBox DataContext="{Binding NotifyOnTargetUpdated=True}" Header="Magnometer" HorizontalAlignment="Left">
                         <Grid x:Name="MagnometerGrid">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -86,7 +86,7 @@
                             <TextBox Text="{Binding MagnometerGain.YString, Mode=OneWay}" Margin="3" Grid.Row="2" Grid.Column="2" IsReadOnly="True" TextAlignment="Center" />
                             <TextBox Text="{Binding MagnometerGain.ZString, Mode=OneWay}" Margin="3" Grid.Row="2" Grid.Column="3" IsReadOnly="True" TextAlignment="Center" />
                         </Grid>
-                    </GroupBox>
+                    </kfly:KFlyGroupBox>
                 </WrapPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button Content="Start calibration" Margin="5" Click="Button_Click" HorizontalAlignment="Center" />
