@@ -108,8 +108,9 @@ namespace KFly
             {
                 KFlyCommand.SYNC,
                 useAck? (byte)((byte)Type | ACK_BIT): (byte)Type,
-                (byte)data.Count,
+                (byte)data.Count
             };
+           
             tx.Add(CRC8.GenerateCRC(tx.Take(3)));
             if (data.Count > 0)
             {
@@ -119,8 +120,22 @@ namespace KFly
 
                 tx.Add(crcb[1]);
                 tx.Add(crcb[0]);
+                tx = FixSyncBytes(tx);
             }
             return tx;
+        }
+
+        //
+        protected List<byte> FixSyncBytes(List<byte> tx)
+        {
+            List<byte> fixedList = new List<byte>();
+            foreach (byte b in tx)
+            {
+                fixedList.Add(b);
+                if (b == KFlyCommand.SYNC)
+                    fixedList.Add(b);
+            }
+            return fixedList;
         }
 
         public virtual List<byte> ToTx()

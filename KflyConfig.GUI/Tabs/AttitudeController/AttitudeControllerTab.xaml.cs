@@ -161,8 +161,26 @@ namespace KFly.GUI
                 Data = _data.RateCData,
                 RateLimit = _data.LimitCollection.RateLimit,
             };
-            Telemetry.SendAsync(sacd);
-            Telemetry.SendAsync(srcd);
+            Telemetry.SendAsyncWithAck(new CmdCollection(sacd, srcd),
+                    1000, (SendResult result) =>
+                    {
+                        if (result == SendResult.OK)
+                        {
+                            _upToDate = true;
+                        }
+                        else
+                        {
+                            LogManager.LogErrorLine("Failed Uploading attitude controller data");
+                        }
+                        DownloadBtn.Dispatcher.BeginInvoke(new Action(() =>
+                        {
+                            UploadBtn.IsRotating = false;
+                            RateGB.IsInSyncWithController = true;
+                            ConstraintsGB.IsInSyncWithController = true;
+                            AttitudeGB.IsInSyncWithController = true;
+                        }));
+                    });
+               
         }
 
         private Boolean _sendingOnFly = false;
