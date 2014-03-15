@@ -64,7 +64,7 @@ namespace KFly.GUI
 
         private DispatcherTimer _timer;
         private TeleSubscription _ts;
-        private TimeSpan _updateInterval = new TimeSpan(0, 0, 0, 0, 20); //500 ms
+        private TimeSpan _updateInterval = new TimeSpan(0, 0, 0, 0, 50); //500 ms
         private void TestCalibration_Loaded(object sender, RoutedEventArgs e)
         {
             _ts = Telemetry.Subscribe(KFlyCommandType.GetEstimationAttitude, (GetEstimationAttitude cmd) =>

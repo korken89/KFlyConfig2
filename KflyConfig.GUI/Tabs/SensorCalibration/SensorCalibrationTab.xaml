@@ -91,6 +91,7 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button Content="Start calibration" Margin="5" Click="Button_Click" HorizontalAlignment="Center" />
                     <Button Name="TestCalibrationBtn" Margin="5" Content="Test calibration" Click="TestCalibrationBtn_Click" HorizontalAlignment="Center" />
+                    <Button Name="SensorValuesBtn" Margin="5" Content="Sensor values" Click="SensorValuesBtn_Click" HorizontalAlignment="Center" />
                 </StackPanel>
             </StackPanel>
             <kfly:ModalContentPresenter.ModalContent>

@@ -129,6 +129,20 @@ namespace KFly.GUI
                 _testCalibrationWindow.Show();
         }
 
+        private Window _sensorValuesWindow;
+        private void SensorValuesBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (_sensorValuesWindow == null)
+            {
+                _sensorValuesWindow = new SensorValuesWindow();
+                _sensorValuesWindow.Closed += (o, args) => _sensorValuesWindow = null;
+            }
+            if (_sensorValuesWindow.IsVisible)
+                _sensorValuesWindow.Hide();
+            else
+                _sensorValuesWindow.Show();
+        }
+
 
     }
 }
