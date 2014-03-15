@@ -129,8 +129,9 @@ namespace KFly
         protected List<byte> FixSyncBytes(List<byte> tx)
         {
             List<byte> fixedList = new List<byte>();
-            foreach (byte b in tx)
+            for (var i = 1; i < tx.Count; i++)
             {
+                byte b = tx[i];
                 fixedList.Add(b);
                 if (b == KFlyCommand.SYNC)
                     fixedList.Add(b);

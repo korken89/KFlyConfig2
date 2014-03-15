@@ -8,4 +8,18 @@
         <Line X1="2" Y1="10" X2="10" Y2="10" Stroke="Black" StrokeThickness="2" />
         <Line X1="10" Y1="10" X2="10" Y2="2" Stroke="Black" StrokeThickness="1" />
     </Canvas>
+    <DrawingBrush x:Key="propeller_cw" Stretch="Uniform">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#FF010101" Geometry="F1 M 81.4947,4.104C 84.76,21.76 72.88,38.1973 58.0253,46.7707C 58,36.6973 56.9733,23.9533 50.1453,15.9373C 36.2973,-0.317345 12.3747,9.276 4.692,26.5053C 21.8067,23.328 40.5107,33.792 47.3587,49.968C 37.192,49.9733 25.9787,50.948 17.6827,57.484C 2.54313e-006,71.4107 10.88,93.932 27.0933,103.301C 27.0933,82.896 34.7453,72.1253 50.5627,59.5733C 50.7813,70.26 51.984,83.1667 59.448,91.468C 73.0933,106.667 96.1453,97.52 103.896,80.9067C 85.1667,80.9067 71.4267,73.74 61.2293,57.4373L 62.2973,56.3693C 72.8173,57.5467 86.74,54.8747 94.068,46.724C 106.745,32.62 98.188,10.5733 81.4947,4.104 Z "/>
+                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="M 72.312,53.8067C 72.312,63.968 64.0733,72.208 53.916,72.208C 43.7547,72.208 35.516,63.968 35.516,53.8067C 35.516,43.6507 43.7547,35.4107 53.916,35.4107C 64.0733,35.4107 72.312,43.6507 72.312,53.8067 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="10.6667" MiterLimit="2.75" Brush="#FF000000"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
 </ResourceDictionary>

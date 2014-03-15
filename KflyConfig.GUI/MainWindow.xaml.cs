@@ -112,10 +112,5 @@ namespace KFly.GUI
             }
         }
 
-       
-        
-       
-       
-
     }
 }

@@ -8,7 +8,7 @@ namespace KFly
     /// <summary>
     /// The full configuration for KFLY
     /// </summary>
-    public class AttitudeControllerData: IKFlyConfigurationData
+    public class AttitudeControllerData: KFlyConfigurationData
     {
         public ControllerData Attitude;
 

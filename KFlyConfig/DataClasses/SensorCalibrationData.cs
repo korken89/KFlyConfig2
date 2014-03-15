@@ -5,7 +5,7 @@ using System.Text;
 
 namespace KFly
 {
-    public class SensorCalibrationData: IKFlyConfigurationData
+    public class SensorCalibrationData: KFlyConfigurationData
     {
         private XYZData _accelerometer_bias = new XYZData();
         private XYZData _accelerometer_gain = new XYZData();
@@ -96,7 +96,7 @@ namespace KFly
             }
         }
 
-        public Boolean IsValid
+        public override Boolean IsValid
         {
             get
             {
