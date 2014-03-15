@@ -167,8 +167,9 @@ namespace KFly
                 }
                 success = true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                LogManager.LogErrorLine(e.Message);
             }
            
             if (success && _receiverthread == null)

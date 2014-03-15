@@ -110,23 +110,7 @@ namespace KFly
                 });
             });
 
-            //Firmware version info textbox
-            Telemetry.Subscribe(KFlyCommandType.GetFirmwareVersion, (GetFirmwareVersion cmd) =>
-            {
-                firmwareVersion.BeginInvoke((Action)(() =>
-                {
-                    firmwareVersion.Text = cmd.Version;
-                }));
-            });
-
-            //Bootloader version info textbox
-            Telemetry.Subscribe(KFlyCommandType.GetBootloaderVersion, (GetBootLoaderVersion cmd) =>
-            {
-                bootloaderVersion.BeginInvoke((Action)(() =>
-                {
-                    bootloaderVersion.Text = cmd.Version;
-                }));
-            });
+        
         }
 
 #endregion //INIT
@@ -205,8 +189,8 @@ namespace KFly
             {
                 disconnectBtn.Enabled = true;
                 connectBtn.Enabled = false;
-                Telemetry.SendAsync(new GetFirmwareVersion());
-                Telemetry.SendAsync(new GetBootLoaderVersion());
+         //       Telemetry.SendAsync(new GetFirmwareVersion());
+           //     Telemetry.SendAsync(new GetBootLoaderVersion());
             }
             else
             {

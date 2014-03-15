@@ -26,27 +26,9 @@ namespace KFly.GUI
         }
 
        
-        private void UpdateFirmwareInfo()
-        {
-            LogManager.LogInfoLine("Requesting FirmwareInfo");
-            Telemetry.SendAsync(new GetBootLoaderVersion());
-            Telemetry.SendAsync(new GetFirmwareVersion());
-        }
-
+       
         private void UserControl_Initialized(object sender, EventArgs e)
         {
-            Telemetry.Subscribe(KFlyCommandType.ConnectionStatusChanged, (ConnectionStatusChanged csc) =>
-            {
-              
-            });
-            Telemetry.Subscribe(KFlyCommandType.GetBootloaderVersion, (GetBootLoaderVersion msg) =>
-            {
-              
-            });
-            Telemetry.Subscribe(KFlyCommandType.GetFirmwareVersion, (GetFirmwareVersion msg) =>
-            {
-               
-            });
         }
 
         private void ComboBox_Selected(object sender, RoutedEventArgs e)

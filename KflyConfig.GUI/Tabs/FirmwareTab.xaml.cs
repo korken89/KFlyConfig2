@@ -28,10 +28,9 @@ namespace KFly.GUI
        
         private void UpdateFirmwareInfo()
         {
-            LogManager.LogInfoLine("Requesting FirmwareInfo");
-            Telemetry.SendAsync(new GetBootLoaderVersion());
-            Telemetry.SendAsync(new GetFirmwareVersion());
-        }
+            LogManager.LogInfoLine("Requesting device information");
+            Telemetry.SendAsync(new GetDeviceInfo());
+       }
 
         private void UserControl_Initialized(object sender, EventArgs e)
         {
@@ -42,7 +41,7 @@ namespace KFly.GUI
                     UpdateFirmwareInfo();
                 }
             });
-            Telemetry.Subscribe(KFlyCommandType.GetBootloaderVersion, (GetBootLoaderVersion msg) =>
+          /*  Telemetry.Subscribe(KFlyCommandType.GetBootloaderVersion, (GetBootLoaderVersion msg) =>
             {
                 BootloaderVersionLabel.Dispatcher.Invoke(new Action(() => {
                     BootloaderVersionLabel.Content = msg.Version;
@@ -56,7 +55,7 @@ namespace KFly.GUI
                     FirmwareVersionLabel.Content = msg.Version;
                 }));
                 LogManager.LogInfoLine("Firmware version received: " + msg.Version);
-            });
+            });*/
         }
 
 

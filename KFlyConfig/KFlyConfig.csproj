@@ -59,10 +59,9 @@
     <Compile Include="Communication\Protocol\Commands\SetSensorCalibration.cs" />
     <Compile Include="Communication\Protocol\Commands\GetSensorCalibration.cs" />
     <Compile Include="Communication\Protocol\Commands\DebugMessage.cs" />
-    <Compile Include="Communication\Protocol\Commands\GetBootLoaderVersion.cs" />
+    <Compile Include="Communication\Protocol\Commands\GetDeviceInfo.cs" />
     <Compile Include="Communication\Protocol\Commands\GetChannelMix.cs" />
     <Compile Include="Communication\Protocol\Commands\GetControllerData.cs" />
-    <Compile Include="Communication\Protocol\Commands\GetFirmwareVersion.cs" />
     <Compile Include="Communication\Protocol\Commands\GetRCCalibration.cs" />
     <Compile Include="Communication\Protocol\Commands\GetRCValues.cs" />
     <Compile Include="Communication\Protocol\Commands\Ping.cs" />
@@ -108,7 +107,9 @@
     <Compile Include="Utils\DisplayValue.cs" />
     <Compile Include="Utils\UnixTime.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

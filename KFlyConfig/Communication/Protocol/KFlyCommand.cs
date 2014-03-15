@@ -22,10 +22,8 @@ namespace KFly
         NextPackage = 15,   /* Bootloader specific, shall always require ACK */
         ExitBootloader = 16,   /* Bootloader specific, shall always require ACK */
         [SelfAck]
-        GetBootloaderVersion = 17,
-        [SelfAck]
-        GetFirmwareVersion = 18,
-        SaveToFlash = 19,
+        GetDeviceInfo = 17,
+        SaveToFlash = 18,
         
         [SelfAck]
         GetRateControllerData = 30,
@@ -167,11 +165,8 @@ namespace KFly
                     case KFlyCommandType.Ping:
                         cmd = new Ping();
                         break;
-                    case KFlyCommandType.GetFirmwareVersion:
-                        cmd = new GetFirmwareVersion();
-                        break;
-                    case KFlyCommandType.GetBootloaderVersion:
-                        cmd = new GetBootLoaderVersion();
+                    case KFlyCommandType.GetDeviceInfo:
+                        cmd = new GetDeviceInfo();
                         break;
                     case KFlyCommandType.GetSensorData:
                         cmd = new GetSensorData();

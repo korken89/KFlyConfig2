@@ -22,9 +22,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0" Content="Bootloader version:" />
-            <Label x:Name="BootloaderVersionLabel" Grid.Row="0" Grid.Column="1" Content="-Unknown-" />
+            <Label x:Name="BootloaderVersionLabel" Grid.Row="0" Grid.Column="1" Content="{Binding BootloaderVersion}" />
             <Label Grid.Row="1" Grid.Column="0" Content="Firmware version:"/>
-            <Label x:Name="FirmwareVersionLabel" Grid.Row="1" Grid.Column="1" Content="-Unknown-" />
+            <Label x:Name="FirmwareVersionLabel" Grid.Row="1" Grid.Column="1" Content="{Binding FirmwareVersion}" />
         </Grid>
         <Label Content="Update firmware" Margin="0,10,0,0" FontSize="16" />
         <WrapPanel>

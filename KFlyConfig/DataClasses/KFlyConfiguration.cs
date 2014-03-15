@@ -10,6 +10,47 @@ namespace KFly
     /// </summary>
     public class KFLyConfiguration: KFlyGroupConfigurationData
     {
+
+        public KFLyConfiguration(Boolean liveUpdate)
+        {
+            LiveUpdate = liveUpdate;
+        }
+
+        private bool _liveUpdate = false;
+
+        public bool LiveUpdate
+        {
+            get { return _liveUpdate; }
+            set 
+            {
+                if (value != _liveUpdate)
+                {
+                    if (_liveUpdate)
+                        unsubscribe();
+                    _liveUpdate = value;
+                    if (_liveUpdate)
+                        subscribe();
+                }
+            }
+        }
+        private List<TeleSubscription> _subscriptions = new List<TeleSubscription>();
+        private void subscribe()
+        {
+            _subscriptions.Add(Telemetry.Subscribe(KFlyCommandType.GetDeviceInfo, (GetDeviceInfo gdi) =>
+                {
+                    KFly = gdi.Data;
+                }));
+        }
+        private void unsubscribe()
+        {
+            foreach (TeleSubscription sub in _subscriptions)
+            {
+                Telemetry.Unsubscribe(sub);
+            }
+            _subscriptions.Clear();
+        }
+
+
         #region CardSpecific data
         //Version and Id information
         private KFlyData _kFly;

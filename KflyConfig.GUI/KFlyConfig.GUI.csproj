@@ -72,6 +72,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls\KFlyGroupBox.cs" />
+    <Compile Include="MainWindowTitleConverter.cs" />
     <Compile Include="Tabs\Navigation\NavigationTab.xaml.cs">
       <DependentUpon>NavigationTab.xaml</DependentUpon>
     </Compile>

@@ -177,6 +177,7 @@ namespace KFly
                     _ack = false;
                 
                 _recievedData.Add((byte)(data & KFlyCommand.ACK_MASK));
+                LogManager.LogDebugLine("Receiving command:" + ((byte)(data & KFlyCommand.ACK_MASK)).ToString());
                 returnState = State.ReceivingSize;
             }
 
@@ -263,6 +264,10 @@ namespace KFly
                         SendACK();
 
                     Parser(_recievedData);
+                }
+                else
+                {
+                    LogManager.LogDebugLine("Wrong crc");
                 }
             }
 

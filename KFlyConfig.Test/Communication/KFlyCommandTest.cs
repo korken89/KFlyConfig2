@@ -65,7 +65,7 @@ namespace KFlyConfig.Test
             Assert.IsInstanceOfType(LatestReceived, typeof(Ping));
         }
 
-        [TestMethod]
+    /*    [TestMethod]
         public void TestGetBootLoaderVersion()
         {
             State.Reset();
@@ -75,19 +75,8 @@ namespace KFlyConfig.Test
             Telemetry.WaitForHandle();
             Assert.IsInstanceOfType(LatestReceived, typeof(GetBootLoaderVersion));
             Assert.AreEqual("v.1.0.3",(LatestReceived as GetBootLoaderVersion).Version);
-        }
+        }*/
 
-        [TestMethod]
-        public void TestGetFirmwareVersion()
-        {
-            State.Reset();
-
-            KFlyCommand cmd = new GetFirmwareVersion(){ Version = "v.1.0.3" };
-            SendBytes(State, cmd.ToTx());
-            Telemetry.WaitForHandle();
-            Assert.IsInstanceOfType(LatestReceived, typeof(GetFirmwareVersion));
-            Assert.AreEqual("v.1.0.3",(LatestReceived as GetFirmwareVersion).Version);
-        }
        
     }
 }

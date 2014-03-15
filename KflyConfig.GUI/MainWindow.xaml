@@ -9,9 +9,10 @@
         SourceInitialized="Window_SourceInitialized"
         Icon="MainWindow.ico"
         GlowBrush="{DynamicResource AccentColorBrush}"             
-        Title="KFly Config" Height="600" Width="950">
-    <Controls:MetroWindow.Resources>
+        Height="600" Width="950">
+     <Controls:MetroWindow.Resources>
          <ResourceDictionary>
+            <kfly:MainWindowTitleConverter x:Key="mainWindowTitleConverter" />
             <Rectangle x:Key="connected" Fill="White" Width="16" Height="16">
                 <Rectangle.OpacityMask>
                     <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_disconnect}" />
@@ -44,6 +45,11 @@
             </Style>
         </ResourceDictionary>
     </Controls:MetroWindow.Resources>
+    <Controls:MetroWindow.Title>
+        <MultiBinding Converter="{StaticResource mainWindowTitleConverter}">
+            <Binding Path="KFly.UserId"/>
+        </MultiBinding>
+    </Controls:MetroWindow.Title>
     <Controls:MetroWindow.WindowCommands>
         <Controls:WindowCommands>
             <Button Name="OpenConnectBtn" Click="OpenConnectBtn_Click">
