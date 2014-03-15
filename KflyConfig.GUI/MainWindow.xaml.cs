@@ -32,6 +32,7 @@ namespace KFly.GUI
     {
         public MainWindow()
         {
+            this.DataContext = new KFLyConfiguration();
             InitializeComponent();
         }
 

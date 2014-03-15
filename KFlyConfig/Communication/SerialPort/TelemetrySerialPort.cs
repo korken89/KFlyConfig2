@@ -130,13 +130,6 @@ namespace KFly
             LogManager.LogInfoLine("Closing connection to serial port " + _portname);
                
             //
-            try { _senderthread.Abort(); }
-            catch { }
-            _senderthread = null;
-            try { _receiverthread.Abort(); }
-            catch { }
-            _receiverthread = null;
-            //
             ClosePort();
         }
 
@@ -192,6 +185,13 @@ namespace KFly
 
         private void ClosePort()
         {
+            try { _senderthread.Abort(); }
+            catch { }
+            _senderthread = null;
+            try { _receiverthread.Abort(); }
+            catch { }
+            _receiverthread = null;
+
             if (_serialPort != null)
             {
                 try

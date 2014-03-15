@@ -31,6 +31,7 @@ namespace KFly
         //Current sensorcalibration
         private SensorCalibrationData _sensorCalibration;
 
+        [KFlySyncCheck]
         public SensorCalibrationData SensorCalibration
         {
             get { return _sensorCalibration; }

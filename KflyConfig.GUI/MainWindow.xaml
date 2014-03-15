@@ -72,8 +72,8 @@
             <Controls:MetroTabItem Name="HomeTab" Header="Home" Controls:ControlsHelper.HeaderFontSize="18">
                 <kfly:HomeTab></kfly:HomeTab>
             </Controls:MetroTabItem>
-            <Controls:MetroTabItem  Name="ConnectionTab" Header="Firmware"  Controls:ControlsHelper.HeaderFontSize="18">
-                <kfly:FirmwareTab VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></kfly:FirmwareTab>
+            <Controls:MetroTabItem  Header="Firmware"  Controls:ControlsHelper.HeaderFontSize="18">
+                <kfly:FirmwareTab DataContext="{Binding KFly}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></kfly:FirmwareTab>
             </Controls:MetroTabItem>
             <Controls:MetroTabItem Header="Sensor Calibration" Controls:ControlsHelper.HeaderFontSize="18">
                 <kfly:SensorCalibrationTab></kfly:SensorCalibrationTab>
