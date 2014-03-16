@@ -66,7 +66,7 @@ namespace KFly
             if (bytes.Count >= 12)
             {
                 byte[] data = bytes.ToArray();
-                STM32F4DeviceId = BitConverter.ToString(data, 0, 12);
+                STM32F4DeviceId = Convert.ToBase64String(data, 0, 12);
                 String[] res  = System.Text.ASCIIEncoding.Default.GetString(bytes.GetRange(12, bytes.Count-12).ToArray()).Split('\0');
                 BootloaderVersion = res[0];
                 FirmwareVersion = res[1];

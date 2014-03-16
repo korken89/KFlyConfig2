@@ -53,6 +53,15 @@ namespace KFly.GUI
             {
                 sr.Close();
             }
+
+            Telemetry.Subscribe(KFlyCommandType.ConnectionStatusChanged, (ConnectionStatusChanged msg) =>
+                {
+                    Connected.Dispatcher.BeginInvoke(new Action(() =>
+                        {
+                            Connected.Visibility = msg.IsConnected ? Visibility.Visible : Visibility.Hidden;
+                            NotConnected.Visibility = msg.IsConnected ? Visibility.Hidden : Visibility.Visible;
+                        }));
+                });
             
         }
 
@@ -69,6 +78,11 @@ namespace KFly.GUI
             else
                 _testCalibrationWindow.Show();
 
+        }
+
+        private void ConnectBtn_Click(object sender, RoutedEventArgs e)
+        {
+            XAMLHelper.GetParent<MainWindow>(this).ConnectionFlyout.IsOpen = true;
         }
 
     }

@@ -14,11 +14,16 @@ namespace KFly.GUI
         public object Convert(object[] values, Type targetType, object parameter,
             System.Globalization.CultureInfo culture)
         {
-            string res = "KFly Config";
-          /*  foreach (string i in values)
+            string res = "KFly Config - ";
+            if ((values[0] is string) && ((values[0] as string) != ""))
             {
-                res += " " + (string)i;
-            }*/
+                res += (string)values[0];
+            }
+            else if (values[1] is string)
+            {
+                res += (string)values[1];
+            }
+          
             return  res;
         }
 

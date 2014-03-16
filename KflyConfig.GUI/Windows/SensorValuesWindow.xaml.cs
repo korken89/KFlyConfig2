@@ -171,7 +171,7 @@ namespace KFly.GUI
         {
             if (Telemetry.IsConnected)
             {
-                Telemetry.SendAsync(new GetRawSensorData());
+                Telemetry.SendAsync(new GetSensorData());
             }
         }
 

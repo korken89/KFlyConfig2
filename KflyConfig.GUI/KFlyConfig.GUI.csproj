@@ -280,6 +280,9 @@
     <Resource Include="Resources\OpenCycleMap_Icon.png" />
     <Resource Include="Resources\OpenStreetMap-logo.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\kfly.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>"$(ProjectDir)prebuild.cmd" "$(ProjectDir)" "$(ProjectDir)revision.txt"</PreBuildEvent>

@@ -5,24 +5,41 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              Initialized="UserControl_Initialized"
              Background="White"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"              
              d:DesignHeight="600" d:DesignWidth="722">
     <DockPanel LastChildFill="True" HorizontalAlignment="Stretch">
         <Rectangle DockPanel.Dock="Left" Fill="{DynamicResource AccentColorBrush}" Margin="0,6,0,6" Width="3" VerticalAlignment="Stretch" />
         <DockPanel Margin="5,5,5,5" LastChildFill="True" HorizontalAlignment="Stretch">
             <DockPanel DockPanel.Dock="Top" LastChildFill="False" VerticalAlignment="Center">
-                <Label Content="KFly" FontWeight="Bold" FontSize="80" Foreground="{DynamicResource AccentColorBrush}"
-                                   HorizontalAlignment="Left" VerticalAlignment="Center" />
+                <Rectangle Width="300" Height="150" Fill="{StaticResource kfly_logo}" />
                 <StackPanel VerticalAlignment="Center">
-                    <Label Content="Config" Margin="0" Padding="0" FontSize="48" Foreground="{DynamicResource AccentColorBrush}"
+                    <Label Content="Config" Margin="0,0,-30,0" FontSize="48" Foreground="{DynamicResource AccentColorBrush}"
                                    HorizontalAlignment="Left" VerticalAlignment="Center" />
-                    <Label Name="VersionLabel" Content="v.0.0.1" Margin="0" FontSize="14" Foreground="{DynamicResource AccentColorBrush}" />
+                    <Label Name="VersionLabel" Content="v.0.0.1" Margin="0,-10,0,0" FontSize="14" Foreground="{DynamicResource AccentColorBrush}" />
                 </StackPanel>
             </DockPanel>
             <Grid>
-                <StackPanel>
-                    <Label Content="" />
+                <StackPanel Margin="40,100,0,0" Name="NotConnected" HorizontalAlignment="Left">
+                    <Label Foreground="{DynamicResource AccentColorBrush}"  FontStyle="Italic"
+                           FontSize="30" Content="No card connected" />
+                    <Button Name="ConnectBtn" Click="ConnectBtn_Click" Style="{StaticResource AccentedSquareButtonStyle}"
+                            FontSize="14" Padding="20,8,20,8" Content="Connect" HorizontalAlignment="Center" />
                 </StackPanel>
+                <Grid Margin="40,100,0,0" Visibility="Hidden" Name="Connected" HorizontalAlignment="Left">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label FontSize="18" Foreground="{DynamicResource AccentColorBrush}" Content="KFly card id:" Grid.Column="0" Grid.Row="0"/>
+                    <Label FontSize="18" Foreground="{DynamicResource AccentColorBrush}" Content="User defined id:" Grid.Column="0" Grid.Row="1"/>
+                    <Label FontSize="18" FontWeight="Bold" Foreground="{DynamicResource AccentColorBrush}" Content="{Binding STM32F4DeviceId}" Grid.Column="1" Grid.Row="0"/>
+                    <Label FontSize="18" FontWeight="Bold" Foreground="{DynamicResource AccentColorBrush}" Content="{Binding UserId}" Grid.Column="1" Grid.Row="1"/>
+                </Grid>
+
                 <Image Stretch="None" Source="../Resources/kfly_illustration.png" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                     <Image.OpacityMask>
                         <LinearGradientBrush StartPoint="0.2,0.2" EndPoint="0.7,0.7">
