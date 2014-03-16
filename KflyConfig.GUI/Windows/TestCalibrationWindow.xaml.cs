@@ -73,7 +73,7 @@ namespace KFly.GUI
                     {
                         QuaternionRotation3D rot = new QuaternionRotation3D(
                             new System.Windows.Media.Media3D.Quaternion(
-                                cmd.Data.X, cmd.Data.Y, cmd.Data.Z, cmd.Data.W));
+                                -cmd.Data.X, -cmd.Data.Y, -cmd.Data.Z, cmd.Data.W));
                         KFlyRotation.Rotation = rot;
                     }));
             });
