@@ -3,28 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
+using System.IO;
+using System.Xml;
 
 namespace KFly
 {
     public static class SixPointSensorCalibration
     {
+       
+
         public static SensorCalibrationData Calibrate(IEnumerable<RawSensorData> measurepoints)
         {
             try
             {
-                int count = measurepoints.Count();
-                int twothirds = (int)(2 * (count / 3));
-                double[,] accdata = new double[twothirds, 3];
+                var count = measurepoints.Count();
+                double[,] accdata = new double[count, 3];
                 double[,] magdata = new double[count, 3];
                 int i = 0;
                 foreach (RawSensorData rsd in measurepoints)
                 {
-                    if (i < twothirds)
-                    {
-                        accdata[i, 0] = Convert.ToSingle(rsd.Accelerometer.X);
-                        accdata[i, 1] = Convert.ToSingle(rsd.Accelerometer.Y);
-                        accdata[i, 2] = Convert.ToSingle(rsd.Accelerometer.Z);
-                    }
+                    accdata[i, 0] = Convert.ToSingle(rsd.Accelerometer.X);
+                    accdata[i, 1] = Convert.ToSingle(rsd.Accelerometer.Y);
+                    accdata[i, 2] = Convert.ToSingle(rsd.Accelerometer.Z);
                     magdata[i, 0] = Convert.ToSingle(rsd.Magnometer.X);
                     magdata[i, 1] = Convert.ToSingle(rsd.Magnometer.Y);
                     magdata[i, 2] = Convert.ToSingle(rsd.Magnometer.Z);
@@ -32,6 +32,7 @@ namespace KFly
                 }
                 var accres = Calibrate(accdata, 0);
                 var magres = Calibrate(magdata, 0);
+
                 SensorCalibrationData sc = new SensorCalibrationData();
                 sc.AccelerometerBias.X = Convert.ToSingle(accres[0, 0]);
                 sc.AccelerometerBias.Y = Convert.ToSingle(accres[1, 0]);

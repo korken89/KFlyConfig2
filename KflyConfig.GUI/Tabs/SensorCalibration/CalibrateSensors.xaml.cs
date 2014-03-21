@@ -26,6 +26,8 @@ namespace KFly.GUI
     /// </summary>
     public partial class CalibrateSensors : UserControl
     {
+        private const int MS_COUNT = 50; //Measurement count on each position
+
         private readonly BackgroundWorker _collectingWorker = new BackgroundWorker();
         private readonly BackgroundWorker _calculatingWorker = new BackgroundWorker();
         private SixPointsCalibrationData _data;
@@ -94,7 +96,7 @@ namespace KFly.GUI
 
         void _collectingWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            ProgressLabel.Content = String.Format("Collecting sensor data: {0} of 200", _data.CurrentDataBag.Count);
+            ProgressLabel.Content = String.Format("Collecting sensor data: {0} of {1}", _data.CurrentDataBag.Count, MS_COUNT);
         }
 
         void _collectingWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -118,7 +120,7 @@ namespace KFly.GUI
             }
             else //canceled
             {
-                _data.CurrentSubStep = (_data.CurrentDataBag.Count >= 200) ? SixPointsCalibrationData.SubSteps.Finished :
+                _data.CurrentSubStep = (_data.CurrentDataBag.Count >= MS_COUNT) ? SixPointsCalibrationData.SubSteps.Finished :
                     SixPointsCalibrationData.SubSteps.NotStarted;
             }
         }
@@ -132,7 +134,7 @@ namespace KFly.GUI
                     _temp.Add(msg.Data);
                 });
             int dataCount = 0;
-            while (dataCount < 200)
+            while (dataCount < MS_COUNT)
             {
                 if (worker.CancellationPending)
                 {
@@ -372,6 +374,29 @@ namespace KFly.GUI
                 var mi = new StLFromInventorReader(this.Dispatcher);
                 return mi.Read(stream);
             });
+        }
+
+        private void DumpData_Click(object sender, RoutedEventArgs e)
+        {
+            if (_data != null)
+            {
+                // Configure save file dialog box
+                Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+                dlg.FileName = "calibrate_rawdatadump"; // Default file name
+                dlg.DefaultExt = ".xml"; // Default file extension
+                dlg.Filter = "Xml documents (.xml)|*.xml"; // Filter files by extension
+
+                // Show save file dialog box
+                Nullable<bool> result = dlg.ShowDialog();
+
+                // Process save file dialog box results
+                if (result == true)
+                {
+                    //List is serializable by default
+                    DataDumper.Dump(dlg.FileName, new List<RawSensorData>(_data.RawData));
+                }
+                //_data
+            }
         }
 
     }

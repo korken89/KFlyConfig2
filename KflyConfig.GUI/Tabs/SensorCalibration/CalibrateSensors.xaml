@@ -74,7 +74,7 @@
                             </Grid>
                         </StackPanel>
                     </StackPanel>
-                    <StackPanel Name="ResultPanel" Orientation="Vertical" Visibility="Hidden">
+                    <StackPanel Name="ResultPanel" Orientation="Vertical" Visibility="Visible">
                         <StackPanel.Background>
                             <ImageBrush  Stretch="None" AlignmentX="Left" AlignmentY="Top" ImageSource="/KFlyConfig.GUI;component/Resources/calculator.png">
                             </ImageBrush>
@@ -146,9 +146,15 @@
                                 <TextBlock Name="CalculationResultLabel" TextWrapping="WrapWithOverflow"
                                            Text="Calculation successful!" Margin="5" FontSize="16"
                                            HorizontalAlignment="Center" />
-                                <Button Name="UseDataBtn" Height="40" Margin="5" Width="120" Content="Use this data"
-                                Style="{StaticResource AccentedSquareButtonStyle}" Padding="7"
-                                Click="UseDataBtn_Click" HorizontalAlignment="Center"/>
+                                <Grid>
+                                    <Button Name="UseDataBtn" Height="40" Margin="5" Width="120" Content="Use this data"
+                                    Style="{StaticResource AccentedSquareButtonStyle}" Padding="7"
+                                    Click="UseDataBtn_Click" HorizontalAlignment="Center"/>
+                                    <kfly:KFlyCircleButton x:Name="DumpDataB" Icon="{StaticResource appbar_save}" Width="30" Height="30"
+                                                           ToolTip="Dump rawdata to file (debug)"
+                                                           Click="DumpData_Click"
+                                                           HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+                                </Grid>
                             </StackPanel>
                         </Grid>
 

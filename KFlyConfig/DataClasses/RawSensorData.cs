@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 
 namespace KFly
 {
@@ -18,6 +19,10 @@ namespace KFly
             {
                 return _accelerometer;
             }
+            set
+            {
+                _accelerometer = value;
+            }
         }
 
         public XYZDataInt16 Gyro
@@ -25,6 +30,10 @@ namespace KFly
             get
             {
                 return _gyro;
+            }
+            set
+            {
+                _gyro = value;
             }
         }
 
@@ -34,6 +43,10 @@ namespace KFly
             {
                 return _magnometer;
             }
+            set
+            {
+                _magnometer = value;
+            }
         }
 
         public Int32 Pressure
@@ -41,6 +54,10 @@ namespace KFly
             get
             {
                 return _pressure;
+            }
+            set
+            {
+                _pressure = value;
             }
         }
 
