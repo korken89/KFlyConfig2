@@ -11,5 +11,8 @@
     <Setting Name="AutoConnectOnStartup" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="Calibration" Type="KFly.SensorCalibrationData" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

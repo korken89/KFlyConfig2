@@ -113,5 +113,25 @@ namespace KFly.GUI
             }
         }
 
+        private void MyWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control && (e.Key == Key.S))
+            {
+                SensorCalibrationData data = SCTab.DataContext as SensorCalibrationData;
+                if (data != null)
+                {
+                    Properties.Settings.Default.Calibration = data;
+                }
+            }
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control && (e.Key == Key.L))
+            {
+                SensorCalibrationData data = Properties.Settings.Default.Calibration;
+                if (data != null)
+                {
+                    SCTab.DataContext = data;
+                }
+            }
+        }
+
     }
 }

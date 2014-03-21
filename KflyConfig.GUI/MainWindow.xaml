@@ -7,6 +7,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:kfly="clr-namespace:KFly.GUI"
         SourceInitialized="Window_SourceInitialized"
+        KeyDown="MyWindow_KeyDown"
         Icon="Resources/kfly.ico"
         GlowBrush="{DynamicResource AccentColorBrush}"             
         Height="600" Width="950">
@@ -83,7 +84,7 @@
                 <kfly:FirmwareTab DataContext="{Binding KFly}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></kfly:FirmwareTab>
             </Controls:MetroTabItem>
             <Controls:MetroTabItem Header="Sensor Calibration" Controls:ControlsHelper.HeaderFontSize="18">
-                <kfly:SensorCalibrationTab></kfly:SensorCalibrationTab>
+                <kfly:SensorCalibrationTab x:Name="SCTab"></kfly:SensorCalibrationTab>
             </Controls:MetroTabItem>
             <Controls:MetroTabItem Header="Inputs" Controls:ControlsHelper.HeaderFontSize="18">
                 <kfly:InputsTab></kfly:InputsTab>

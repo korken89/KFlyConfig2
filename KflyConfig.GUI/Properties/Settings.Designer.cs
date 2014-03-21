@@ -58,5 +58,16 @@ namespace KFly.GUI.Properties {
                 this["AutoConnectOnStartup"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::KFly.SensorCalibrationData Calibration {
+            get {
+                return ((global::KFly.SensorCalibrationData)(this["Calibration"]));
+            }
+            set {
+                this["Calibration"] = value;
+            }
+        }
     }
 }
