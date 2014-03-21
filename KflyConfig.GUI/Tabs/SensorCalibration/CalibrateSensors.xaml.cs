@@ -54,16 +54,16 @@ namespace KFly.GUI
                 _data.CurrentResult = sc;
                 if (sc.IsValid)
                 {
-                    _data.Subs[6] = SixPointsCalibrationData.SubSteps.Finished;
+                    _data.Subs[10] = SixPointsCalibrationData.SubSteps.Finished;
                 }
                 else
                 {
-                    _data.Subs[6] = SixPointsCalibrationData.SubSteps.Error;
+                    _data.Subs[10] = SixPointsCalibrationData.SubSteps.Error;
                 }
             }
             else
             {
-                _data.Subs[6] = SixPointsCalibrationData.SubSteps.Error;
+                _data.Subs[10] = SixPointsCalibrationData.SubSteps.Error;
             }
             UpdateControls();
         }
@@ -101,7 +101,7 @@ namespace KFly.GUI
             {
                 _data.CurrentSubStep = SixPointsCalibrationData.SubSteps.Finished;
                 _data.CurrentStep++;
-                if (_data.CurrentStep == 6)
+                if (_data.CurrentStep == 10)
                 {
                     _toBeCalculated.Enqueue(new List<RawSensorData>(_data.RawData));
                     _data.CurrentSubStep = SixPointsCalibrationData.SubSteps.Working; 
@@ -164,7 +164,7 @@ namespace KFly.GUI
         private void UpdateControls()
         {
             //Todo: Set picture depending on Step here
-            if ((_lastStep != _data.CurrentStep) && (_data.CurrentStep < 6))
+            if ((_lastStep != _data.CurrentStep) && (_data.CurrentStep < 9))
             {
                 AxisAngleRotation3D rotateAxis;
                 switch (_data.CurrentStep)
@@ -184,8 +184,17 @@ namespace KFly.GUI
                     case 4:
                         rotateAxis = new AxisAngleRotation3D(new Vector3D(0, 1, 0), 90);
                         break;
-                    default:
+                    case 5:
                         rotateAxis = new AxisAngleRotation3D(new Vector3D(0, 1, 0), -90);
+                        break;
+                    case 6:
+                        rotateAxis = new AxisAngleRotation3D(new Vector3D(0, 0, 1), 90);
+                        break;
+                    case 7:
+                        rotateAxis = new AxisAngleRotation3D(new Vector3D(0, 0, 1), 180);
+                        break;
+                    default:
+                        rotateAxis = new AxisAngleRotation3D(new Vector3D(0, 0, 1), 270);
                         break;
                 }
                 var ranim = new Rotation3DAnimation(rotateAxis, TimeSpan.FromSeconds(1.5));
@@ -206,27 +215,27 @@ namespace KFly.GUI
                 ContentGrid.Children[i].Visibility = ((int)_data.CurrentSubStep == i) ? Visibility.Visible : Visibility.Hidden;
             }
 
-            CollectingPanel.Visibility = (_data.CurrentStep < 6) ? Visibility.Visible : Visibility.Hidden;
-            ResultPanel.Visibility = (_data.CurrentStep == 6) ? Visibility.Visible : Visibility.Hidden;
+            CollectingPanel.Visibility = (_data.CurrentStep < 9) ? Visibility.Visible : Visibility.Hidden;
+            ResultPanel.Visibility = (_data.CurrentStep == 9) ? Visibility.Visible : Visibility.Hidden;
 
             UseDataBtn.IsEnabled = true; //we only change click behaviour on error
 
-            StepLabel.Content = String.Format("Step {0} of 7", _data.CurrentStep+1);
+            StepLabel.Content = String.Format("Step {0} of 10", _data.CurrentStep+1);
 
             //Calculation panel
             CalculationWorking.Visibility = 
-                ((_data.CurrentStep == 6) && (_data.CurrentSubStep == SixPointsCalibrationData.SubSteps.Working)) ?
+                ((_data.CurrentStep == 9) && (_data.CurrentSubStep == SixPointsCalibrationData.SubSteps.Working)) ?
                 Visibility.Visible : Visibility.Hidden;
             CalculationResult.Visibility =
-               ((_data.CurrentStep == 6) && (_data.CurrentSubStep != SixPointsCalibrationData.SubSteps.Working)) ?
+               ((_data.CurrentStep == 9) && (_data.CurrentSubStep != SixPointsCalibrationData.SubSteps.Working)) ?
                Visibility.Visible : Visibility.Hidden;
-            if ((_data.CurrentStep == 6) && (_data.CurrentSubStep != SixPointsCalibrationData.SubSteps.Finished))
+            if ((_data.CurrentStep == 9) && (_data.CurrentSubStep != SixPointsCalibrationData.SubSteps.Finished))
             {
-                CalculationResultLabel.Text = "Calculation failed! This might be because of you not using all 6 position correctly.\nYou can either redo the whole process or go back and redo single positions.";
+                CalculationResultLabel.Text = "Calculation failed! This might be because of you not using all 9 position correctly.\nYou can either redo the whole process or go back and redo single positions.";
                 CalculationResultLabel.Foreground = Brushes.Red;
                 UseDataBtn.Content = "Restart calibration";
             }
-            else if (_data.CurrentStep == 6) 
+            else if (_data.CurrentStep == 9) 
             {
                 CalculationResultLabel.Text = "Calculation Successful!";
                 CalculationResultLabel.Foreground = Brushes.Black;
@@ -256,7 +265,7 @@ namespace KFly.GUI
 
         private void NextBtn_Click(object sender, RoutedEventArgs e)
         {
-            if ((_data.CurrentStep < 7) && (_data.CurrentSubStep == SixPointsCalibrationData.SubSteps.Finished))
+            if ((_data.CurrentStep < 10) && (_data.CurrentSubStep == SixPointsCalibrationData.SubSteps.Finished))
             {
                 _data.CurrentStep++;
                 UpdateControls();

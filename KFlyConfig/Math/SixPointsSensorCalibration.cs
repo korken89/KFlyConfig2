@@ -86,7 +86,7 @@ namespace KFly
 
 
             /* Fix so the abort is based on the step-size */
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < 100; i++)
             {
                 double[,] H = getH(acc, theta[0, 0], theta[1, 0], theta[2, 0], theta[3, 0], theta[4, 0], theta[5, 0]);
                 double[,] yDiff = LinearAlgebra.MatrixSub(yVec, yHAT(acc, theta[0, 0], theta[1, 0], theta[2, 0], theta[3, 0], theta[4, 0], theta[5, 0]));
