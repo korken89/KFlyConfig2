@@ -54,16 +54,16 @@ namespace KFly.GUI
                 _data.CurrentResult = sc;
                 if (sc.IsValid)
                 {
-                    _data.Subs[10] = SixPointsCalibrationData.SubSteps.Finished;
+                    _data.Subs[9] = SixPointsCalibrationData.SubSteps.Finished;
                 }
                 else
                 {
-                    _data.Subs[10] = SixPointsCalibrationData.SubSteps.Error;
+                    _data.Subs[9] = SixPointsCalibrationData.SubSteps.Error;
                 }
             }
             else
             {
-                _data.Subs[10] = SixPointsCalibrationData.SubSteps.Error;
+                _data.Subs[9] = SixPointsCalibrationData.SubSteps.Error;
             }
             UpdateControls();
         }
@@ -72,6 +72,7 @@ namespace KFly.GUI
         
         void _calculatingWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            DateTime minimum = DateTime.Now + new TimeSpan(0,0,2); //Want minimum 2 s before finished so user can se that something is being done.
             List<RawSensorData> data;
             while (_toBeCalculated.TryDequeue(out data)) 
             {
@@ -81,7 +82,13 @@ namespace KFly.GUI
                     e.Cancel = true;
                     break;
                 }
-                e.Result = SixPointSensorCalibration.Calibrate(data);
+                SensorCalibrationData scd = SixPointSensorCalibration.Calibrate(data);
+                TimeSpan timeleft = minimum - DateTime.Now;
+                if (timeleft.Ticks > 0)
+                {
+                    Thread.Sleep(timeleft);
+                }
+                e.Result = scd;
             }
         }
 
@@ -101,7 +108,7 @@ namespace KFly.GUI
             {
                 _data.CurrentSubStep = SixPointsCalibrationData.SubSteps.Finished;
                 _data.CurrentStep++;
-                if (_data.CurrentStep == 10)
+                if (_data.CurrentStep == 9)
                 {
                     _toBeCalculated.Enqueue(new List<RawSensorData>(_data.RawData));
                     _data.CurrentSubStep = SixPointsCalibrationData.SubSteps.Working; 
