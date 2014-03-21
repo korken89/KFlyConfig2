@@ -12,15 +12,19 @@ namespace KFly
         {
             try
             {
-                var count = measurepoints.Count();
-                double[,] accdata = new double[count, 3];
+                int count = measurepoints.Count();
+                int twothirds = (int)(2 * (count / 3));
+                double[,] accdata = new double[twothirds, 3];
                 double[,] magdata = new double[count, 3];
                 int i = 0;
                 foreach (RawSensorData rsd in measurepoints)
                 {
-                    accdata[i, 0] = Convert.ToSingle(rsd.Accelerometer.X);
-                    accdata[i, 1] = Convert.ToSingle(rsd.Accelerometer.Y);
-                    accdata[i, 2] = Convert.ToSingle(rsd.Accelerometer.Z);
+                    if (i < twothirds)
+                    {
+                        accdata[i, 0] = Convert.ToSingle(rsd.Accelerometer.X);
+                        accdata[i, 1] = Convert.ToSingle(rsd.Accelerometer.Y);
+                        accdata[i, 2] = Convert.ToSingle(rsd.Accelerometer.Z);
+                    }
                     magdata[i, 0] = Convert.ToSingle(rsd.Magnometer.X);
                     magdata[i, 1] = Convert.ToSingle(rsd.Magnometer.Y);
                     magdata[i, 2] = Convert.ToSingle(rsd.Magnometer.Z);
