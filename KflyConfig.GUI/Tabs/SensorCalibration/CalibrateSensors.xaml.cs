@@ -26,7 +26,7 @@ namespace KFly.GUI
     /// </summary>
     public partial class CalibrateSensors : UserControl
     {
-        private const int MS_COUNT = 50; //Measurement count on each position
+        private const int MS_COUNT = 200; //Measurement count on each position
 
         private readonly BackgroundWorker _collectingWorker = new BackgroundWorker();
         private readonly BackgroundWorker _calculatingWorker = new BackgroundWorker();
@@ -378,25 +378,8 @@ namespace KFly.GUI
 
         private void DumpData_Click(object sender, RoutedEventArgs e)
         {
-            if (_data != null)
-            {
-                // Configure save file dialog box
-                Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-                dlg.FileName = "calibrate_rawdatadump"; // Default file name
-                dlg.DefaultExt = ".xml"; // Default file extension
-                dlg.Filter = "Xml documents (.xml)|*.xml"; // Filter files by extension
-
-                // Show save file dialog box
-                Nullable<bool> result = dlg.ShowDialog();
-
-                // Process save file dialog box results
-                if (result == true)
-                {
-                    //List is serializable by default
-                    DataDumper.Dump(dlg.FileName, new List<RawSensorData>(_data.RawData));
-                }
-                //_data
-            }
+            GUIDataDumper.DumpDataToFile(new List<RawSensorData>(_data.RawData));
+          
         }
 
     }
