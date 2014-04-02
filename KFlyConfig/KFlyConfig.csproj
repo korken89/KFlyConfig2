@@ -85,6 +85,10 @@
     <Compile Include="DataClasses\AttitudeControllerData.cs" />
     <Compile Include="DataClasses\BaseClasses\KFlyGroupConfigurationData.cs" />
     <Compile Include="DataClasses\BaseClasses\KFlyConfigurationData.cs" />
+    <Compile Include="DataClasses\Input\RCInputType.cs" />
+    <Compile Include="DataClasses\Input\RCInputRole.cs" />
+    <Compile Include="DataClasses\Input\RawRCData.cs" />
+    <Compile Include="DataClasses\Input\RCCalibrationData.cs" />
     <Compile Include="DataClasses\KFlyData.cs" />
     <Compile Include="DataClasses\MultiCopter.cs" />
     <Compile Include="DataClasses\MotorData.cs" />
@@ -93,11 +97,12 @@
     <Compile Include="DataClasses\Quaternion.cs" />
     <Compile Include="DataClasses\PRData.cs" />
     <Compile Include="DataClasses\PRYData.cs" />
+    <Compile Include="DataClasses\Input\RCInputMode.cs" />
     <Compile Include="DataClasses\XYZDataInt16.cs" />
-    <Compile Include="DataClasses\RawSensorData.cs" />
-    <Compile Include="DataClasses\SensorData.cs" />
+    <Compile Include="DataClasses\Sensors\RawSensorData.cs" />
+    <Compile Include="DataClasses\Sensors\SensorData.cs" />
     <Compile Include="DataClasses\XYZData.cs" />
-    <Compile Include="DataClasses\SensorCalibrationData.cs" />
+    <Compile Include="DataClasses\Sensors\SensorCalibrationData.cs" />
     <Compile Include="DataClasses\MixerData.cs" />
     <Compile Include="DataClasses\PIData.cs" />
     <Compile Include="Logging\IKFlyLog.cs" />

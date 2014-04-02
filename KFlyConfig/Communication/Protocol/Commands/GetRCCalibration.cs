@@ -7,7 +7,7 @@ namespace KFly
 {
     public class GetRCCalibration : KFlyCommand
     {
-        private List<byte> _data;
+        private RCCalibrationData _data;
 
         public GetRCCalibration() : base(KFlyCommandType.GetRCCalibration)
         {
@@ -15,10 +15,10 @@ namespace KFly
 
         public override void ParseData(List<byte> data)
         {
-            _data = data;
+            _data = RCCalibrationData.FromBytes(data);
         }
 
-        public List<byte> Data
+        public RCCalibrationData Data
         {
             get { return _data; }
         }

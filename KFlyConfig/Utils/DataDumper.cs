@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CsvHelper;
+using CsvHelper.TypeConversion;
+using CsvHelper.Configuration;
 
 namespace KFly
 {
@@ -35,6 +37,7 @@ namespace KFly
             System.IO.StreamWriter file = new System.IO.StreamWriter(filename);
             try
             {
+               
                 var csv = new CsvWriter(file);
                 if (data is System.Collections.IEnumerable)
                 {
@@ -52,5 +55,6 @@ namespace KFly
             }
             return res;
         }
+
     }
 }

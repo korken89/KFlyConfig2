@@ -7,16 +7,17 @@ namespace KFly
 {
     class SetRCCalibration : KFlyCommand
     {
-        private ChannelData _data;
+        private RCCalibrationData _data;
 
-        public SetRCCalibration(ChannelData data) : base(KFlyCommandType.SetRCCalibration)
+        public SetRCCalibration(RCCalibrationData data)
+            : base(KFlyCommandType.SetRCCalibration)
         {
             _data = data;
         }
 
         public override List<Byte> ToTx()
         {
-            return CreateTxWithHeader(_data.ToBytes());
+            return CreateTxWithHeader(_data.GetBytes());
         }
     }
 }

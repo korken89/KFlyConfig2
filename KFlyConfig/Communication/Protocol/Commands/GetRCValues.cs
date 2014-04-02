@@ -7,7 +7,7 @@ namespace KFly
 {
     public class GetRCValues : KFlyCommand
     {
-        private List<byte> _data;
+        private RawRCData _data;
 
         public GetRCValues() : base(KFlyCommandType.GetRCValues)
         {
@@ -15,10 +15,10 @@ namespace KFly
 
         public override void ParseData(List<byte> data)
         {
-            _data = data;
+            _data = RawRCData.FromBytes(data);
         }
 
-        public List<byte> Data
+        public RawRCData Data
         {
             get { return _data; }
         }
