@@ -120,6 +120,7 @@
       <DependentUpon>HomeTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\DataDumper.cs" />
+    <Compile Include="Utils\EnumValuesExtension.cs" />
     <Compile Include="Utils\IBound.cs" />
     <Compile Include="Utils\MathConverter.cs" />
     <Compile Include="Utils\ModalContentPresenter.cs" />

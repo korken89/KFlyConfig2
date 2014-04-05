@@ -5,7 +5,7 @@ using System.Text;
 
 namespace KFly
 {
-    class SetRCCalibration : KFlyCommand
+    public class SetRCCalibration : KFlyCommand
     {
         private RCCalibrationData _data;
 

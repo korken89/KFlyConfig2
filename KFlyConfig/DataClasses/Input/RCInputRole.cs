@@ -8,14 +8,14 @@ namespace KFly
 {
     public enum RCInputRole
     {
-        ROLE_OFF = 0,
-        ROLE_THROTTLE = 1,
-        ROLE_PITCH = 2,
-        ROLE_ROLL = 3,
-        ROLE_YAW = 4,
-        ROLE_FLIGHT_MODE = 6,
-        ROLE_AUX1 = 7,
-        ROLE_AUX2 = 8,
-        ROLE_AUX3 = 9
+        OFF = 0,
+        THROTTLE = 1,
+        PITCH = 2,
+        ROLL = 3,
+        YAW = 4,
+        FLIGHT_MODE = 6,
+        AUX1 = 7,
+        AUX2 = 8,
+        AUX3 = 9
     }   
 }

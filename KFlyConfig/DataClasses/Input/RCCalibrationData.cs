@@ -17,7 +17,21 @@ namespace KFly
             set { _inputMode = value; NotifyPropertyChanged("InputMode"); }
         }
 
-        private RCInputRole[] _chRoles = new RCInputRole[MAX_NUMBER_OF_INPUTS];
+        private RCInputRole[] _chRoles = new RCInputRole[]
+            {
+                RCInputRole.PITCH,
+                RCInputRole.ROLL,
+                RCInputRole.THROTTLE,
+                RCInputRole.YAW,
+                RCInputRole.FLIGHT_MODE,
+                RCInputRole.OFF,
+                RCInputRole.OFF,
+                RCInputRole.OFF,
+                RCInputRole.OFF,
+                RCInputRole.OFF,
+                RCInputRole.OFF,
+                RCInputRole.OFF
+            };
 
         public RCInputRole[] ChRoles
         {
@@ -25,7 +39,22 @@ namespace KFly
             set { _chRoles = value; NotifyPropertyChanged("ChRoles"); }
         }
 
-        private RCInputType[] _chTypes = new RCInputType[MAX_NUMBER_OF_INPUTS];
+        private RCInputType[] _chTypes = new RCInputType[]
+            {
+                RCInputType.ANALOG,
+                RCInputType.ANALOG,
+                RCInputType.ANALOG,
+                RCInputType.ANALOG,
+                RCInputType.THREE_STATE,
+                RCInputType.ANALOG,
+                RCInputType.ANALOG,
+                RCInputType.ANALOG,
+                RCInputType.ANALOG,
+                RCInputType.ANALOG,
+                RCInputType.ANALOG,
+                RCInputType.ANALOG
+
+            };
 
         public RCInputType[] ChTypes
         {
@@ -58,7 +87,7 @@ namespace KFly
             set { _chBottoms = value; NotifyPropertyChanged("ChBottoms"); }
         }
 
-      
+
 
         public List<byte> GetBytes()
         {
@@ -89,26 +118,26 @@ namespace KFly
 
         public void SetBytes(List<byte> bytes)
         {
-            if (bytes.Count >= 1+ MAX_NUMBER_OF_INPUTS*8)
+            if (bytes.Count >= 1 + MAX_NUMBER_OF_INPUTS * 8)
             {
                 byte[] b = bytes.ToArray();
                 InputMode = (RCInputMode)b[0];
                 int offset = 1;
                 for (var i = 0; i < MAX_NUMBER_OF_INPUTS; i++)
                 {
-                    ChRoles[i] = (RCInputRole)b[i+offset];
+                    ChRoles[i] = (RCInputRole)b[i + offset];
                 }
                 offset += MAX_NUMBER_OF_INPUTS;
                 for (var i = 0; i < MAX_NUMBER_OF_INPUTS; i++)
                 {
-                    ChTypes[i] = (RCInputType)b[i+offset];
+                    ChTypes[i] = (RCInputType)b[i + offset];
                 }
                 offset += MAX_NUMBER_OF_INPUTS;
                 for (var i = 0; i < MAX_NUMBER_OF_INPUTS; i++)
                 {
                     ChCenters[i] = BitConverter.ToUInt16(b, i + offset);
                 }
-                offset += MAX_NUMBER_OF_INPUTS*2;
+                offset += MAX_NUMBER_OF_INPUTS * 2;
                 for (var i = 0; i < MAX_NUMBER_OF_INPUTS; i++)
                 {
                     ChTops[i] = BitConverter.ToUInt16(b, i + offset);

@@ -8,8 +8,8 @@ namespace KFly
 {
     public enum RCInputType
     {
-        TYPE_ANALOG = 1,
-        TYPE_3_STATE = 2,
-        TYPE_ON_OFF = 3
+        ANALOG = 1,
+        THREE_STATE = 2,
+        ON_OFF = 3
     }
 }
