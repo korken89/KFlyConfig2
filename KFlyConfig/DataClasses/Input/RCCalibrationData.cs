@@ -118,11 +118,11 @@ namespace KFly
 
         public void SetBytes(List<byte> bytes)
         {
-            if (bytes.Count >= 1 + MAX_NUMBER_OF_INPUTS * 8)
+            if (bytes.Count >= 4 + MAX_NUMBER_OF_INPUTS * 8)
             {
                 byte[] b = bytes.ToArray();
-                InputMode = (RCInputMode)b[0];
-                int offset = 1;
+                InputMode = (RCInputMode)BitConverter.ToUInt32(b, 0);
+                int offset = 4;
                 for (var i = 0; i < MAX_NUMBER_OF_INPUTS; i++)
                 {
                     ChRoles[i] = (RCInputRole)b[i + offset];
@@ -135,17 +135,17 @@ namespace KFly
                 offset += MAX_NUMBER_OF_INPUTS;
                 for (var i = 0; i < MAX_NUMBER_OF_INPUTS; i++)
                 {
-                    ChCenters[i] = BitConverter.ToUInt16(b, i + offset);
+                    ChCenters[i] = BitConverter.ToUInt16(b, i * 2 + offset);
                 }
                 offset += MAX_NUMBER_OF_INPUTS * 2;
                 for (var i = 0; i < MAX_NUMBER_OF_INPUTS; i++)
                 {
-                    ChTops[i] = BitConverter.ToUInt16(b, i + offset);
+                    ChTops[i] = BitConverter.ToUInt16(b, i * 2 + offset);
                 }
                 offset += MAX_NUMBER_OF_INPUTS * 2;
                 for (var i = 0; i < MAX_NUMBER_OF_INPUTS; i++)
                 {
-                    ChBottoms[i] = BitConverter.ToUInt16(b, i + offset);
+                    ChBottoms[i] = BitConverter.ToUInt16(b, i * 2 + offset);
                 }
             }
         }
