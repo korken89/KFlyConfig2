@@ -49,7 +49,7 @@ namespace KFly
             if (bytes.Count >= 8+MAX_NUMBER_OF_INPUTS*2)
             {
                 byte[] b = bytes.ToArray();
-                _connected = BitConverter.ToBoolean(b, 0);
+                _connected = (BitConverter.ToUInt32(b, 0) > 0);
                 _numberOfInputs = BitConverter.ToUInt16(b, 4);
                 for (int i = 0; i < MAX_NUMBER_OF_INPUTS; i++)
                 {

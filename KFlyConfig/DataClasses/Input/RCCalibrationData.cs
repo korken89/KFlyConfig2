@@ -92,7 +92,7 @@ namespace KFly
         public List<byte> GetBytes()
         {
             List<byte> data = new List<byte>();
-            data.Add((byte)InputMode);
+            data.AddRange(BitConverter.GetBytes((UInt32)InputMode));
             foreach (RCInputRole rir in ChRoles)
             {
                 data.Add((byte)rir);
