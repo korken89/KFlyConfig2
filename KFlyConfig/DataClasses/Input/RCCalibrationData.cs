@@ -101,11 +101,11 @@ namespace KFly
             {
                 data.Add((byte)rit);
             }
-            foreach (UInt16 value in ChCenters)
+            foreach (UInt16 value in ChTops)
             {
                 data.AddRange(BitConverter.GetBytes(value));
             }
-            foreach (UInt16 value in ChTops)
+            foreach (UInt16 value in ChCenters)
             {
                 data.AddRange(BitConverter.GetBytes(value));
             }
@@ -135,12 +135,12 @@ namespace KFly
                 offset += MAX_NUMBER_OF_INPUTS;
                 for (var i = 0; i < MAX_NUMBER_OF_INPUTS; i++)
                 {
-                    ChCenters[i] = BitConverter.ToUInt16(b, i * 2 + offset);
+                    ChTops[i] = BitConverter.ToUInt16(b, i * 2 + offset);
                 }
                 offset += MAX_NUMBER_OF_INPUTS * 2;
                 for (var i = 0; i < MAX_NUMBER_OF_INPUTS; i++)
                 {
-                    ChTops[i] = BitConverter.ToUInt16(b, i * 2 + offset);
+                    ChCenters[i] = BitConverter.ToUInt16(b, i * 2 + offset);
                 }
                 offset += MAX_NUMBER_OF_INPUTS * 2;
                 for (var i = 0; i < MAX_NUMBER_OF_INPUTS; i++)
