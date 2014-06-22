@@ -37,15 +37,15 @@ namespace KFly
                 sc.AccelerometerBias.X = Convert.ToSingle(accres[0, 0]);
                 sc.AccelerometerBias.Y = Convert.ToSingle(accres[1, 0]);
                 sc.AccelerometerBias.Z = Convert.ToSingle(accres[2, 0]);
-                sc.AccelerometerGain.X = Convert.ToSingle(accres[3, 0]);
-                sc.AccelerometerGain.Y = Convert.ToSingle(accres[4, 0]);
-                sc.AccelerometerGain.Z = Convert.ToSingle(accres[5, 0]);
+                sc.AccelerometerGain.X = 1/Convert.ToSingle(accres[3, 0]);
+                sc.AccelerometerGain.Y = 1/Convert.ToSingle(accres[4, 0]);
+                sc.AccelerometerGain.Z = 1/Convert.ToSingle(accres[5, 0]);
                 sc.MagnometerBias.X = Convert.ToSingle(magres[0, 0]);
                 sc.MagnometerBias.Y = Convert.ToSingle(magres[1, 0]);
                 sc.MagnometerBias.Z = Convert.ToSingle(magres[2, 0]);
-                sc.MagnometerGain.X = Convert.ToSingle(magres[3, 0]);
-                sc.MagnometerGain.Y = Convert.ToSingle(magres[4, 0]);
-                sc.MagnometerGain.Z = Convert.ToSingle(magres[5, 0]);
+                sc.MagnometerGain.X = 1/Convert.ToSingle(magres[3, 0]);
+                sc.MagnometerGain.Y = 1/Convert.ToSingle(magres[4, 0]);
+                sc.MagnometerGain.Z = 1/Convert.ToSingle(magres[5, 0]);
                 return sc;
             }
             catch
