@@ -43,10 +43,17 @@ namespace KFly
             set { _rssi = value; NotifyPropertyChanged("Rssi"); }
         }
 
+        private UInt16 _rssi_frequency = 0;
+
+        public UInt16 RssiFrequency
+        {
+            get { return _rssi_frequency; }
+            set { _rssi_frequency = value; NotifyPropertyChanged("RssiFrequency"); }
+        }
 
         public void SetBytes(List<byte> bytes)
         {
-            if (bytes.Count >= 8+MAX_NUMBER_OF_INPUTS*2)
+            if (bytes.Count >= 10+MAX_NUMBER_OF_INPUTS*2)
             {
                 byte[] b = bytes.ToArray();
                 _connected = (BitConverter.ToUInt32(b, 0) > 0);
@@ -55,7 +62,8 @@ namespace KFly
                 {
                     _values[i] = BitConverter.ToUInt16(b, 6 + i * 2);
                 }
-                _rssi = BitConverter.ToUInt16(b, 6 + MAX_NUMBER_OF_INPUTS * 2);
+                Rssi = BitConverter.ToUInt16(b, 6 + MAX_NUMBER_OF_INPUTS * 2);
+                RssiFrequency = BitConverter.ToUInt16(b, 8 + MAX_NUMBER_OF_INPUTS * 2);
             }
         }
 
