@@ -58,6 +58,21 @@ namespace KFly.GUI
             });*/
         }
 
+        private void WriteToFlash_Click(object sender, RoutedEventArgs e)
+        {
+            Telemetry.SendAsyncWithAck(new SaveToFlash(), 500, (SendResult result) =>
+            {
+                if (result == SendResult.OK)
+                {
+                    MessageBox.Show("All settings saved to flash", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Failed saving to flash", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            });
+        }
+
 
     }
 }
