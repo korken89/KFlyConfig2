@@ -53,22 +53,22 @@ namespace KFly
             List<byte> data = new List<byte>();
             foreach (Int16 value in Throttle)
             {
-                float v = value / 1000;
+                float v = ((float)value) / 1000.0f;
                 data.AddRange(BitConverter.GetBytes(v));
             }
             foreach (Int16 value in Pitch)
             {
-                float v = value / 1000;
+                float v = ((float)value) / 1000.0f;
                 data.AddRange(BitConverter.GetBytes(v));
             }
             foreach (Int16 value in Roll)
             {
-                float v = value / 1000;
+                float v = ((float)value) / 1000.0f;
                 data.AddRange(BitConverter.GetBytes(v));
             }
             foreach (Int16 value in Yaw)
             {
-                float v = value / 1000;
+                float v = ((float)value) / 1000.0f;
                 data.AddRange(BitConverter.GetBytes(v));
             } return data;
         }
@@ -84,19 +84,19 @@ namespace KFly
                     float v = BitConverter.ToSingle(b, i * 4 + offset);
                     Throttle[i] = Convert.ToInt16((v * 1000));
                 }
-                offset += MAX_NUMBER_OF_OUTPUTS * 2;
+                offset += MAX_NUMBER_OF_OUTPUTS * 4;
                 for (var i = 0; i < MAX_NUMBER_OF_OUTPUTS; i++)
                 {
                     float v = BitConverter.ToSingle(b, i * 4 + offset);
                     Pitch[i] = Convert.ToInt16((v * 1000));
                 }
-                offset += MAX_NUMBER_OF_OUTPUTS * 2;
+                offset += MAX_NUMBER_OF_OUTPUTS * 4;
                 for (var i = 0; i < MAX_NUMBER_OF_OUTPUTS; i++)
                 {
                     float v = BitConverter.ToSingle(b, i * 4 + offset);
                     Roll[i] = Convert.ToInt16((v * 1000));
                 }
-                offset += MAX_NUMBER_OF_OUTPUTS * 2;
+                offset += MAX_NUMBER_OF_OUTPUTS * 4;
                 for (var i = 0; i < MAX_NUMBER_OF_OUTPUTS; i++)
                 {
                     float v = BitConverter.ToSingle(b, i * 4 + offset);
