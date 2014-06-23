@@ -1,0 +1,110 @@
+﻿<UserControl x:Class="KFly.GUI.MixerTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:kfly="clr-namespace:KFly.GUI"    
+             xmlns:kflyconfig="clr-namespace:KFly;assembly=KFlyConfig"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             Loaded="UserControl_Loaded"
+             mc:Ignorable="d" 
+             Background="White"
+             d:DesignHeight="536" d:DesignWidth="622">
+    <kfly:KFlyTab Title="Inputs" TabStateChanged="KFlyTab_TabStateChanged"
+                  BackgroundImage="../Resources/joystick.png">
+        <kfly:KFlyTab.Toolbar>
+            <StackPanel Orientation="Horizontal">
+                <kfly:KFlyCircleButton x:Name="UploadBtn"
+                                   Click="UploadBtn_Click"
+                                   Margin="15,0,15,0"
+                                   Icon="{StaticResource appbar_arrow_up}"
+                                   ToolTip="Upload mixer to controller" 
+                                   Width="40" Height="40" />
+                <kfly:KFlyCircleButton x:Name="DownloadBtn"
+                                   Click="DownloadBtn_Click"
+                                   Icon="{StaticResource appbar_arrow_down}"
+                                   ToolTip="Refresh" 
+                                   Width="40" Height="40" />
+            </StackPanel>
+        </kfly:KFlyTab.Toolbar>
+        <kfly:ModalContentPresenter x:Name="MixerModal">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
+                <kfly:KFlyGroupBox DataContext="{Binding NotifyOnTargetUpdated=True}" Header="Mixer" HorizontalAlignment="Left">
+                    <Grid x:Name="MixerGrid">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="1" Content="Throttle" HorizontalAlignment="Center" />
+                        <Label Grid.Row="0" Grid.Column="2" Content="Pitch" HorizontalAlignment="Center" />
+                        <Label Grid.Row="0" Grid.Column="3" Content="Roll" HorizontalAlignment="Center"/>
+                        <Label Grid.Row="0" Grid.Column="4" Content="Yaw" HorizontalAlignment="Center" />
+                        <Label Grid.Row="1" Grid.Column="0" Content="Ch. 1" VerticalAlignment="Center" />
+                        <Label Grid.Row="2" Grid.Column="0" Content="Ch. 2" VerticalAlignment="Center" />
+                        <Label Grid.Row="3" Grid.Column="0" Content="Ch. 3" VerticalAlignment="Center" />
+                        <Label Grid.Row="4" Grid.Column="0" Content="Ch. 4" VerticalAlignment="Center" />
+                        <Label Grid.Row="5" Grid.Column="0" Content="Ch. 5" VerticalAlignment="Center" />
+                        <Label Grid.Row="6" Grid.Column="0" Content="Ch. 6" VerticalAlignment="Center" />
+                        <Label Grid.Row="7" Grid.Column="0" Content="Ch. 7" VerticalAlignment="Center" />
+                        <Label Grid.Row="8" Grid.Column="0" Content="Ch. 8" VerticalAlignment="Center" />
+                        
+                        <metro:NumericUpDown Value="{Binding Throttle[0]}" Margin="5" Grid.Row="1" Grid.Column="1" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Throttle[1]}" Margin="5" Grid.Row="2" Grid.Column="1" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Throttle[2]}" Margin="5" Grid.Row="3" Grid.Column="1" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Throttle[3]}" Margin="5" Grid.Row="4" Grid.Column="1" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Throttle[4]}" Margin="5" Grid.Row="5" Grid.Column="1" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Throttle[5]}" Margin="5" Grid.Row="6" Grid.Column="1" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Throttle[6]}" Margin="5" Grid.Row="7" Grid.Column="1" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Throttle[7]}" Margin="5" Grid.Row="8" Grid.Column="1" Minimum="-1000" Maximum="1000" />
+
+                        <metro:NumericUpDown Value="{Binding Pitch[0]}" Margin="5" Grid.Row="1" Grid.Column="2" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Pitch[1]}" Margin="5" Grid.Row="2" Grid.Column="2" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Pitch[2]}" Margin="5" Grid.Row="3" Grid.Column="2" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Pitch[3]}" Margin="5" Grid.Row="4" Grid.Column="2" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Pitch[4]}" Margin="5" Grid.Row="5" Grid.Column="2" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Pitch[5]}" Margin="5" Grid.Row="6" Grid.Column="2" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Pitch[6]}" Margin="5" Grid.Row="7" Grid.Column="2" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Pitch[7]}" Margin="5" Grid.Row="8" Grid.Column="2" Minimum="-1000" Maximum="1000" />
+
+                        <metro:NumericUpDown Value="{Binding Roll[0]}" Margin="5" Grid.Row="1" Grid.Column="3" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Roll[1]}" Margin="5" Grid.Row="2" Grid.Column="3" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Roll[2]}" Margin="5" Grid.Row="3" Grid.Column="3" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Roll[3]}" Margin="5" Grid.Row="4" Grid.Column="3" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Roll[4]}" Margin="5" Grid.Row="5" Grid.Column="3" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Roll[5]}" Margin="5" Grid.Row="6" Grid.Column="3" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Roll[6]}" Margin="5" Grid.Row="7" Grid.Column="3" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Roll[7]}" Margin="5" Grid.Row="8" Grid.Column="3" Minimum="-1000" Maximum="1000" />
+
+                        <metro:NumericUpDown Value="{Binding Yaw[0]}" Margin="5" Grid.Row="1" Grid.Column="4" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Yaw[1]}" Margin="5" Grid.Row="2" Grid.Column="4" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Yaw[2]}" Margin="5" Grid.Row="3" Grid.Column="4" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Yaw[3]}" Margin="5" Grid.Row="4" Grid.Column="4" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Yaw[4]}" Margin="5" Grid.Row="5" Grid.Column="4" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Yaw[5]}" Margin="5" Grid.Row="6" Grid.Column="4" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Yaw[6]}" Margin="5" Grid.Row="7" Grid.Column="4" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Yaw[7]}" Margin="5" Grid.Row="8" Grid.Column="4" Minimum="-1000" Maximum="1000" />
+
+                  
+                    </Grid>
+                </kfly:KFlyGroupBox>
+            </StackPanel>
+            <kfly:ModalContentPresenter.ModalContent>
+                <kfly:CalibrateSensors></kfly:CalibrateSensors>
+            </kfly:ModalContentPresenter.ModalContent>
+        </kfly:ModalContentPresenter>
+    </kfly:KFlyTab>
+</UserControl>

@@ -82,6 +82,9 @@
     </ApplicationDefinition>
     <Compile Include="Controls\KFlyGroupBox.cs" />
     <Compile Include="MainWindowTitleConverter.cs" />
+    <Compile Include="Tabs\MixerTab.xaml.cs">
+      <DependentUpon>MixerTab.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\Navigation\NavigationTab.xaml.cs">
       <DependentUpon>NavigationTab.xaml</DependentUpon>
     </Compile>
@@ -134,6 +137,10 @@
     <Compile Include="Windows\TestCalibrationWindow.xaml.cs">
       <DependentUpon>TestCalibrationWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Tabs\MixerTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Tabs\Navigation\NavigationTab.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

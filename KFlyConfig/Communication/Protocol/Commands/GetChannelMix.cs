@@ -7,7 +7,7 @@ namespace KFly
 {
     public class GetChannelMix : KFlyCommand
     {
-        private List<byte> _data;
+        public MixerData Data;
 
         public GetChannelMix() : base(KFlyCommandType.GetChannelMix)
         {
@@ -15,12 +15,15 @@ namespace KFly
 
         public override void ParseData(List<byte> data)
         {
-            _data = data;
+            Data = MixerData.FromBytes(data);
         }
 
-        public List<byte> Data
+        public override List<Byte> ToTx()
         {
-            get { return _data; }
+            if (Data == null)
+                return CreateTxWithHeader(new List<byte>());
+            else
+                return CreateTxWithHeader(Data.GetBytes());
         }
     }
 }

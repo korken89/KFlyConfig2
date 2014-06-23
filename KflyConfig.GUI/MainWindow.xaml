@@ -89,6 +89,9 @@
             <Controls:MetroTabItem Header="Inputs" Controls:ControlsHelper.HeaderFontSize="18">
                 <kfly:InputsTab></kfly:InputsTab>
             </Controls:MetroTabItem>
+            <Controls:MetroTabItem Header="Outputs" Controls:ControlsHelper.HeaderFontSize="18">
+                <kfly:MixerTab></kfly:MixerTab>
+            </Controls:MetroTabItem>
             <Controls:MetroTabItem Header="Attitude Controller" Controls:ControlsHelper.HeaderFontSize="18">
                 <kfly:AttitudeControllerTab />
             </Controls:MetroTabItem>
