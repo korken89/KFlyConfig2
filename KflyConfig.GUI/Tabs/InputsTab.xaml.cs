@@ -84,6 +84,10 @@ namespace KFly.GUI
                     DownloadBtn.Dispatcher.BeginInvoke(new Action(() =>
                     {
                         DownloadBtn.IsRotating = false;
+                        if (sr == SendResult.OK)
+                        {
+                            InputBox.IsInSyncWithController = true;
+                        }
                     }));
                 });
             }
@@ -96,6 +100,7 @@ namespace KFly.GUI
                 CalibrationGrid.Dispatcher.Invoke(new Action(() =>
                 {
                     this.DataContext = msg.Data;
+                    InputBox.IsInSyncWithController = true;
                 }));
             });
         }
@@ -110,5 +115,12 @@ namespace KFly.GUI
             Download();
         }
 
+        private void KFlyGroupBox_SourceUpdated(object sender, DataTransferEventArgs e)
+        {
+            if (sender is KFlyGroupBox)
+            {
+                (sender as KFlyGroupBox).IsInSyncWithController = false;
+            }
+        }
     }
 }

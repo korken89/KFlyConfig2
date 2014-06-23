@@ -29,7 +29,9 @@
         </kfly:KFlyTab.Toolbar>
         <kfly:ModalContentPresenter x:Name="MixerModal">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
-                <kfly:KFlyGroupBox DataContext="{Binding NotifyOnTargetUpdated=True}" Header="Mixer" HorizontalAlignment="Left">
+                <kfly:KFlyGroupBox x:Name="MixerBox" DataContext="{Binding NotifyOnTargetUpdated=True}"
+                                   SourceUpdated="KFlyGroupBox_SourceUpdated"
+                                   Header="Mixer" HorizontalAlignment="Left">
                     <Grid x:Name="MixerGrid">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>

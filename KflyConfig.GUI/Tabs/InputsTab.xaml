@@ -29,7 +29,9 @@
         </kfly:KFlyTab.Toolbar>
         <kfly:ModalContentPresenter x:Name="CalibrationModal">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
-                <kfly:KFlyGroupBox DataContext="{Binding NotifyOnTargetUpdated=True}" Header="Calibration" HorizontalAlignment="Left">
+                <kfly:KFlyGroupBox x:Name="InputBox" DataContext="{Binding NotifyOnTargetUpdated=True}"
+                                   SourceUpdated="KFlyGroupBox_SourceUpdated"
+                                   Header="Calibration" HorizontalAlignment="Left">
                     <Grid x:Name="CalibrationGrid">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
