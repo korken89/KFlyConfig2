@@ -115,12 +115,15 @@ namespace KFly.GUI
             Download();
         }
 
-        private void KFlyGroupBox_SourceUpdated(object sender, DataTransferEventArgs e)
+      
+        private void NumericUpDown_ValueChanged(object sender, RoutedEventArgs e)
         {
-            if (sender is KFlyGroupBox)
-            {
-                (sender as KFlyGroupBox).IsInSyncWithController = false;
-            }
+            InputBox.IsInSyncWithController = false;
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            InputBox.IsInSyncWithController = false;
         }
     }
 }

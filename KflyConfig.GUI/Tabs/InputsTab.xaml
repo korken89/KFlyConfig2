@@ -30,7 +30,6 @@
         <kfly:ModalContentPresenter x:Name="CalibrationModal">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
                 <kfly:KFlyGroupBox x:Name="InputBox" DataContext="{Binding NotifyOnTargetUpdated=True}"
-                                   SourceUpdated="KFlyGroupBox_SourceUpdated"
                                    Header="Calibration" HorizontalAlignment="Left">
                     <Grid x:Name="CalibrationGrid">
                         <Grid.RowDefinitions>
@@ -66,50 +65,50 @@
                         <Label Grid.Row="7" Grid.Column="0" Content="Ch. 7" VerticalAlignment="Center" />
                         <Label Grid.Row="8" Grid.Column="0" Content="Ch. 8" VerticalAlignment="Center" />
                         
-                        <metro:NumericUpDown Value="{Binding ChBottoms[0]}" Margin="5" Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="3000" />
-                        <metro:NumericUpDown Value="{Binding ChBottoms[1]}" Margin="5" Grid.Row="2" Grid.Column="1" Minimum="0" Maximum="3000" />
-                        <metro:NumericUpDown Value="{Binding ChBottoms[2]}" Margin="5" Grid.Row="3" Grid.Column="1" Minimum="0" Maximum="3000" />
-                        <metro:NumericUpDown Value="{Binding ChBottoms[3]}" Margin="5" Grid.Row="4" Grid.Column="1" Minimum="0" Maximum="3000" />
-                        <metro:NumericUpDown Value="{Binding ChBottoms[4]}" Margin="5" Grid.Row="5" Grid.Column="1" Minimum="0" Maximum="3000" />
-                        <metro:NumericUpDown Value="{Binding ChBottoms[5]}" Margin="5" Grid.Row="6" Grid.Column="1" Minimum="0" Maximum="3000" />
-                        <metro:NumericUpDown Value="{Binding ChBottoms[6]}" Margin="5" Grid.Row="7" Grid.Column="1" Minimum="0" Maximum="3000" />
-                        <metro:NumericUpDown Value="{Binding ChBottoms[7]}" Margin="5" Grid.Row="8" Grid.Column="1" Minimum="0" Maximum="3000" />
-                        
-                        <metro:NumericUpDown Value="{Binding ChCenters[0]}" Margin="5" Grid.Row="1" Grid.Column="2" Minimum="0" Maximum="3000" />
-                        <metro:NumericUpDown Value="{Binding ChCenters[1]}" Margin="5" Grid.Row="2" Grid.Column="2" Minimum="0" Maximum="3000" />
-                        <metro:NumericUpDown Value="{Binding ChCenters[2]}" Margin="5" Grid.Row="3" Grid.Column="2" Minimum="0" Maximum="3000" />
-                        <metro:NumericUpDown Value="{Binding ChCenters[3]}" Margin="5" Grid.Row="4" Grid.Column="2" Minimum="0" Maximum="3000" />
-                        <metro:NumericUpDown Value="{Binding ChCenters[4]}" Margin="5" Grid.Row="5" Grid.Column="2" Minimum="0" Maximum="3000" />
-                        <metro:NumericUpDown Value="{Binding ChCenters[5]}" Margin="5" Grid.Row="6" Grid.Column="2" Minimum="0" Maximum="3000" />
-                        <metro:NumericUpDown Value="{Binding ChCenters[6]}" Margin="5" Grid.Row="7" Grid.Column="2" Minimum="0" Maximum="3000" />
-                        <metro:NumericUpDown Value="{Binding ChCenters[7]}" Margin="5" Grid.Row="8" Grid.Column="2" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding ChBottoms[0]}" Margin="5" Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding ChBottoms[1]}" Margin="5" Grid.Row="2" Grid.Column="1" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding ChBottoms[2]}" Margin="5" Grid.Row="3" Grid.Column="1" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding ChBottoms[3]}" Margin="5" Grid.Row="4" Grid.Column="1" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding ChBottoms[4]}" Margin="5" Grid.Row="5" Grid.Column="1" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding ChBottoms[5]}" Margin="5" Grid.Row="6" Grid.Column="1" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding ChBottoms[6]}" Margin="5" Grid.Row="7" Grid.Column="1" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding ChBottoms[7]}" Margin="5" Grid.Row="8" Grid.Column="1" Minimum="0" Maximum="3000" />
 
-                        <metro:NumericUpDown Value="{Binding ChTops[0]}" Margin="5" Grid.Row="1" Grid.Column="3" Minimum="0" Maximum="3000" />
-                        <metro:NumericUpDown Value="{Binding ChTops[1]}" Margin="5" Grid.Row="2" Grid.Column="3" Minimum="0" Maximum="3000" />
-                        <metro:NumericUpDown Value="{Binding ChTops[2]}" Margin="5" Grid.Row="3" Grid.Column="3" Minimum="0" Maximum="3000" />
-                        <metro:NumericUpDown Value="{Binding ChTops[3]}" Margin="5" Grid.Row="4" Grid.Column="3" Minimum="0" Maximum="3000" />
-                        <metro:NumericUpDown Value="{Binding ChTops[4]}" Margin="5" Grid.Row="5" Grid.Column="3" Minimum="0" Maximum="3000" />
-                        <metro:NumericUpDown Value="{Binding ChTops[5]}" Margin="5" Grid.Row="6" Grid.Column="3" Minimum="0" Maximum="3000" />
-                        <metro:NumericUpDown Value="{Binding ChTops[6]}" Margin="5" Grid.Row="7" Grid.Column="3" Minimum="0" Maximum="3000" />
-                        <metro:NumericUpDown Value="{Binding ChTops[7]}" Margin="5" Grid.Row="8" Grid.Column="3" Minimum="0" Maximum="3000" />
-                         
-                        <ComboBox SelectedValue="{Binding ChRoles[0]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputRole}" Margin="5" Grid.Row="1" Grid.Column="4" />
-                        <ComboBox SelectedValue="{Binding ChRoles[1]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputRole}" Margin="5" Grid.Row="2" Grid.Column="4" />
-                        <ComboBox SelectedValue="{Binding ChRoles[2]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputRole}" Margin="5" Grid.Row="3" Grid.Column="4" />
-                        <ComboBox SelectedValue="{Binding ChRoles[3]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputRole}" Margin="5" Grid.Row="4" Grid.Column="4" />
-                        <ComboBox SelectedValue="{Binding ChRoles[4]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputRole}" Margin="5" Grid.Row="5" Grid.Column="4" />
-                        <ComboBox SelectedValue="{Binding ChRoles[5]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputRole}" Margin="5" Grid.Row="6" Grid.Column="4" />
-                        <ComboBox SelectedValue="{Binding ChRoles[6]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputRole}" Margin="5" Grid.Row="7" Grid.Column="4" />
-                        <ComboBox SelectedValue="{Binding ChRoles[7]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputRole}" Margin="5" Grid.Row="8" Grid.Column="4" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding ChCenters[0]}" Margin="5" Grid.Row="1" Grid.Column="2" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding ChCenters[1]}" Margin="5" Grid.Row="2" Grid.Column="2" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding ChCenters[2]}" Margin="5" Grid.Row="3" Grid.Column="2" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding ChCenters[3]}" Margin="5" Grid.Row="4" Grid.Column="2" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding ChCenters[4]}" Margin="5" Grid.Row="5" Grid.Column="2" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding ChCenters[5]}" Margin="5" Grid.Row="6" Grid.Column="2" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding ChCenters[6]}" Margin="5" Grid.Row="7" Grid.Column="2" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding ChCenters[7]}" Margin="5" Grid.Row="8" Grid.Column="2" Minimum="0" Maximum="3000" />
 
-                        <ComboBox SelectedValue="{Binding ChTypes[0]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputType}" Margin="5" Grid.Row="1" Grid.Column="5" />
-                        <ComboBox SelectedValue="{Binding ChTypes[1]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputType}" Margin="5" Grid.Row="2" Grid.Column="5" />
-                        <ComboBox SelectedValue="{Binding ChTypes[2]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputType}" Margin="5" Grid.Row="3" Grid.Column="5" />
-                        <ComboBox SelectedValue="{Binding ChTypes[3]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputType}" Margin="5" Grid.Row="4" Grid.Column="5" />
-                        <ComboBox SelectedValue="{Binding ChTypes[4]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputType}" Margin="5" Grid.Row="5" Grid.Column="5" />
-                        <ComboBox SelectedValue="{Binding ChTypes[5]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputType}" Margin="5" Grid.Row="6" Grid.Column="5" />
-                        <ComboBox SelectedValue="{Binding ChTypes[6]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputType}" Margin="5" Grid.Row="7" Grid.Column="5" />
-                        <ComboBox SelectedValue="{Binding ChTypes[7]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputType}" Margin="5" Grid.Row="8" Grid.Column="5" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding ChTops[0]}" Margin="5" Grid.Row="1" Grid.Column="3" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding ChTops[1]}" Margin="5" Grid.Row="2" Grid.Column="3" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding ChTops[2]}" Margin="5" Grid.Row="3" Grid.Column="3" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding ChTops[3]}" Margin="5" Grid.Row="4" Grid.Column="3" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding ChTops[4]}" Margin="5" Grid.Row="5" Grid.Column="3" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding ChTops[5]}" Margin="5" Grid.Row="6" Grid.Column="3" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding ChTops[6]}" Margin="5" Grid.Row="7" Grid.Column="3" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding ChTops[7]}" Margin="5" Grid.Row="8" Grid.Column="3" Minimum="0" Maximum="3000" />
+
+                        <ComboBox SelectionChanged="ComboBox_SelectionChanged" SelectedValue="{Binding ChRoles[0]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputRole}" Margin="5" Grid.Row="1" Grid.Column="4" />
+                        <ComboBox SelectionChanged="ComboBox_SelectionChanged" SelectedValue="{Binding ChRoles[1]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputRole}" Margin="5" Grid.Row="2" Grid.Column="4" />
+                        <ComboBox SelectionChanged="ComboBox_SelectionChanged" SelectedValue="{Binding ChRoles[2]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputRole}" Margin="5" Grid.Row="3" Grid.Column="4" />
+                        <ComboBox SelectionChanged="ComboBox_SelectionChanged" SelectedValue="{Binding ChRoles[3]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputRole}" Margin="5" Grid.Row="4" Grid.Column="4" />
+                        <ComboBox SelectionChanged="ComboBox_SelectionChanged" SelectedValue="{Binding ChRoles[4]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputRole}" Margin="5" Grid.Row="5" Grid.Column="4" />
+                        <ComboBox SelectionChanged="ComboBox_SelectionChanged" SelectedValue="{Binding ChRoles[5]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputRole}" Margin="5" Grid.Row="6" Grid.Column="4" />
+                        <ComboBox SelectionChanged="ComboBox_SelectionChanged" SelectedValue="{Binding ChRoles[6]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputRole}" Margin="5" Grid.Row="7" Grid.Column="4" />
+                        <ComboBox SelectionChanged="ComboBox_SelectionChanged" SelectedValue="{Binding ChRoles[7]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputRole}" Margin="5" Grid.Row="8" Grid.Column="4" />
+
+                        <ComboBox SelectionChanged="ComboBox_SelectionChanged" SelectedValue="{Binding ChTypes[0]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputType}" Margin="5" Grid.Row="1" Grid.Column="5" />
+                        <ComboBox SelectionChanged="ComboBox_SelectionChanged" SelectedValue="{Binding ChTypes[1]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputType}" Margin="5" Grid.Row="2" Grid.Column="5" />
+                        <ComboBox SelectionChanged="ComboBox_SelectionChanged" SelectedValue="{Binding ChTypes[2]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputType}" Margin="5" Grid.Row="3" Grid.Column="5" />
+                        <ComboBox SelectionChanged="ComboBox_SelectionChanged" SelectedValue="{Binding ChTypes[3]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputType}" Margin="5" Grid.Row="4" Grid.Column="5" />
+                        <ComboBox SelectionChanged="ComboBox_SelectionChanged" SelectedValue="{Binding ChTypes[4]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputType}" Margin="5" Grid.Row="5" Grid.Column="5" />
+                        <ComboBox SelectionChanged="ComboBox_SelectionChanged" SelectedValue="{Binding ChTypes[5]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputType}" Margin="5" Grid.Row="6" Grid.Column="5" />
+                        <ComboBox SelectionChanged="ComboBox_SelectionChanged" SelectedValue="{Binding ChTypes[6]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputType}" Margin="5" Grid.Row="7" Grid.Column="5" />
+                        <ComboBox SelectionChanged="ComboBox_SelectionChanged" SelectedValue="{Binding ChTypes[7]}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputType}" Margin="5" Grid.Row="8" Grid.Column="5" />
 
                     </Grid>
                 </kfly:KFlyGroupBox>

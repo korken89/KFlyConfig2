@@ -30,7 +30,6 @@
         <kfly:ModalContentPresenter x:Name="MixerModal">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
                 <kfly:KFlyGroupBox x:Name="MixerBox" DataContext="{Binding NotifyOnTargetUpdated=True}"
-                                   SourceUpdated="KFlyGroupBox_SourceUpdated"
                                    Header="Mixer" HorizontalAlignment="Left">
                     <Grid x:Name="MixerGrid">
                         <Grid.RowDefinitions>
@@ -64,41 +63,41 @@
                         <Label Grid.Row="7" Grid.Column="0" Content="Ch. 7" VerticalAlignment="Center" />
                         <Label Grid.Row="8" Grid.Column="0" Content="Ch. 8" VerticalAlignment="Center" />
                         
-                        <metro:NumericUpDown Value="{Binding Throttle[0]}" Margin="5" Grid.Row="1" Grid.Column="1" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Throttle[1]}" Margin="5" Grid.Row="2" Grid.Column="1" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Throttle[2]}" Margin="5" Grid.Row="3" Grid.Column="1" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Throttle[3]}" Margin="5" Grid.Row="4" Grid.Column="1" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Throttle[4]}" Margin="5" Grid.Row="5" Grid.Column="1" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Throttle[5]}" Margin="5" Grid.Row="6" Grid.Column="1" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Throttle[6]}" Margin="5" Grid.Row="7" Grid.Column="1" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Throttle[7]}" Margin="5" Grid.Row="8" Grid.Column="1" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Throttle[0]}" Margin="5" Grid.Row="1" Grid.Column="1" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Throttle[1]}" Margin="5" Grid.Row="2" Grid.Column="1" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Throttle[2]}" Margin="5" Grid.Row="3" Grid.Column="1" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Throttle[3]}" Margin="5" Grid.Row="4" Grid.Column="1" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Throttle[4]}" Margin="5" Grid.Row="5" Grid.Column="1" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Throttle[5]}" Margin="5" Grid.Row="6" Grid.Column="1" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Throttle[6]}" Margin="5" Grid.Row="7" Grid.Column="1" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Throttle[7]}" Margin="5" Grid.Row="8" Grid.Column="1" Minimum="-1000" Maximum="1000" />
 
-                        <metro:NumericUpDown Value="{Binding Pitch[0]}" Margin="5" Grid.Row="1" Grid.Column="2" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Pitch[1]}" Margin="5" Grid.Row="2" Grid.Column="2" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Pitch[2]}" Margin="5" Grid.Row="3" Grid.Column="2" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Pitch[3]}" Margin="5" Grid.Row="4" Grid.Column="2" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Pitch[4]}" Margin="5" Grid.Row="5" Grid.Column="2" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Pitch[5]}" Margin="5" Grid.Row="6" Grid.Column="2" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Pitch[6]}" Margin="5" Grid.Row="7" Grid.Column="2" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Pitch[7]}" Margin="5" Grid.Row="8" Grid.Column="2" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Pitch[0]}" Margin="5" Grid.Row="1" Grid.Column="2" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Pitch[1]}" Margin="5" Grid.Row="2" Grid.Column="2" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Pitch[2]}" Margin="5" Grid.Row="3" Grid.Column="2" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Pitch[3]}" Margin="5" Grid.Row="4" Grid.Column="2" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Pitch[4]}" Margin="5" Grid.Row="5" Grid.Column="2" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Pitch[5]}" Margin="5" Grid.Row="6" Grid.Column="2" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Pitch[6]}" Margin="5" Grid.Row="7" Grid.Column="2" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Pitch[7]}" Margin="5" Grid.Row="8" Grid.Column="2" Minimum="-1000" Maximum="1000" />
 
-                        <metro:NumericUpDown Value="{Binding Roll[0]}" Margin="5" Grid.Row="1" Grid.Column="3" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Roll[1]}" Margin="5" Grid.Row="2" Grid.Column="3" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Roll[2]}" Margin="5" Grid.Row="3" Grid.Column="3" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Roll[3]}" Margin="5" Grid.Row="4" Grid.Column="3" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Roll[4]}" Margin="5" Grid.Row="5" Grid.Column="3" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Roll[5]}" Margin="5" Grid.Row="6" Grid.Column="3" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Roll[6]}" Margin="5" Grid.Row="7" Grid.Column="3" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Roll[7]}" Margin="5" Grid.Row="8" Grid.Column="3" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Roll[0]}" Margin="5" Grid.Row="1" Grid.Column="3" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Roll[1]}" Margin="5" Grid.Row="2" Grid.Column="3" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Roll[2]}" Margin="5" Grid.Row="3" Grid.Column="3" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Roll[3]}" Margin="5" Grid.Row="4" Grid.Column="3" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Roll[4]}" Margin="5" Grid.Row="5" Grid.Column="3" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Roll[5]}" Margin="5" Grid.Row="6" Grid.Column="3" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Roll[6]}" Margin="5" Grid.Row="7" Grid.Column="3" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Roll[7]}" Margin="5" Grid.Row="8" Grid.Column="3" Minimum="-1000" Maximum="1000" />
 
-                        <metro:NumericUpDown Value="{Binding Yaw[0]}" Margin="5" Grid.Row="1" Grid.Column="4" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Yaw[1]}" Margin="5" Grid.Row="2" Grid.Column="4" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Yaw[2]}" Margin="5" Grid.Row="3" Grid.Column="4" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Yaw[3]}" Margin="5" Grid.Row="4" Grid.Column="4" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Yaw[4]}" Margin="5" Grid.Row="5" Grid.Column="4" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Yaw[5]}" Margin="5" Grid.Row="6" Grid.Column="4" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Yaw[6]}" Margin="5" Grid.Row="7" Grid.Column="4" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown Value="{Binding Yaw[7]}" Margin="5" Grid.Row="8" Grid.Column="4" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Yaw[0]}" Margin="5" Grid.Row="1" Grid.Column="4" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Yaw[1]}" Margin="5" Grid.Row="2" Grid.Column="4" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Yaw[2]}" Margin="5" Grid.Row="3" Grid.Column="4" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Yaw[3]}" Margin="5" Grid.Row="4" Grid.Column="4" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Yaw[4]}" Margin="5" Grid.Row="5" Grid.Column="4" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Yaw[5]}" Margin="5" Grid.Row="6" Grid.Column="4" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Yaw[6]}" Margin="5" Grid.Row="7" Grid.Column="4" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Yaw[7]}" Margin="5" Grid.Row="8" Grid.Column="4" Minimum="-1000" Maximum="1000" />
 
                   
                     </Grid>
