@@ -23,7 +23,8 @@ namespace KFly
         ExitBootloader = 16,   /* Bootloader specific, shall always require ACK */
         [SelfAck]
         GetDeviceInfo = 17,
-        SaveToFlash = 18,
+        SetDeviceString = 18,
+        SaveToFlash = 19,
         
         [SelfAck]
         GetRateControllerData = 30,
