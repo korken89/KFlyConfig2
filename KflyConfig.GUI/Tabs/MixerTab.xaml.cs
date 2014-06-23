@@ -91,7 +91,7 @@ namespace KFly.GUI
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Telemetry.Subscribe(KFlyCommandType.GetRCCalibration, (GetRCCalibration msg) =>
+            Telemetry.Subscribe(KFlyCommandType.GetChannelMix, (GetChannelMix msg) =>
             {
                 MixerGrid.Dispatcher.Invoke(new Action(() =>
                 {
