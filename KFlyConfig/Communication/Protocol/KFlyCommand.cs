@@ -186,6 +186,9 @@ namespace KFly
                     case KFlyCommandType.GetSensorCalibration:
                         cmd = new GetSensorCalibration();
                         break;
+                    case KFlyCommandType.GetChannelMix:
+                        cmd = new GetChannelMix();
+                        break;
                     case KFlyCommandType.GetRCCalibration:
                         cmd = new GetRCCalibration();
                         break;
