@@ -6,7 +6,7 @@ using System.Text;
 namespace KFly
 {
     /// <summary>
-    /// Dummy class for not implemented messages
+    /// A collection of several commands
     /// </summary>
     public class CmdCollection : KFlyCommand
     {
@@ -20,6 +20,18 @@ namespace KFly
             : base(KFlyCommandType.None)
         {
             Cmds = cmds;
+        }
+
+        public override bool AffectsSettingsOnCard()
+        {
+            Boolean res = false;
+            foreach (KFlyCommand cmd in Cmds)
+            {
+                res = res || cmd.AffectsSettingsOnCard();
+                if (cmd.Type == KFlyCommandType.SaveToFlash)
+                    res = false;
+            }
+            return res;
         }
 
         public override String ToString()

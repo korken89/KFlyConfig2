@@ -36,6 +36,15 @@ namespace KFly.GUI
             InitializeComponent();
         }
 
+        public static MainWindow Find(Visual child)
+        {
+            var p = child.GetParentObject();
+            while (p != null && !(p is MainWindow))
+            {
+                p = p.GetParentObject();
+            }
+            return p as MainWindow;
+        }
         
 
         private void Window_Initialized(object sender, EventArgs e)
@@ -74,9 +83,18 @@ namespace KFly.GUI
                         {
                             ConnectionStatusIcon.Content = FindResource("disconnected");
                         }
+                        SaveToFlashPanel.Visibility = (!Telemetry.Saved && Telemetry.IsConnected) ? 
+                            Visibility.Visible : Visibility.Visible;
                     }));
             });
 
+            Telemetry.Subscribe(KFlyCommandType.SaveStatusChanged, (SaveStatusChanged cmd) =>
+            {
+                SaveToFlashPanel.Dispatcher.BeginInvoke((Action)(() =>
+                {
+                    SaveToFlashPanel.Visibility = (!cmd.Saved && Telemetry.IsConnected) ? Visibility.Visible : Visibility.Visible; 
+                }));
+            });
         }
 
         
@@ -131,6 +149,21 @@ namespace KFly.GUI
                     SCTab.DataContext = data;
                 }
             }
+        }
+
+        private void SaveToFlashBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Telemetry.SendAsyncWithAck(new SaveToFlash(), 1000, (SendResult result) =>
+            {
+                if (result == SendResult.OK)
+                {
+                    LogManager.LogInfoLine("All settings saved to flash");
+                }
+                else
+                {
+                    LogManager.LogErrorLine("Failed saving to flash");
+                }
+            });
         }
 
     }

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace KFly.GUI
 {
@@ -41,36 +42,29 @@ namespace KFly.GUI
                     UpdateFirmwareInfo();
                 }
             });
-          /*  Telemetry.Subscribe(KFlyCommandType.GetBootloaderVersion, (GetBootLoaderVersion msg) =>
-            {
-                BootloaderVersionLabel.Dispatcher.Invoke(new Action(() => {
-                    BootloaderVersionLabel.Content = msg.Version;
-                }));
-                LogManager.LogInfoLine("Bootloader version received: " + msg.Version);  
-            });
-            Telemetry.Subscribe(KFlyCommandType.GetFirmwareVersion, (GetFirmwareVersion msg) =>
-            {
-                FirmwareVersionLabel.Dispatcher.Invoke(new Action(() =>
-                {
-                    FirmwareVersionLabel.Content = msg.Version;
-                }));
-                LogManager.LogInfoLine("Firmware version received: " + msg.Version);
-            });*/
         }
 
-        private void WriteToFlash_Click(object sender, RoutedEventArgs e)
+        private async void ChangeUserIdBtn_Click(object sender, RoutedEventArgs e)
         {
-            Telemetry.SendAsyncWithAck(new SaveToFlash(), 500, (SendResult result) =>
+            MainWindow mw = MainWindow.Find(this);
+            if (mw != null)
             {
-                if (result == SendResult.OK)
+                var re = await mw.ShowInputAsync("Set user device id", "maximum 100 characters");
+                if (re != null)
                 {
-                    MessageBox.Show("All settings saved to flash", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Telemetry.SendAsyncWithAck(new SetDeviceString(re), 1000, (SendResult res) =>
+                        {
+                            if (res == SendResult.OK)
+                            {
+                                LogManager.LogInfoLine("User device id set to: " + res);
+                            }
+                            else
+                            {
+                                LogManager.LogErrorLine("Failed uploading new user device id");
+                            }
+                        });
                 }
-                else
-                {
-                    MessageBox.Show("Failed saving to flash", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            });
+            }
         }
 
 

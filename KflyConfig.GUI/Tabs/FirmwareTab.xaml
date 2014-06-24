@@ -10,34 +10,55 @@
              mc:Ignorable="d" 
              d:DesignHeight="536" d:DesignWidth="622">
     <kfly:KFlyTab Title="Firmware" BackgroundImage="../Resources/chip.png">
-    <StackPanel>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Content="Bootloader version:" />
-            <Label x:Name="BootloaderVersionLabel" Grid.Row="0" Grid.Column="1" Content="{Binding BootloaderVersion}" />
-            <Label Grid.Row="1" Grid.Column="0" Content="Firmware version:"/>
-            <Label x:Name="FirmwareVersionLabel" Grid.Row="1" Grid.Column="1" Content="{Binding FirmwareVersion}" />
-        </Grid>
-        <Label Content="Update firmware" Margin="0,10,0,0" FontSize="16" />
-        <WrapPanel>
-            <TextBox Width="300" Grid.Row="1" Grid.Column="0"  metro:TextboxHelper.Watermark="Path to file" VerticalAlignment="Center" />
-            <Button Margin="5" Content="Browse" />
-        </WrapPanel>
-        <WrapPanel>
-            <Button Margin="5"  Content="Program" />
-            <Button Margin="5"  Content="Verify" />
-            <Button Margin="5"  Content="Exit Bootloader" />
-            <Button x:Name="WriteToFlash" Click="WriteToFlash_Click" Margin="5"  Content="Write To Flash" />
-        </WrapPanel>
-    </StackPanel>
+        <StackPanel>
+            <kfly:KFlyGroupBox x:Name="FirmwareInfoBox" DataContext="{Binding NotifyOnTargetUpdated=True}"
+                                   Header="Mixer" HorizontalAlignment="Left">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Content="Bootloader version:" />
+                    <Label x:Name="BootloaderVersionLabel" Grid.Row="0" Grid.Column="1" Content="{Binding BootloaderVersion}" />
+                    <Label Grid.Row="1" Grid.Column="0" Content="Firmware version:"/>
+                    <Label x:Name="FirmwareVersionLabel" Grid.Row="1" Grid.Column="1" Content="{Binding FirmwareVersion}" />
+                    <Label Grid.Row="2" Grid.Column="0" Content="User card info:"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1">
+                        <Label Content="{Binding UserId}" />
+                        <kfly:KFlyCircleButton x:Name="ChangeUserIdBtn"
+                                               Click="ChangeUserIdBtn_Click"
+                                           ToolTipService.InitialShowDelay="0"
+                                           Width="30" Height="30" Icon="{StaticResource appbar_edit}">
+                            <kfly:KFlyCircleButton.ToolTip>
+                                <ToolTip>
+                                    <StackPanel>
+                                        <TextBlock FontWeight="Bold">Sets user defined card info</TextBlock>
+                                        <TextBlock>Use it to differentiate cards on different flying machines</TextBlock>
+                                    </StackPanel>
+                                </ToolTip>
+                            </kfly:KFlyCircleButton.ToolTip>
+                        </kfly:KFlyCircleButton>
+                    </StackPanel>
+                </Grid>
+            </kfly:KFlyGroupBox>
+            <Label Content="Update firmware" Margin="0,10,0,0" FontSize="16" />
+            <WrapPanel>
+                <TextBox Width="300" Grid.Row="1" Grid.Column="0"  metro:TextboxHelper.Watermark="Path to file" VerticalAlignment="Center" />
+                <Button Margin="5" Content="Browse" />
+            </WrapPanel>
+            <WrapPanel>
+                <Button Margin="5"  Content="Program" />
+                <Button Margin="5"  Content="Verify" />
+                <Button Margin="5"  Content="Exit Bootloader" />
+                <Button x:Name="WriteToFlash" Click="WriteToFlash_Click" Margin="5"  Content="Write To Flash" />
+            </WrapPanel>
+        </StackPanel>
     </kfly:KFlyTab>
 </UserControl>
 

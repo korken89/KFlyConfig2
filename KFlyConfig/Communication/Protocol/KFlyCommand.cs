@@ -28,26 +28,33 @@ namespace KFly
 
         [SelfAck]
         GetArmSettings = 28,
+        [AffectSettingsOnCard]
         SetArmSettings = 29,
 
         [SelfAck]
         GetRateControllerData = 30,
+        [AffectSettingsOnCard]
         SetRateControllerData = 31,
         [SelfAck]
         GetAttitudeControllerData = 32,
-  	    SetAttitudeControllerData = 33,
+        [AffectSettingsOnCard]
+        SetAttitudeControllerData = 33,
         [SelfAck]
         GetVelocityControllerData = 34,
-	    SetVelocityControllerData = 35,
+        [AffectSettingsOnCard]
+        SetVelocityControllerData = 35,
         [SelfAck]
         GetPositionControllerData = 36,
+        [AffectSettingsOnCard]
         SetPositionControllerData = 37,
         // 38 Excluded, will be sync when combined with ACK which is forbidden
         [SelfAck]
         GetChannelMix = 39,
+        [AffectSettingsOnCard]
         SetChannelMix = 40,
         [SelfAck]
         GetRCCalibration = 41,
+        [AffectSettingsOnCard]
         SetRCCalibration = 42,
         [SelfAck]
         GetRCValues = 43,
@@ -56,6 +63,7 @@ namespace KFly
         GetRawSensorData = 45,
         [SelfAck]
         GetSensorCalibration = 46,
+        [AffectSettingsOnCard]
         SetSensorCalibration = 47,
 
         [SelfAck]
@@ -75,6 +83,7 @@ namespace KFly
         All = 120, //To subscribe everything
         ConnectionStatusChanged = 121, //Connection status has changed
         ConnectionStatistics = 122, //Info about the connection, sent every 2 seconds while connected
+        SaveStatusChanged = 123, //The cards save status (settings) have changed
     };
 
     public abstract class KFlyCommand
@@ -150,6 +159,11 @@ namespace KFly
 
         public virtual void ParseData(List<byte> data)
         {
+        }
+
+        public virtual Boolean AffectsSettingsOnCard()
+        {
+            return AffectSettingsOnCard.AppliesTo(Type);
         }
 
         public override String ToString()

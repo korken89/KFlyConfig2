@@ -13,6 +13,22 @@ namespace KFly
     /// </summary>
     public static class Telemetry
     {
+        private static Boolean _saved = true;
+
+        public static Boolean Saved
+        {
+            get { return _saved; }
+            set 
+            {
+                if (_saved != value)
+                {
+                    Telemetry.Handle(new SaveStatusChanged(value));
+                    _saved = value;
+                }
+
+            }
+        }
+
         #region Connection
             private static TelemetrySerialPort _link = new TelemetrySerialPort();
 

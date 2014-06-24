@@ -51,6 +51,8 @@
     <Compile Include="Communication\Protocol\Commands\ConnectionStatistics.cs" />
     <Compile Include="Communication\Protocol\Commands\ACK.cs" />
     <Compile Include="Communication\Protocol\Commands\CmdCollection.cs" />
+    <Compile Include="Communication\Protocol\Commands\SetDeviceString.cs" />
+    <Compile Include="Communication\Protocol\Commands\SaveStatusChanged.cs" />
     <Compile Include="Communication\Protocol\Commands\SetArmSettings.cs" />
     <Compile Include="Communication\Protocol\Commands\GetArmSettings.cs" />
     <Compile Include="Communication\Protocol\Commands\GetEstimationAttitude.cs" />
@@ -74,6 +76,7 @@
     <Compile Include="Communication\Protocol\Commands\SetChannelMix.cs" />
     <Compile Include="Communication\Protocol\Commands\SetControllerData.cs" />
     <Compile Include="Communication\Protocol\Commands\SetRCCalibration.cs" />
+    <Compile Include="Communication\Protocol\AffectSettingsOnCard.cs" />
     <Compile Include="Communication\Protocol\KFlyCommand.cs" />
     <Compile Include="Communication\SerialPort\Baudrate.cs" />
     <Compile Include="Communication\SerialPort\ConnectionStatus.cs" />

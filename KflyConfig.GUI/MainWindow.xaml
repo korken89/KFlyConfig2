@@ -73,6 +73,20 @@
 
     <DockPanel LastChildFill="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <kfly:LogPanel DockPanel.Dock="Bottom" Height="30" />
+        <Grid x:Name="SaveToFlashPanel" HorizontalAlignment="Stretch" 
+                    Background="Orange" Visibility="Visible"
+                    VerticalAlignment="Center" DockPanel.Dock="Bottom" Height="40">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="SaveToFlashBtn" Background="{DynamicResource AccentColorBrush}"  
+                        Click="SaveToFlashBtn_Click"
+                        Padding="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <kfly:KFlyCircleButton VerticalAlignment="Center" Width="30" Height="30" Icon="{StaticResource appbar_save}"/>
+                        <Label VerticalAlignment="Center" Content="Save changes to flash" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
         <TabControl Name="TabControl" SelectionChanged="TabControl_SelectionChanged" Margin="0,0,0,0" TabStripPlacement="Left">
             <TabControl.Resources>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedSingleRowTabControl.xaml" />

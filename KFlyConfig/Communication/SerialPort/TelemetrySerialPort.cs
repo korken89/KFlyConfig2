@@ -329,6 +329,18 @@ namespace KFly
             return res;
         }
 
+        private void _updateSaveStatus(KFlyCommand cmd)
+        {
+            if (cmd.Type == KFlyCommandType.SaveToFlash)
+            {
+                Telemetry.Saved = true;
+            }
+            else if (cmd.AffectsSettingsOnCard())
+            {
+                Telemetry.Saved = false;
+            } 
+        }
+
         private void _senderLoop(object obj)
         {
             Clear(_sendBuffer);
@@ -342,8 +354,12 @@ namespace KFly
                         SendResult res;
                         if (cmd is CmdCollection)
                             res = _sendMultiCmdWithAck((cmd as CmdCollection));
-                       else
+                        else
                             res = _sendSingleCmdWithAck(cmd);
+                        if (res == SendResult.OK)
+                        {
+                            _updateSaveStatus(cmd);
+                        }
                         if (cmd.ActionAfterAck != null)
                         {
                             Task.Run(() =>
@@ -360,6 +376,7 @@ namespace KFly
                     {
                         LogManager.LogDebugLine("Sending " + cmd.ToString());
                         List<byte> data = cmd.ToTx();
+                        _updateSaveStatus(cmd);
                         var count = data.Count;
                         _totalOut += (uint)count;
                         _serialPort.Write(data.ToArray(), 0, count);
