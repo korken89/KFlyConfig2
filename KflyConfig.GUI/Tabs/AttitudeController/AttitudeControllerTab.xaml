@@ -86,7 +86,7 @@
                         </StackPanel>
                     </StackPanel>
                     <kfly:KFlyCircleButton Grid.Column="4" Grid.Row="3" x:Name="YawInfoBtn"
-                                           ToolTipService.InitialShowDelay="0"
+                                           ToolTipService.InitialShowDelay="0" ToolTipService.ShowDuration="60000"
                                            Width="30" Height="30" Icon="{StaticResource appbar_information}">
                         <kfly:KFlyCircleButton.ToolTip>
                             <ToolTip>
