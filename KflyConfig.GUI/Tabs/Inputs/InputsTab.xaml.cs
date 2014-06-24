@@ -104,10 +104,10 @@ namespace KFly.GUI
             });
             Telemetry.Subscribe(KFlyCommandType.GetArmSettings, (GetArmSettings msg) =>
             {
-                CalibrationGrid.Dispatcher.Invoke(new Action(() =>
+                ArmingGrid.Dispatcher.Invoke(new Action(() =>
                 {
                     (this.DataContext as InputsTabData).ArmingData = msg.Data;
-                    InputBox.IsInSyncWithController = true;
+                    ArmingBox.IsInSyncWithController = true;
                 }));
             });
         }
