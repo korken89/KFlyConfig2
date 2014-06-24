@@ -200,6 +200,9 @@ namespace KFly
                     case KFlyCommandType.GetRCValues:
                         cmd = new GetRCValues();
                         break;
+                    case KFlyCommandType.GetArmSettings:
+                        cmd = new GetArmSettings();
+                        break;
                     case KFlyCommandType.ACK:
                         cmd = new Ack();
                         break;
