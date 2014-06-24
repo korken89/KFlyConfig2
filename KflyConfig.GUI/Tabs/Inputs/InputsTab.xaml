@@ -138,7 +138,7 @@
                         <metro:NumericUpDown Value="{Binding ArmedMinThrottle, NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="30" />
                         <ComboBox SelectedValue="{Binding StickDirection, NotifyOnSourceUpdated=True}" ItemsSource="{kfly:EnumValues kflyconfig:ArmingStickDirection}" Margin="5" Grid.Row="2" Grid.Column="1" />
                         <metro:NumericUpDown Value="{Binding ArmStickTime, NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="3" Grid.Column="1" Minimum="0" Maximum="255" />
-                        <metro:NumericUpDown Value="{Binding ArmZeroThrottleTime, NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="4" Grid.Column="1" Minimum="0" Maximum="255" />
+                        <metro:NumericUpDown Value="{Binding ArmZeroThrottleTimeout, NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="4" Grid.Column="1" Minimum="0" Maximum="255" />
                     </Grid>
                 </kfly:KFlyGroupBox>
             </StackPanel>

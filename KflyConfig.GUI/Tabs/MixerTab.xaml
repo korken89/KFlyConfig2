@@ -63,11 +63,11 @@
                         <Label Grid.Row="7" Grid.Column="0" Content="Ch. 7" VerticalAlignment="Center" />
                         <Label Grid.Row="8" Grid.Column="0" Content="Ch. 8" VerticalAlignment="Center" />
                         
-                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Throttle[0]}" Margin="5" Grid.Row="1" Grid.Column="1" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Throttle[1]}" Margin="5" Grid.Row="2" Grid.Column="1" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Throttle[2]}" Margin="5" Grid.Row="3" Grid.Column="1" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Throttle[3]}" Margin="5" Grid.Row="4" Grid.Column="1" Minimum="-1000" Maximum="1000" />
-                        <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Throttle[4]}" Margin="5" Grid.Row="5" Grid.Column="1" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Throttle[0]}" Margin="5" Grid.Row="1" Grid.Column="1" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Throttle[1]}" Margin="5" Grid.Row="2" Grid.Column="1" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Throttle[2]}" Margin="5" Grid.Row="3" Grid.Column="1" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Throttle[3]}" Margin="5" Grid.Row="4" Grid.Column="1" Minimum="-1000" Maximum="1000" />
+                        <metro:NumericUpDown Value="{Binding Throttle[4]}" Margin="5" Grid.Row="5" Grid.Column="1" Minimum="-1000" Maximum="1000" />
                         <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Throttle[5]}" Margin="5" Grid.Row="6" Grid.Column="1" Minimum="-1000" Maximum="1000" />
                         <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Throttle[6]}" Margin="5" Grid.Row="7" Grid.Column="1" Minimum="-1000" Maximum="1000" />
                         <metro:NumericUpDown ValueChanged="NumericUpDown_ValueChanged" Value="{Binding Throttle[7]}" Margin="5" Grid.Row="8" Grid.Column="1" Minimum="-1000" Maximum="1000" />
