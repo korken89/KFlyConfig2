@@ -24,7 +24,10 @@ namespace KFly
         [SelfAck]
         GetDeviceInfo = 17,
         SaveToFlash = 18,
-        
+
+        [SelfAck]
+        GetArmSettings = 28,
+        SetArmSettings = 29,
         [SelfAck]
         GetRateControllerData = 30,
         SetRateControllerData = 31,

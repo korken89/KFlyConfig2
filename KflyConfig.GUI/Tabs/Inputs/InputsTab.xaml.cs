@@ -24,8 +24,7 @@ namespace KFly.GUI
         public InputsTab()
         {
             InitializeComponent();
-            this.DataContext = new RCCalibrationData();
-      
+            this.DataContext = new InputsTabData(); 
         }
 
         private Boolean _isUpToDate = false;
@@ -45,8 +44,9 @@ namespace KFly.GUI
             if (!UploadBtn.IsRotating)
             {
                 UploadBtn.IsRotating = true;
-                var cmd = new SetRCCalibration(this.DataContext as RCCalibrationData);
-                Telemetry.SendAsyncWithAck(cmd, 1000, (SendResult sr) =>
+                var cmd = new SetRCCalibration((this.DataContext as InputsTabData).CalibrationData);
+                var cmd2 = new SetArmSettings((this.DataContext as InputsTabData).ArmingData);
+                Telemetry.SendAsyncWithAck(new CmdCollection(cmd, cmd2), 1000, (SendResult sr) =>
                 {
                     if (sr == SendResult.OK)
                     {
@@ -59,6 +59,8 @@ namespace KFly.GUI
                     UploadBtn.Dispatcher.BeginInvoke(new Action(() =>
                     {
                         UploadBtn.IsRotating = false;
+                        ArmingBox.IsInSyncWithController = true;
+                        InputBox.IsInSyncWithController = true;
                     }));
                 });
             }
@@ -70,7 +72,8 @@ namespace KFly.GUI
             if (!DownloadBtn.IsRotating)
             {
                 DownloadBtn.IsRotating = true;
-                Telemetry.SendAsyncWithAck(new GetRCCalibration(), 1000, (SendResult sr) =>
+                Telemetry.SendAsyncWithAck(new CmdCollection(new GetRCCalibration(), new GetArmSettings())
+                    , 1000, (SendResult sr) =>
                 {
                     if (sr == SendResult.OK)
                     {
@@ -84,10 +87,6 @@ namespace KFly.GUI
                     DownloadBtn.Dispatcher.BeginInvoke(new Action(() =>
                     {
                         DownloadBtn.IsRotating = false;
-                        if (sr == SendResult.OK)
-                        {
-                            InputBox.IsInSyncWithController = true;
-                        }
                     }));
                 });
             }
@@ -99,7 +98,15 @@ namespace KFly.GUI
             {
                 CalibrationGrid.Dispatcher.Invoke(new Action(() =>
                 {
-                    this.DataContext = msg.Data;
+                    (this.DataContext as InputsTabData).CalibrationData = msg.Data;
+                    InputBox.IsInSyncWithController = true;
+                }));
+            });
+            Telemetry.Subscribe(KFlyCommandType.GetArmSettings, (GetArmSettings msg) =>
+            {
+                CalibrationGrid.Dispatcher.Invoke(new Action(() =>
+                {
+                    (this.DataContext as InputsTabData).ArmingData = msg.Data;
                     InputBox.IsInSyncWithController = true;
                 }));
             });
@@ -115,15 +122,16 @@ namespace KFly.GUI
             Download();
         }
 
-      
-        private void NumericUpDown_ValueChanged(object sender, RoutedEventArgs e)
+
+
+        private void InputBox_SourceUpdated(object sender, DataTransferEventArgs e)
         {
             InputBox.IsInSyncWithController = false;
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ArmingBox_SourceUpdated(object sender, DataTransferEventArgs e)
         {
-            InputBox.IsInSyncWithController = false;
+            ArmingBox.IsInSyncWithController = false;
         }
     }
 }

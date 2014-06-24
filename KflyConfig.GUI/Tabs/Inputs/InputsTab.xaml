@@ -1,0 +1,150 @@
+﻿<UserControl x:Class="KFly.GUI.InputsTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:kfly="clr-namespace:KFly.GUI"    
+             xmlns:kflyconfig="clr-namespace:KFly;assembly=KFlyConfig"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             Loaded="UserControl_Loaded"
+             mc:Ignorable="d" 
+             Background="White"
+             d:DesignHeight="536" d:DesignWidth="622">
+    <kfly:KFlyTab Title="Inputs" TabStateChanged="KFlyTab_TabStateChanged"
+                  BackgroundImage="../../Resources/joystick.png">
+        <kfly:KFlyTab.Toolbar>
+            <StackPanel Orientation="Horizontal">
+                <kfly:KFlyCircleButton x:Name="UploadBtn"
+                                   Click="UploadBtn_Click"
+                                   Margin="15,0,15,0"
+                                   Icon="{StaticResource appbar_arrow_up}"
+                                   ToolTip="Upload calibration to controller" 
+                                   Width="40" Height="40" />
+                <kfly:KFlyCircleButton x:Name="DownloadBtn"
+                                   Click="DownloadBtn_Click"
+                                   Icon="{StaticResource appbar_arrow_down}"
+                                   ToolTip="Refresh" 
+                                   Width="40" Height="40" />
+            </StackPanel>
+        </kfly:KFlyTab.Toolbar>
+        <kfly:ModalContentPresenter x:Name="CalibrationModal">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
+                <kfly:KFlyGroupBox x:Name="InputBox" DataContext="{Binding CalibrationData, NotifyOnTargetUpdated=True}"
+                                   SourceUpdated="InputBox_SourceUpdated"
+                                   Header="Calibration" HorizontalAlignment="Left">
+                    <Grid x:Name="CalibrationGrid">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="150" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="1" Content="Min" HorizontalAlignment="Center" />
+                        <Label Grid.Row="0" Grid.Column="2" Content="Center" HorizontalAlignment="Center" />
+                        <Label Grid.Row="0" Grid.Column="3" Content="Max" HorizontalAlignment="Center"/>
+                        <Label Grid.Row="0" Grid.Column="4" Content="Role" HorizontalAlignment="Center" />
+                        <Label Grid.Row="0" Grid.Column="5" Content="Type" HorizontalAlignment="Center" />
+                        <Label Grid.Row="1" Grid.Column="0" Content="Ch. 1" VerticalAlignment="Center" />
+                        <Label Grid.Row="2" Grid.Column="0" Content="Ch. 2" VerticalAlignment="Center" />
+                        <Label Grid.Row="3" Grid.Column="0" Content="Ch. 3" VerticalAlignment="Center" />
+                        <Label Grid.Row="4" Grid.Column="0" Content="Ch. 4" VerticalAlignment="Center" />
+                        <Label Grid.Row="5" Grid.Column="0" Content="Ch. 5" VerticalAlignment="Center" />
+                        <Label Grid.Row="6" Grid.Column="0" Content="Ch. 6" VerticalAlignment="Center" />
+                        <Label Grid.Row="7" Grid.Column="0" Content="Ch. 7" VerticalAlignment="Center" />
+                        <Label Grid.Row="8" Grid.Column="0" Content="Ch. 8" VerticalAlignment="Center" />
+
+                        <metro:NumericUpDown Value="{Binding ChBottoms[0], NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown Value="{Binding ChBottoms[1], NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="2" Grid.Column="1" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown Value="{Binding ChBottoms[2], NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="3" Grid.Column="1" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown Value="{Binding ChBottoms[3], NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="4" Grid.Column="1" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown Value="{Binding ChBottoms[4], NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="5" Grid.Column="1" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown Value="{Binding ChBottoms[5], NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="6" Grid.Column="1" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown Value="{Binding ChBottoms[6], NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="7" Grid.Column="1" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown Value="{Binding ChBottoms[7], NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="8" Grid.Column="1" Minimum="0" Maximum="3000" />
+
+                        <metro:NumericUpDown Value="{Binding ChCenters[0], NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="1" Grid.Column="2" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown Value="{Binding ChCenters[1], NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="2" Grid.Column="2" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown Value="{Binding ChCenters[2], NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="3" Grid.Column="2" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown Value="{Binding ChCenters[3], NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="4" Grid.Column="2" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown Value="{Binding ChCenters[4], NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="5" Grid.Column="2" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown Value="{Binding ChCenters[5], NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="6" Grid.Column="2" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown Value="{Binding ChCenters[6], NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="7" Grid.Column="2" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown Value="{Binding ChCenters[7], NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="8" Grid.Column="2" Minimum="0" Maximum="3000" />
+
+                        <metro:NumericUpDown Value="{Binding ChTops[0], NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="1" Grid.Column="3" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown Value="{Binding ChTops[1], NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="2" Grid.Column="3" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown Value="{Binding ChTops[2], NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="3" Grid.Column="3" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown Value="{Binding ChTops[3], NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="4" Grid.Column="3" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown Value="{Binding ChTops[4], NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="5" Grid.Column="3" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown Value="{Binding ChTops[5], NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="6" Grid.Column="3" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown Value="{Binding ChTops[6], NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="7" Grid.Column="3" Minimum="0" Maximum="3000" />
+                        <metro:NumericUpDown Value="{Binding ChTops[7], NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="8" Grid.Column="3" Minimum="0" Maximum="3000" />
+
+                        <ComboBox SelectedValue="{Binding ChRoles[0], NotifyOnSourceUpdated=True}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputRole}" Margin="5" Grid.Row="1" Grid.Column="4" />
+                        <ComboBox SelectedValue="{Binding ChRoles[1], NotifyOnSourceUpdated=True}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputRole}" Margin="5" Grid.Row="2" Grid.Column="4" />
+                        <ComboBox SelectedValue="{Binding ChRoles[2], NotifyOnSourceUpdated=True}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputRole}" Margin="5" Grid.Row="3" Grid.Column="4" />
+                        <ComboBox SelectedValue="{Binding ChRoles[3], NotifyOnSourceUpdated=True}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputRole}" Margin="5" Grid.Row="4" Grid.Column="4" />
+                        <ComboBox SelectedValue="{Binding ChRoles[4], NotifyOnSourceUpdated=True}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputRole}" Margin="5" Grid.Row="5" Grid.Column="4" />
+                        <ComboBox SelectedValue="{Binding ChRoles[5], NotifyOnSourceUpdated=True}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputRole}" Margin="5" Grid.Row="6" Grid.Column="4" />
+                        <ComboBox SelectedValue="{Binding ChRoles[6], NotifyOnSourceUpdated=True}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputRole}" Margin="5" Grid.Row="7" Grid.Column="4" />
+                        <ComboBox SelectedValue="{Binding ChRoles[7], NotifyOnSourceUpdated=True}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputRole}" Margin="5" Grid.Row="8" Grid.Column="4" />
+
+                        <ComboBox SelectedValue="{Binding ChTypes[0], NotifyOnSourceUpdated=True}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputType}" Margin="5" Grid.Row="1" Grid.Column="5" />
+                        <ComboBox SelectedValue="{Binding ChTypes[1], NotifyOnSourceUpdated=True}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputType}" Margin="5" Grid.Row="2" Grid.Column="5" />
+                        <ComboBox SelectedValue="{Binding ChTypes[2], NotifyOnSourceUpdated=True}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputType}" Margin="5" Grid.Row="3" Grid.Column="5" />
+                        <ComboBox SelectedValue="{Binding ChTypes[3], NotifyOnSourceUpdated=True}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputType}" Margin="5" Grid.Row="4" Grid.Column="5" />
+                        <ComboBox SelectedValue="{Binding ChTypes[4], NotifyOnSourceUpdated=True}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputType}" Margin="5" Grid.Row="5" Grid.Column="5" />
+                        <ComboBox SelectedValue="{Binding ChTypes[5], NotifyOnSourceUpdated=True}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputType}" Margin="5" Grid.Row="6" Grid.Column="5" />
+                        <ComboBox SelectedValue="{Binding ChTypes[6], NotifyOnSourceUpdated=True}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputType}" Margin="5" Grid.Row="7" Grid.Column="5" />
+                        <ComboBox SelectedValue="{Binding ChTypes[7], NotifyOnSourceUpdated=True}" ItemsSource="{kfly:EnumValues kflyconfig:RCInputType}" Margin="5" Grid.Row="8" Grid.Column="5" />
+
+                    </Grid>
+                </kfly:KFlyGroupBox>
+                <kfly:KFlyGroupBox x:Name="ArmingBox" DataContext="{Binding ArmingData, NotifyOnTargetUpdated=True}"
+                                   SourceUpdated="ArmingBox_SourceUpdated"
+                                   Header="Arming" HorizontalAlignment="Left">
+                    <Grid x:Name="ArmingGrid">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Content="Stick threshold(%)" VerticalAlignment="Center" />
+                        <Label Grid.Row="1" Grid.Column="0" Content="Armed min throttle(%)" VerticalAlignment="Center" />
+                        <Label Grid.Row="2" Grid.Column="0" Content="Stick direction" VerticalAlignment="Center" />
+                        <Label Grid.Row="3" Grid.Column="0" Content="Arm stick time(s)" VerticalAlignment="Center" />
+                        <Label Grid.Row="4" Grid.Column="0" Content="Arm timeout(s)" VerticalAlignment="Center" />
+
+                        <metro:NumericUpDown Value="{Binding StickThreshold, NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="0" Grid.Column="1" Minimum="0" Maximum="30" />
+                        <metro:NumericUpDown Value="{Binding ArmedMinThrottle, NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="30" />
+                        <ComboBox SelectedValue="{Binding StickDirection, NotifyOnSourceUpdated=True}" ItemsSource="{kfly:EnumValues kflyconfig:ArmingStickDirection}" Margin="5" Grid.Row="2" Grid.Column="1" />
+                        <metro:NumericUpDown Value="{Binding ArmStickTime, NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="3" Grid.Column="1" Minimum="0" Maximum="255" />
+                        <metro:NumericUpDown Value="{Binding ArmZeroThrottleTime, NotifyOnSourceUpdated=True}" Margin="5" Grid.Row="4" Grid.Column="1" Minimum="0" Maximum="255" />
+                    </Grid>
+                </kfly:KFlyGroupBox>
+            </StackPanel>
+            <kfly:ModalContentPresenter.ModalContent>
+                <kfly:CalibrateSensors></kfly:CalibrateSensors>
+            </kfly:ModalContentPresenter.ModalContent>
+        </kfly:ModalContentPresenter>
+    </kfly:KFlyTab>
+</UserControl>

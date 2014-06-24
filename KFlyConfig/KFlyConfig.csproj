@@ -51,6 +51,8 @@
     <Compile Include="Communication\Protocol\Commands\ConnectionStatistics.cs" />
     <Compile Include="Communication\Protocol\Commands\ACK.cs" />
     <Compile Include="Communication\Protocol\Commands\CmdCollection.cs" />
+    <Compile Include="Communication\Protocol\Commands\SetArmSettings.cs" />
+    <Compile Include="Communication\Protocol\Commands\GetArmSettings.cs" />
     <Compile Include="Communication\Protocol\Commands\GetEstimationAttitude.cs" />
     <Compile Include="Communication\Protocol\Commands\SetRateControllerData.cs" />
     <Compile Include="Communication\Protocol\Commands\SetAttitudeControllerData.cs" />
@@ -85,6 +87,8 @@
     <Compile Include="DataClasses\AttitudeControllerData.cs" />
     <Compile Include="DataClasses\BaseClasses\KFlyGroupConfigurationData.cs" />
     <Compile Include="DataClasses\BaseClasses\KFlyConfigurationData.cs" />
+    <Compile Include="DataClasses\Input\ArmingData.cs" />
+    <Compile Include="DataClasses\Input\ArmingStickDirection.cs" />
     <Compile Include="DataClasses\Input\RCInputType.cs" />
     <Compile Include="DataClasses\Input\RCInputRole.cs" />
     <Compile Include="DataClasses\Input\RawRCData.cs" />
