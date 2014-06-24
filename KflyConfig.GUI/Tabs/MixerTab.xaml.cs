@@ -116,7 +116,7 @@ namespace KFly.GUI
         }
 
 
-        private void NumericUpDown_ValueChanged(object sender, RoutedEventArgs e)
+        private void MixerBox_SourceUpdated(object sender, DataTransferEventArgs e)
         {
             MixerBox.IsInSyncWithController = false;
         }
