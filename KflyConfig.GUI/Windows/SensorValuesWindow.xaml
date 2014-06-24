@@ -8,6 +8,7 @@
         xmlns:oxy="http://oxyplot.codeplex.com"
         Icon="../MainWindow.ico"
         Loaded="TestCalibration_Loaded"
+        Closed="TestCalibration_Closed"
         GlowBrush="{DynamicResource AccentColorBrush}"             
         Title="SensorValues" Height="600" Width="600">
     
