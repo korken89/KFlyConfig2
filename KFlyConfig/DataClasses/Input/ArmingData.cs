@@ -32,17 +32,17 @@ namespace KFly
             set { _stickDirection = value; NotifyPropertyChanged("StickDirection"); }
         }
 
-        private Byte _armStickTime;
+        private UInt16 _armStickTime;
 
-        public Byte ArmStickTime
+        public UInt16 ArmStickTime
         {
             get { return _armStickTime; }
             set { _armStickTime = value; NotifyPropertyChanged("ArmStickTime"); }
         }
 
-        private Byte _armZeroThrottleTimeout;
+        private UInt16 _armZeroThrottleTimeout;
 
-        public Byte ArmZeroThrottleTimeout
+        public UInt16 ArmZeroThrottleTimeout
         {
             get { return _armZeroThrottleTimeout; }
             set { _armZeroThrottleTimeout = value; NotifyPropertyChanged("ArmZeroThrottleTimeout"); }
@@ -57,9 +57,9 @@ namespace KFly
             data.AddRange(BitConverter.GetBytes(v));
             v = ((float)_armedMinThrottle) / 100.0f;
             data.AddRange(BitConverter.GetBytes(v));
-            data.Add((byte)_stickDirection);
-            data.Add(_armStickTime);
-            data.Add(_armZeroThrottleTimeout);
+            data.Add(Convert.ToByte(_stickDirection));
+            data.Add(Convert.ToByte(_armStickTime));
+            data.Add(Convert.ToByte(_armZeroThrottleTimeout));
             return data;
         }
 
@@ -71,8 +71,8 @@ namespace KFly
                 StickThreshold = Convert.ToUInt16(BitConverter.ToSingle(b, 0)*100);
                 ArmedMinThrottle = Convert.ToUInt16(BitConverter.ToSingle(b, 4) * 100);
                 StickDirection = (ArmingStickDirection)b[8];
-                ArmStickTime = b[9];
-                ArmZeroThrottleTimeout = b[10];
+                ArmStickTime = Convert.ToUInt16(b[9]);
+                ArmZeroThrottleTimeout = Convert.ToUInt16(b[10]);
             }
         }
 
