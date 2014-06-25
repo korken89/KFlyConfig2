@@ -84,7 +84,7 @@ namespace KFly.GUI
                             ConnectionStatusIcon.Content = FindResource("disconnected");
                         }
                         SaveToFlashPanel.Visibility = (!Telemetry.Saved && Telemetry.IsConnected) ? 
-                            Visibility.Visible : Visibility.Visible;
+                            Visibility.Visible : Visibility.Collapsed;
                     }));
             });
 
@@ -92,7 +92,7 @@ namespace KFly.GUI
             {
                 SaveToFlashPanel.Dispatcher.BeginInvoke((Action)(() =>
                 {
-                    SaveToFlashPanel.Visibility = (!cmd.Saved && Telemetry.IsConnected) ? Visibility.Visible : Visibility.Visible; 
+                    SaveToFlashPanel.Visibility = (!cmd.Saved && Telemetry.IsConnected) ? Visibility.Visible : Visibility.Collapsed; 
                 }));
             });
         }
