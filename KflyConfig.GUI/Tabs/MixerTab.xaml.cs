@@ -59,6 +59,7 @@ namespace KFly.GUI
                     UploadBtn.Dispatcher.BeginInvoke(new Action(() =>
                     {
                         UploadBtn.IsRotating = false;
+                        MixerBox.IsInSyncWithController = true;
                     }));
                 });
             }
