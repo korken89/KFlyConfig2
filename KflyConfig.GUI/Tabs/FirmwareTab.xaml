@@ -56,7 +56,6 @@
                 <Button Margin="5"  Content="Program" />
                 <Button Margin="5"  Content="Verify" />
                 <Button Margin="5"  Content="Exit Bootloader" />
-                <Button x:Name="WriteToFlash" Click="WriteToFlash_Click" Margin="5"  Content="Write To Flash" />
             </WrapPanel>
         </StackPanel>
     </kfly:KFlyTab>
