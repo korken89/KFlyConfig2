@@ -51,26 +51,18 @@ namespace KFly
         public List<byte> GetBytes()
         {
             List<byte> data = new List<byte>();
-            foreach (Int16 value in Throttle)
+            for (int i = 0; i < MAX_NUMBER_OF_OUTPUTS; i++)
             {
-                float v = ((float)value) / 1000.0f;
+                float v = ((float)Throttle[i]) / 1000.0f;
+                data.AddRange(BitConverter.GetBytes(v));
+                v = ((float)Pitch[i]) / 1000.0f;
+                data.AddRange(BitConverter.GetBytes(v));
+                v = ((float)Roll[i]) / 1000.0f;
+                data.AddRange(BitConverter.GetBytes(v));
+                v = ((float)Yaw[i]) / 1000.0f;
                 data.AddRange(BitConverter.GetBytes(v));
             }
-            foreach (Int16 value in Pitch)
-            {
-                float v = ((float)value) / 1000.0f;
-                data.AddRange(BitConverter.GetBytes(v));
-            }
-            foreach (Int16 value in Roll)
-            {
-                float v = ((float)value) / 1000.0f;
-                data.AddRange(BitConverter.GetBytes(v));
-            }
-            foreach (Int16 value in Yaw)
-            {
-                float v = ((float)value) / 1000.0f;
-                data.AddRange(BitConverter.GetBytes(v));
-            } return data;
+            return data;
         }
 
         public void SetBytes(List<byte> bytes)
@@ -81,28 +73,15 @@ namespace KFly
                 int offset = 0;
                 for (var i = 0; i < MAX_NUMBER_OF_OUTPUTS; i++)
                 {
-                    float v = BitConverter.ToSingle(b, i * 4 + offset);
+                    float v = BitConverter.ToSingle(b, i * 16 + offset);
                     Throttle[i] = Convert.ToInt16((v * 1000));
-                }
-                offset += MAX_NUMBER_OF_OUTPUTS * 4;
-                for (var i = 0; i < MAX_NUMBER_OF_OUTPUTS; i++)
-                {
-                    float v = BitConverter.ToSingle(b, i * 4 + offset);
+                    v = BitConverter.ToSingle(b, i * 16 + 4);
                     Pitch[i] = Convert.ToInt16((v * 1000));
-                }
-                offset += MAX_NUMBER_OF_OUTPUTS * 4;
-                for (var i = 0; i < MAX_NUMBER_OF_OUTPUTS; i++)
-                {
-                    float v = BitConverter.ToSingle(b, i * 4 + offset);
+                    v = BitConverter.ToSingle(b, i * 16 + 8);
                     Roll[i] = Convert.ToInt16((v * 1000));
-                }
-                offset += MAX_NUMBER_OF_OUTPUTS * 4;
-                for (var i = 0; i < MAX_NUMBER_OF_OUTPUTS; i++)
-                {
-                    float v = BitConverter.ToSingle(b, i * 4 + offset);
+                    v = BitConverter.ToSingle(b, i * 16 + 12);
                     Yaw[i] = Convert.ToInt16((v * 1000));
                 }
-              
             }
         }
 
