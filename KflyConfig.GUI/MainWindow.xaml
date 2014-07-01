@@ -112,6 +112,9 @@
             <Controls:MetroTabItem Header="Navigation" Controls:ControlsHelper.HeaderFontSize="18">
                 <kfly:NavigationTab />
             </Controls:MetroTabItem>
+            <Controls:MetroTabItem x:Name="DataDump" Visibility="Collapsed" Header="DataDump" Controls:ControlsHelper.HeaderFontSize="18">
+                <kfly:DataDumpTab />
+            </Controls:MetroTabItem>
         </TabControl>
     </DockPanel>
 </Controls:MetroWindow>

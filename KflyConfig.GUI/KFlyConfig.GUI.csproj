@@ -82,6 +82,9 @@
     </ApplicationDefinition>
     <Compile Include="Controls\KFlyGroupBox.cs" />
     <Compile Include="MainWindowTitleConverter.cs" />
+    <Compile Include="Tabs\DataDumpTab.xaml.cs">
+      <DependentUpon>DataDumpTab.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\Inputs\InputsTabData.cs" />
     <Compile Include="Tabs\MixerTab.xaml.cs">
       <DependentUpon>MixerTab.xaml</DependentUpon>
@@ -138,6 +141,10 @@
     <Compile Include="Windows\TestCalibrationWindow.xaml.cs">
       <DependentUpon>TestCalibrationWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Tabs\DataDumpTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Tabs\MixerTab.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -293,7 +300,9 @@
   <ItemGroup>
     <Resource Include="Resources\kfly.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\hdblack.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>"$(ProjectDir)prebuild.cmd" "$(ProjectDir)" "$(ProjectDir)revision.txt"</PreBuildEvent>

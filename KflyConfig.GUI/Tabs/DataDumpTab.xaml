@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="KFly.GUI.DataDumpTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:kfly="clr-namespace:KFly.GUI"    
+             xmlns:kflyconfig="clr-namespace:KFly;assembly=KFlyConfig"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             Loaded="UserControl_Loaded"
+             mc:Ignorable="d" 
+             Background="White"
+             d:DesignHeight="536" d:DesignWidth="622">
+    <kfly:KFlyTab Title="DataDumps" TabStateChanged="KFlyTab_TabStateChanged"
+                  BackgroundImage="../Resources/hdblack.png">
+        <kfly:ModalContentPresenter x:Name="DataDumpModal">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
+                <kfly:KFlyGroupBox x:Name="DataDumpBox" DataContext="{Binding NotifyOnTargetUpdated=True}"
+                                   Header="Messages" HorizontalAlignment="Left">
+
+                </kfly:KFlyGroupBox>
+            </StackPanel>
+        </kfly:ModalContentPresenter>
+    </kfly:KFlyTab>
+</UserControl>

@@ -13,6 +13,7 @@ namespace KFly
         Ping = 2,
         DebugMessage = 3,
         GetRunningMode = 4,
+        ManageSubscriptions = 5,
 
         PrepareWriteFirmware = 10,   /* Bootloader specific, shall always require ACK */
         WriteFirmwarePackage = 11,	/* Bootloader specific, shall always require ACK */
@@ -77,6 +78,8 @@ namespace KFly
         [SelfAck]
         GetEstimationAllStates = 52,
         ResetEstimation = 53,
+            
+        ControlDebug = 72,
 
 
         //Following is for easy access to subscribe/unsubscribe and ís not part of the communication protocol

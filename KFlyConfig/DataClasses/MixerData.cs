@@ -70,10 +70,9 @@ namespace KFly
             if (bytes.Count >= MAX_NUMBER_OF_OUTPUTS * 16)
             {
                 byte[] b = bytes.ToArray();
-                int offset = 0;
                 for (var i = 0; i < MAX_NUMBER_OF_OUTPUTS; i++)
                 {
-                    float v = BitConverter.ToSingle(b, i * 16 + offset);
+                    float v = BitConverter.ToSingle(b, i * 16);
                     Throttle[i] = Convert.ToInt16((v * 1000));
                     v = BitConverter.ToSingle(b, i * 16 + 4);
                     Pitch[i] = Convert.ToInt16((v * 1000));

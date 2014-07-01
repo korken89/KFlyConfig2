@@ -149,6 +149,13 @@ namespace KFly.GUI
                     SCTab.DataContext = data;
                 }
             }
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control && (e.Key == Key.D))
+            {
+                DataDump.Visibility = (DataDump.Visibility == System.Windows.Visibility.Visible) ? 
+                    System.Windows.Visibility.Collapsed :
+                    System.Windows.Visibility.Visible;
+            }
+
         }
 
         private void SaveToFlashBtn_Click(object sender, RoutedEventArgs e)

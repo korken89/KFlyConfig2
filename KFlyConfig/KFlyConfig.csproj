@@ -51,6 +51,8 @@
     <Compile Include="Communication\Protocol\Commands\ConnectionStatistics.cs" />
     <Compile Include="Communication\Protocol\Commands\ACK.cs" />
     <Compile Include="Communication\Protocol\Commands\CmdCollection.cs" />
+    <Compile Include="Communication\Protocol\Commands\ControlDebug.cs" />
+    <Compile Include="Communication\Protocol\Commands\ManageSubscriptions.cs" />
     <Compile Include="Communication\Protocol\Commands\SetDeviceString.cs" />
     <Compile Include="Communication\Protocol\Commands\SaveStatusChanged.cs" />
     <Compile Include="Communication\Protocol\Commands\SetArmSettings.cs" />
@@ -90,6 +92,10 @@
     <Compile Include="DataClasses\AttitudeControllerData.cs" />
     <Compile Include="DataClasses\BaseClasses\KFlyGroupConfigurationData.cs" />
     <Compile Include="DataClasses\BaseClasses\KFlyConfigurationData.cs" />
+    <Compile Include="DataClasses\ControlDebugData.cs" />
+    <Compile Include="DataClasses\SubscriptionData.cs" />
+    <Compile Include="DataClasses\KFlyPort.cs" />
+    <Compile Include="DataClasses\PRYTData.cs" />
     <Compile Include="DataClasses\Input\ArmingData.cs" />
     <Compile Include="DataClasses\Input\ArmingStickDirection.cs" />
     <Compile Include="DataClasses\Input\RCInputType.cs" />
