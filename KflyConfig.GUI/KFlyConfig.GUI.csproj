@@ -82,9 +82,10 @@
     </ApplicationDefinition>
     <Compile Include="Controls\KFlyGroupBox.cs" />
     <Compile Include="MainWindowTitleConverter.cs" />
-    <Compile Include="Tabs\DataDumpTab.xaml.cs">
+    <Compile Include="Tabs\DataDump\DataDumpTab.xaml.cs">
       <DependentUpon>DataDumpTab.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Tabs\DataDump\DataDumpViewModel.cs" />
     <Compile Include="Tabs\Inputs\InputsTabData.cs" />
     <Compile Include="Tabs\MixerTab.xaml.cs">
       <DependentUpon>MixerTab.xaml</DependentUpon>
@@ -141,7 +142,7 @@
     <Compile Include="Windows\TestCalibrationWindow.xaml.cs">
       <DependentUpon>TestCalibrationWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Tabs\DataDumpTab.xaml">
+    <Page Include="Tabs\DataDump\DataDumpTab.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -30,6 +30,8 @@ namespace KFly
         /**
          * @brief   AUX4 (CAN) identifier.
          */
-        PORT_AUX4
+        PORT_AUX4,
+
+        CURRENT = 0xFF
     }
 }
